@@ -53,5 +53,5 @@ public class Convocatoria implements Serializable {
     @Column(name = "admin_nombre", length = 100)
     private String adminNombre;
 
-    //ho,sa dsadvGYSAFD YRaf dTUgasi
+//ho,sa dsadvGYSAFD YRaf dTUgasi
 }
