@@ -63,5 +63,5 @@ public class Evaluacion implements Serializable {
     @Column(name = "observaciones_finales", columnDefinition = "TEXT")
     private String observacionesFinales;
 
-    // Olarte me la pela
+    // Olarte me la pela y espero se suba esto son las 5 y 35 jajajjajajajjAJJAjajjaJaaaja
 }
