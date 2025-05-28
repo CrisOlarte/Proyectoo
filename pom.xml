@@ -96,6 +96,7 @@
 		</dependency>
 
 		<!--  Seguridad -->
+		<!--  Activar hasta que este listo
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
@@ -111,6 +112,7 @@
 			<artifactId>thymeleaf-extras-springsecurity6</artifactId>
 			<version>3.1.3.RELEASE</version>
 		</dependency>
+		 -->
 	</dependencies>
 
 
