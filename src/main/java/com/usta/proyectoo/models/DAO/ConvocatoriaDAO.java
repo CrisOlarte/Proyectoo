@@ -18,3 +18,4 @@ public interface ConvocatoriaDAO extends CrudRepository<Convocatoria, Long> {
     @Query("SELECT c FROM Convocatoria c WHERE c.estado = ?1")
     List<Convocatoria> findByEstado(String estado);
 }
+//perro cristian
