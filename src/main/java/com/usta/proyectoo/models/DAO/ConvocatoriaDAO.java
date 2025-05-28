@@ -20,4 +20,4 @@ public interface ConvocatoriaDAO extends CrudRepository<Convocatoria, Long> {
 }
 
 
-// NADA SIRVE, DIEGO ES TONTO
+// NADA SIRVE, DIEGO ES TONTO MMM
