@@ -62,4 +62,6 @@ public class Evaluacion implements Serializable {
 
     @Column(name = "observaciones_finales", columnDefinition = "TEXT")
     private String observacionesFinales;
+
+    // Olarte me la pela
 }
