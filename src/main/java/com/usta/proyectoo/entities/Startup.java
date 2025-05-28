@@ -2,11 +2,14 @@ package com.usta.proyectoo.entities;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import org.hibernate.annotations.Type;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
-import java.time.LocalDateTime;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.Collection;
+
 
 @Data
 @Entity
@@ -18,59 +21,40 @@ public class Startup implements Serializable {
     @Column(name = "id_startup")
     private Long idStartup;
 
-    @Column(nullable = false, length = 150)
+    @NotNull
+    @Size(min = 1, max = 100)
+    @Column(name = "nombre", nullable = false)
     private String nombre;
 
-    @Column(columnDefinition = "TEXT")
+    @NotNull
+    @Size(min = 1, max = 150)
+    @Column(name = "descripcion", nullable = false, length = 150)
     private String descripcion;
 
-    @Column(columnDefinition = "TEXT")
-    private String vision;
-
-    @Column(columnDefinition = "TEXT")
-    private String mision;
-
-    @Column(length = 100)
+    @NotNull
+    @Size(min = 1, max = 100)
+    @Column(name = "sector", nullable = false)
     private String sector;
 
-    @Column(length = 100)
-    private String subsector;
+    @NotNull
+    @Size(min = 1, max = 100)
+    @Column(name = "ubicacion", nullable = false)
+    private String ubicacion;
 
-    @Column(name = "etapa_desarrollo", length = 100)
-    private String etapaDesarrollo = "IDEA";
+    @NotNull
+    @Column(name = "valoracion", nullable = false)
+    private Double valoracion;
 
-    @Column(name = "modelo_negocio", columnDefinition = "TEXT")
-    private String modeloNegocio;
+    @NotNull
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @Temporal(TemporalType.DATE)
+    @Column(name = "fecha_creacion", nullable = false)
+    private java.util.Date fechaCreacion;
 
-    @Column(name = "mercado_objetivo", columnDefinition = "TEXT")
-    private String mercadoObjetivo;
+    @NotNull
+    @Column(name = "estado", nullable = false)
+    private Boolean estado;
 
-    @Column(name = "propuesta_valor", columnDefinition = "TEXT")
-    private String propuestaValor;
-
-    @Column(name = "logo_url")
-    private String logoUrl;
-
-    @Column(name = "sitio_web", length = 255)
-    private String sitioWeb;
-
-    @Column(name = "redes_sociales", columnDefinition = "jsonb")
-    private String redesSociales; // Puede usar Map<String, String> con ayuda de un convertidor si deseas
-
-    @Column(name = "fecha_registro")
-    private LocalDateTime fechaRegistro;
-
-    @Column(name = "fecha_actualizacion")
-    private LocalDateTime fechaActualizacion;
-
-    @Column(name = "estado_participacion", length = 50)
-    private String estadoParticipacion = "INSCRITA";
-
-    @ManyToOne
-    @JoinColumn(name = "id_emprendedor", nullable = false)
-    private Usuario emprendedor;
-
-    @ManyToOne
-    @JoinColumn(name = "id_convocatoria", nullable = false)
-    private Convocatoria convocatoria;
+    @ManyToMany(mappedBy = "startups", fetch = FetchType.LAZY)
+    private Collection<Usuario> usuarios = new ArrayList<>();
 }

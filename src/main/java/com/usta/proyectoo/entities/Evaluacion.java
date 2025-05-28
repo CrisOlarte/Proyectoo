@@ -2,15 +2,19 @@ package com.usta.proyectoo.entities;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.util.Date;
 
 @Data
 @Entity
-@Table(name = "EVALUACION", uniqueConstraints = {
-        @UniqueConstraint(columnNames = {"id_startup", "id_evaluador", "fase_evaluacion"})
-})
+@Table(name = "EVALUACION")
+
 public class Evaluacion implements Serializable {
 
     @Id
@@ -18,50 +22,31 @@ public class Evaluacion implements Serializable {
     @Column(name = "id_evaluacion")
     private Long idEvaluacion;
 
-    @ManyToOne
-    @JoinColumn(name = "id_startup", nullable = false)
+    @NotNull
+    @Size(min = 1, max = 150)
+    @Column(name = "comentario", nullable = false)
+    private String comentario;
+
+    @NotNull
+    @Column(name = "puntaje", nullable = false)
+    private Double puntaje;
+
+    @NotNull
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @Temporal(TemporalType.DATE)
+    @Column(name = "fecha_eval", nullable = false)
+    private Date fechaEvaluacion;
+
+    @NotNull
+    @JoinColumn(name = "id_startup", referencedColumnName = "id_startup")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Startup startup;
 
-    @ManyToOne
-    @JoinColumn(name = "id_evaluador", nullable = false)
-    private Usuario evaluador;
+    @NotNull
+    @JoinColumn(name = "id_usuario", referencedColumnName = "id_usuario")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private Usuario usuario;
 
-    @Column(name = "fecha_evaluacion")
-    private LocalDateTime fechaEvaluacion;
-
-    private Integer puntuacionIdea;
-    private Integer puntuacionEquipo;
-    private Integer puntuacionViabilidad;
-    private Integer puntuacionInnovacion;
-    private Integer puntuacionPresentacion;
-    private Integer puntuacionMercado;
-    private Integer puntuacionFinanciera;
-
-    @Column(name = "puntuacion_total")
-    private Integer puntuacionTotal;
-
-    @Column(columnDefinition = "TEXT")
-    private String comentarios;
-
-    @Column(columnDefinition = "TEXT")
-    private String fortalezas;
-
-    @Column(columnDefinition = "TEXT")
-    private String debilidades;
-
-    @Column(columnDefinition = "TEXT")
-    private String recomendaciones;
-
-    @Column(name = "fase_evaluacion", length = 50)
-    private String faseEvaluacion = "PRIMERA_REVISION";
-
-    private Boolean aprobado;
-
-    @Column(name = "fecha_decision")
-    private LocalDateTime fechaDecision;
-
-    @Column(name = "observaciones_finales", columnDefinition = "TEXT")
-    private String observacionesFinales;
-
-    // Olarte me la pela y espero se suba esto son las 5 y 35 jajajjajajajjAJJAjajjaJaaaja
 }

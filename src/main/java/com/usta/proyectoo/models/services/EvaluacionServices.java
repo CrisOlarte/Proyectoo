@@ -9,15 +9,15 @@ import jakarta.transaction.Transactional;
 import java.util.List;
 
 public interface EvaluacionServices {
-
     List<Evaluacion> findAll();
     void save(Evaluacion evaluacion);
     Evaluacion findById(Long id);
     void deleteById(Evaluacion evaluacion);
     Evaluacion actualizar(Evaluacion evaluacion);
-    Evaluacion buscarPorEvaluadorYStartupYFase(Usuario evaluador, Startup startup, String faseEvaluacion);
-    List<Evaluacion> buscarPorStartup(Startup startup);
-    List<Evaluacion> buscarPorFaseEvaluador(Usuario evaluador);
-    List<Evaluacion> buscarPorStartupYFase(Startup startup, String faseEvaluacion);
-    List<Evaluacion> buscarPorEvaluador(Usuario evaluador);
+    List<Evaluacion> findByStartup(Long idStartup);
+    List<Evaluacion> findByUsuario(Long idUsuario);
+    List<Evaluacion> findByStartupAndUsuario(Startup startup, Usuario usuario);
+    Evaluacion findByUsuarioAndStartup(Usuario usuario, Startup startup);
+
+
 }

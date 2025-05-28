@@ -1,4 +1,63 @@
 package com.usta.proyectoo.models.services;
 
-public class UsuariosServicesImplement {
+import com.usta.proyectoo.entities.Usuario;
+import com.usta.proyectoo.models.DAO.UsuarioDao;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+
+public class UsuariosServicesImplement implements UsuarioServices {
+
+    @Autowired
+    private UsuarioDao usuarioDao;
+
+    @Override
+    @Transactional
+    public List<Usuario> findAll() {
+        return (List<Usuario>) usuarioDao.findAll();
+    }
+
+    @Override
+    @Transactional
+    public void save(Usuario usuario) {
+        usuarioDao.save(usuario);
+    }
+
+    @Override
+    @Transactional
+    public Usuario findById(Long id) {
+        return usuarioDao.findById(id).orElse(null);
+    }
+
+    @Override
+    @Transactional
+    public void deleteById(Usuario usuario) {
+        usuarioDao.delete(usuario);
+    }
+
+    @Override
+    @Transactional
+    public Usuario actualizar(Usuario usuario) {
+        return usuarioDao.save(usuario);
+    }
+
+    @Override
+    @Transactional
+    public void changeStatus(Long id) {
+        usuarioDao.changeStatus(id);
+    }
+
+    @Override
+    @Transactional
+    public Usuario findByCorreo(String correo) {
+        return usuarioDao.findByCorreo(correo);
+    }
+
+    @Override
+    @Transactional
+    public List<Usuario> findUsuariosActivos() {
+        return usuarioDao.findUsuariosActivos();
+    }
+
 }

@@ -1,6 +1,7 @@
 package com.usta.proyectoo.models.services;
 
 
+
 import com.usta.proyectoo.entities.Evaluacion;
 import com.usta.proyectoo.entities.Startup;
 import com.usta.proyectoo.entities.Usuario;
@@ -17,62 +18,57 @@ public class EvaluacionServicesImplement implements EvaluacionServices {
     @Autowired
     private EvaluacionDAO evaluacionDAO;
 
-    @Transactional
     @Override
+    @Transactional
     public List<Evaluacion> findAll() {
         return (List<Evaluacion>) evaluacionDAO.findAll();
     }
 
-    @Transactional
     @Override
+    @Transactional
     public void save(Evaluacion evaluacion) {
         evaluacionDAO.save(evaluacion);
     }
 
-    @Transactional
     @Override
+    @Transactional
     public Evaluacion findById(Long id) {
         return evaluacionDAO.findById(id).orElse(null);
     }
 
-    @Transactional
     @Override
+    @Transactional
     public void deleteById(Evaluacion evaluacion) {
         evaluacionDAO.delete(evaluacion);
     }
 
-    @Transactional
     @Override
+    @Transactional
     public Evaluacion actualizar(Evaluacion evaluacion) {
         return evaluacionDAO.save(evaluacion);
     }
 
+    @Override
     @Transactional
-    @Override
-    public Evaluacion buscarPorEvaluadorYStartupYFase(Usuario evaluador, Startup startup, String faseEvaluacion) {
-        return evaluacionDAO.findByEvaluadorAndStartupAndFase(evaluador, startup, faseEvaluacion);
+    public List<Evaluacion> findByStartup(Long idStartup) {
+        return evaluacionDAO.findByStartup(idStartup);
     }
 
+    @Override
     @Transactional
-    @Override
-    public List<Evaluacion> buscarPorStartup(Startup startup) {
-        return evaluacionDAO.findByStartupAndFase(startup, null);
+    public List<Evaluacion> findByUsuario(Long idUsuario) {
+        return evaluacionDAO.findByUsuario(idUsuario);
     }
 
     @Override
-    public List<Evaluacion> buscarPorFaseEvaluador(Usuario evaluador) {
-        return List.of();
-    }
-
-    @Override
-    public List<Evaluacion> buscarPorStartupYFase(Startup startup, String faseEvaluacion) {
-        return List.of();
-    }
-
     @Transactional
-    @Override
-    public List<Evaluacion> buscarPorEvaluador(Usuario evaluador) {
-        return evaluacionDAO.findByEvaluador(evaluador.getIdUsuario());
+    public List<Evaluacion> findByStartupAndUsuario(Startup startup, Usuario usuario) {
+        return evaluacionDAO.findByStartupAndUsuario(startup, usuario);
     }
 
+    @Override
+    @Transactional
+    public Evaluacion findByUsuarioAndStartup(Usuario usuario, Startup startup) {
+        return evaluacionDAO.findByUsuarioAndStartup(usuario, startup);
+    }
 }

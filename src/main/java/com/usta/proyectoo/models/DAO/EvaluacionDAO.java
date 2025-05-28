@@ -17,17 +17,15 @@ public interface EvaluacionDAO extends CrudRepository<Evaluacion, Long> {
     List<Evaluacion> findByStartup(Long idStartup);
 
     @Transactional
-    @Query("SELECT e FROM Evaluacion e WHERE e.evaluador.idUsuario = ?1")
-    List<Evaluacion> findByEvaluador(Long idEvaluador);
+    @Query("SELECT e FROM Evaluacion e WHERE e.usuario.idUsuario = ?1")
+    List<Evaluacion> findByUsuario(Long idUsuario);
 
     @Transactional
-    @Query("SELECT e FROM Evaluacion e WHERE e.startup = ?1 AND e.faseEvaluacion = ?2")
-    List<Evaluacion> findByStartupAndFase(Startup startup, String faseEvaluacion);
+    @Query("SELECT e FROM Evaluacion e WHERE e.startup = ?1 AND e.usuario = ?2")
+    List<Evaluacion> findByStartupAndUsuario(Startup startup, Usuario usuario);
 
     @Transactional
-    @Query("SELECT e FROM Evaluacion e WHERE e.evaluador = ?1 AND e.startup = ?2 AND e.faseEvaluacion = ?3")
-    Evaluacion findByEvaluadorAndStartupAndFase(Usuario evaluador, Startup startup, String faseEvaluacion);
-
+    @Query("SELECT e FROM Evaluacion e WHERE e.usuario = ?1 AND e.startup = ?2")
+    Evaluacion findByUsuarioAndStartup(Usuario usuario, Startup startup);
 
 }
-// DIEGO NO SABE NADA
