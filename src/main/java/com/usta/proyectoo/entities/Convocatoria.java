@@ -54,4 +54,5 @@ public class Convocatoria implements Serializable {
     private String adminNombre;
 
 //ho,sa dsadvGYSAFD YRaf dTUgasi
+    //(SFDSFSD
 }
