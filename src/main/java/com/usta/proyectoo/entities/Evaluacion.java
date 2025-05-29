@@ -49,4 +49,10 @@ public class Evaluacion implements Serializable {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Usuario usuario;
 
+    @NotNull
+    @JoinColumn(name = "id_convocatoria", referencedColumnName = "id_convocatoria")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private Convocatoria convocatoria;
+
 }

@@ -60,6 +60,12 @@ public class Usuario implements Serializable {
     @Column(name = "estado_usu", nullable = false)
     private Boolean estado;
 
+    @NotNull
+    @JoinColumn(name = "id_rol", referencedColumnName = "id_rol")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private Rol rol;
+
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
             name = "usuarios_startups",
