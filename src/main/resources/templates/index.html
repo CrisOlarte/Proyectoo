@@ -1,132 +1,189 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title th:text="${title}">Startup Hub - Inicio</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" th:href="@{/css/Inicio.css}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Startup Hub - Impulsa tu Startup Universitaria</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'startup-blue': '#6366f1',
+                        'startup-green': '#22c55e',
+                        'startup-orange': '#f97316'
+                    }
+                }
+            }
+        }
+    </script>
 </head>
-<body>
-
-<!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
-    <div class="container">
-        <a class="navbar-brand fw-bold text-primary" href="#">STARTUP HUB</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-            <ul class="navbar-nav">
-                <li class="nav-item"><a class="nav-link text-primary fw-semibold" href="#">Inicio</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">Convocatorias</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">Sobre nosotros</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">Contacto</a></li>
-            </ul>
-            <a href="#" class="btn btn-primary ms-3">Reservar</a>
+<body class="bg-gray-50">
+<!-- Header/Navigation -->
+<header class="bg-white shadow-sm">
+    <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-16">
+            <div class="flex items-center">
+                <div class="bg-startup-blue text-white px-3 py-1 rounded-md font-bold text-sm">
+                    STARTUP HUB
+                </div>
+            </div>
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="#" class="text-gray-600 hover:text-gray-900">Inicio</a>
+                <a href="#" class="text-gray-600 hover:text-gray-900">Convocatorias</a>
+                <a href="#" class="text-gray-600 hover:text-gray-900">Sobre nosotros</a>
+                <a href="#" class="text-gray-600 hover:text-gray-900">Contacto</a>
+                <button class="bg-startup-blue text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors">
+                    Reservar
+                </button>
+            </div>
         </div>
-    </div>
-</nav>
+    </nav>
+</header>
 
 <!-- Hero Section -->
-<section class="text-white text-center d-flex align-items-center justify-content-center" style="min-height: 100vh; background: linear-gradient(135deg, #3f6ad8, #5e8dff);">
-    <div class="container">
-        <h1 class="display-4 fw-bold">Impulsa tu Startup Universitaria</h1>
-        <p class="lead">Conectando emprendedores universitarios con mentores y recursos para transformar ideas innovadoras en empresas exitosas.</p>
-        <a href="#" class="btn btn-outline-light mt-3 px-4 py-2">Empezar ahora</a>
+<section class="bg-gradient-to-r from-startup-blue to-indigo-600 text-white py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h1 class="text-4xl md:text-6xl font-bold mb-6">
+            Impulsa tu Startup Universitaria
+        </h1>
+        <p class="text-xl md:text-2xl mb-8 text-blue-100 max-w-3xl mx-auto">
+            Conectando emprendedores universitarios con mentores y recursos
+            para transformar ideas innovadoras en empresas exitosas
+        </p>
+        <button class="bg-white text-startup-blue px-8 py-3 rounded-lg font-semibold text-lg hover:bg-gray-100 transition-colors">
+            Empezar ahora
+        </button>
     </div>
 </section>
 
-<!-- Convocatorias -->
-<section class="py-5 bg-light">
-    <div class="container">
-        <h2 class="text-center mb-5 fw-bold">Convocatorias Activas</h2>
-        <div class="row g-4 justify-content-center">
+<!-- Convocatorias Activas -->
+<section class="py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-3xl font-bold text-center text-gray-900 mb-12">
+            Convocatorias Activas
+        </h2>
 
-            <!-- Tarjeta 1 -->
-            <div class="col-12 col-md-6 col-lg-4">
-                <div class="card h-100 shadow-sm border-0 rounded-4 overflow-hidden">
-                    <div class="card-header bg-primary text-white text-center fw-bold fs-5">Innovación Digital</div>
-                    <div class="card-body d-flex flex-column justify-content-between">
-                        <div>
-                            <h6 class="fw-bold mt-2">Innovación digital 2025</h6>
-                            <p class="text-muted mb-2">Impulsa proyectos tecnológicos con impacto social.</p>
-                            <p class="mb-0"><strong>Fecha límite:</strong> 30/06/2025</p>
-                        </div>
-                        <div class="mt-4 text-center">
-                            <a href="#" class="btn btn-primary w-100 rounded-pill">Ver detalles</a>
-                        </div>
+        <div class="grid md:grid-cols-3 gap-8">
+            <!-- Innovación Digital -->
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100">
+                <div class="bg-startup-blue text-white p-6">
+                    <h3 class="text-xl font-bold">Innovación Digital</h3>
+                </div>
+                <div class="p-6">
+                    <h4 class="font-semibold text-gray-900 mb-2">Innovación digital 2025</h4>
+                    <p class="text-gray-600 text-sm mb-4">
+                        Impulsa proyectos tecnológicos que mejoren el mundo
+                    </p>
+                    <div class="text-sm text-gray-500 mb-4">
+                        <span class="font-medium">Fecha límite:</span> 30/08/2025
                     </div>
+                    <button class="w-full bg-startup-blue text-white py-2 rounded-md hover:bg-blue-700 transition-colors">
+                        VER DETALLES
+                    </button>
                 </div>
             </div>
 
-            <!-- Tarjeta 2 -->
-            <div class="col-12 col-md-6 col-lg-4">
-                <div class="card h-100 shadow-sm border-0 rounded-4 overflow-hidden">
-                    <div class="card-header bg-success text-white text-center fw-bold fs-5">Emprendimiento Verde</div>
-                    <div class="card-body d-flex flex-column justify-content-between">
-                        <div>
-                            <h6 class="fw-bold mt-2">Proyectos sostenibles</h6>
-                            <p class="text-muted mb-2">Iniciativas verdes y sostenibles para el medio ambiente.</p>
-                            <p class="mb-0"><strong>Fecha límite:</strong> 31/08/2025</p>
-                        </div>
-                        <div class="mt-4 text-center">
-                            <a href="#" class="btn btn-success w-100 rounded-pill">Ver detalles</a>
-                        </div>
+            <!-- Emprendimiento Verde -->
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100">
+                <div class="bg-startup-green text-white p-6">
+                    <h3 class="text-xl font-bold">Emprendimiento Verde</h3>
+                </div>
+                <div class="p-6">
+                    <h4 class="font-semibold text-gray-900 mb-2">Emprendimiento Verde</h4>
+                    <p class="text-gray-600 text-sm mb-4">
+                        Proyectos de impacto ambiental y sostenibilidad
+                    </p>
+                    <div class="text-sm text-gray-500 mb-4">
+                        <span class="font-medium">Fecha límite:</span> 31/08/2025
                     </div>
+                    <button class="w-full bg-startup-green text-white py-2 rounded-md hover:bg-green-700 transition-colors">
+                        VER DETALLES
+                    </button>
                 </div>
             </div>
 
-            <!-- Tarjeta 3 -->
-            <div class="col-12 col-md-6 col-lg-4">
-                <div class="card h-100 shadow-sm border-0 rounded-4 overflow-hidden">
-                    <div class="card-header bg-warning text-dark text-center fw-bold fs-5">Fintech Universitario</div>
-                    <div class="card-body d-flex flex-column justify-content-between">
-                        <div>
-                            <h6 class="fw-bold mt-2">Innovación financiera</h6>
-                            <p class="text-muted mb-2">Soluciones fintech pensadas por y para estudiantes.</p>
-                            <p class="mb-0"><strong>Fecha límite:</strong> 31/08/2025</p>
-                        </div>
-                        <div class="mt-4 text-center">
-                            <a href="#" class="btn btn-warning w-100 rounded-pill text-dark">Ver detalles</a>
-                        </div>
+            <!-- Fintech Universitario -->
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100">
+                <div class="bg-startup-orange text-white p-6">
+                    <h3 class="text-xl font-bold">Fintech Universitario</h3>
+                </div>
+                <div class="p-6">
+                    <h4 class="font-semibold text-gray-900 mb-2">Fintech Universitario</h4>
+                    <p class="text-gray-600 text-sm mb-4">
+                        Proyectos de impacto ambiental sostenible
+                    </p>
+                    <div class="text-sm text-gray-500 mb-4">
+                        <span class="font-medium">Fecha límite:</span> 31/08/2025
                     </div>
+                    <button class="w-full bg-startup-orange text-white py-2 rounded-md hover:bg-orange-700 transition-colors">
+                        VER DETALLES
+                    </button>
                 </div>
             </div>
-
         </div>
     </div>
 </section>
 
-<!-- Estadísticas -->
-<section class="py-5 bg-white text-center">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-4"><h3 class="fw-bold text-primary">120+</h3><p>Startups incubadas</p></div>
-            <div class="col-md-4"><h3 class="fw-bold text-primary">50+</h3><p>Mentores activos</p></div>
-            <div class="col-md-4"><h3 class="fw-bold text-primary">85%</h3><p>Tasa de éxito</p></div>
+<!-- Statistics Section -->
+<section class="py-16 bg-gray-100">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid md:grid-cols-3 gap-8 text-center">
+            <div>
+                <div class="text-4xl font-bold text-startup-blue mb-2">120+</div>
+                <div class="text-gray-600">Startups incubadas</div>
+            </div>
+            <div>
+                <div class="text-4xl font-bold text-startup-green mb-2">50+</div>
+                <div class="text-gray-600">Mentores activos</div>
+            </div>
+            <div>
+                <div class="text-4xl font-bold text-startup-orange mb-2">85%</div>
+                <div class="text-gray-600">Tasa de éxito</div>
+            </div>
         </div>
     </div>
 </section>
 
 <!-- Footer -->
-<footer class="bg-primary text-white py-4 mt-auto">
-    <div class="container d-flex flex-column flex-md-row justify-content-between">
-        <div>
-            <a href="#" class="text-white me-3">Acerca de</a>
-            <a href="#" class="text-white">Mapa del sitio</a>
-        </div>
-        <div class="mt-3 mt-md-0">
-            <a href="#" class="text-white me-3"><i class="bi bi-linkedin"></i></a>
-            <a href="#" class="text-white me-3"><i class="bi bi-facebook"></i></a>
-            <a href="#" class="text-white me-3"><i class="bi bi-instagram"></i></a>
-            <a href="#" class="text-white me-3"><i class="bi bi-whatsapp"></i></a>
-            <a href="#" class="text-white"><i class="bi bi-youtube"></i></a>
+<footer class="bg-startup-blue text-white py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid md:grid-cols-2 gap-8">
+            <div>
+                <div class="mb-4">
+                    <span class="font-bold text-lg">STARTUP HUB</span>
+                </div>
+                <div class="flex space-x-4">
+                    <a href="#" class="text-blue-200 hover:text-white">Acerca de</a>
+                    <a href="#" class="text-blue-200 hover:text-white">Mapa del sitio</a>
+                </div>
+            </div>
+            <div class="text-right">
+                <div class="flex justify-end space-x-4 mb-4">
+                    <!-- Social Media Icons -->
+                    <div class="w-8 h-8 bg-blue-500 rounded flex items-center justify-center">
+                        <span class="text-xs">in</span>
+                    </div>
+                    <div class="w-8 h-8 bg-blue-600 rounded flex items-center justify-center">
+                        <span class="text-xs">f</span>
+                    </div>
+                    <div class="w-8 h-8 bg-pink-500 rounded flex items-center justify-center">
+                        <span class="text-xs">ig</span>
+                    </div>
+                    <div class="w-8 h-8 bg-green-500 rounded flex items-center justify-center">
+                        <span class="text-xs">wa</span>
+                    </div>
+                    <div class="w-8 h-8 bg-red-500 rounded flex items-center justify-center">
+                        <span class="text-xs">yt</span>
+                    </div>
+                </div>
+                <div class="text-sm text-blue-200">
+                    © 2025 Startup Hub. Todos los derechos reservados.
+                </div>
+            </div>
         </div>
     </div>
-    <div class="text-center mt-3">&copy; 2025 Startup Hub. Todos los derechos reservados.</div>
 </footer>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
