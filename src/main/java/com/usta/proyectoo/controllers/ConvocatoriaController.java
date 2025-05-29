@@ -2,6 +2,7 @@ package com.usta.proyectoo.controllers;
 
 import com.usta.proyectoo.entities.Convocatoria;
 import com.usta.proyectoo.models.services.ConvocatoriaServices;
+import com.usta.proyectoo.models.services.UsuarioServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +17,8 @@ public class ConvocatoriaController {
 
     @Autowired
     private ConvocatoriaServices convocatoriaServices;
+    @Autowired
+    private UsuarioServices usuarioServices;
 
     // Mostrar formulario de creación
     @GetMapping("/crear")
@@ -41,13 +44,11 @@ public class ConvocatoriaController {
     @GetMapping("/listar")
     public String listarConvocatorias(Model model) {
         model.addAttribute("convocatorias", convocatoriaServices.findAll());
-        return "convocatoria/listar"; // aún no lo tienes, pero puedes crearlo luego
+        return "convocatoria/listarConvocatorias"; // aún no lo tienes, pero puedes crearlo luego
     }
     @GetMapping
     public String verGestionConvocatorias(Model model) {
         model.addAttribute("convocatorias", convocatoriaServices.findAll());
         return "convocatoria/listarConvocatorias";
     }
-
-
 }
