@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Startup Hub - Redireccionando...</title>
+    <meta http-equiv="refresh" content="1; URL='@{/inicio}'" />
+
+    <!-- Tailwind + Configuración de Colores -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'startup-blue': '#6366f1',
+                        'startup-green': '#22c55e',
+                        'startup-orange': '#f97316'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-100 flex flex-col items-center justify-center min-h-screen text-center text-gray-800">
+
+<div class="text-lg">
+    <p class="text-startup-blue font-semibold mb-2">Startup Hub</p>
+    <p>Redirigiendo a la pantalla principal...</p>
+</div>
+
+<footer class="absolute bottom-4 text-sm text-gray-500">
+    © 2025 Startup Hub. Todos los derechos reservados.
+</footer>
+
+</body>
+</html>
