@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Startup Hub - Inicio</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" th:href="@{/css/Inicio.css}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+    <div class="container">
+        <a class="navbar-brand fw-bold text-primary" href="#">STARTUP HUB</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item"><a class="nav-link text-primary fw-semibold" href="#">Inicio</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Convocatorias</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Sobre nosotros</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Contacto</a></li>
+            </ul>
+            <a href="#" class="btn btn-primary ms-3">Reservar</a>
+        </div>
+    </div>
+</nav>
+
+<!-- Hero Section -->
+<section class="text-white text-center py-5" style="background: linear-gradient(135deg, #3f6ad8, #5e8dff);">
+    <div class="container">
+        <h1 class="display-4 fw-bold">Impulsa tu Startup Universitaria</h1>
+        <p class="lead">Conectando emprendedores universitarios con mentores y recursos para transformar ideas innovadoras en empresas exitosas.</p>
+        <a href="#" class="btn btn-outline-light mt-3 px-4 py-2">Empezar ahora</a>
+    </div>
+</section>
+
+<!-- Convocatorias -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <h2 class="text-center mb-5 fw-bold">Convocatorias Activas</h2>
+        <div class="row g-4 justify-content-center">
+            <!-- Tarjeta 1 -->
+            <div class="col-md-4">
+                <div class="card h-300 border-0 shadow-sm rounded-4 overflow-hidden">
+                    <div class="card-header bg-primary text-white text-center fw-bold fs-5 border-0 rounded-top-4">Innovación Digital</div>
+                    <div class="card-body d-flex flex-column justify-content-between">
+                        <div>
+                            <h6 class="fw-bold mt-">Innovación digital 2025</h6>
+                            <p class="text-muted mb-2">Impulsa proyectos tecnológicos con impacto social.</p>
+                            <p class="mb-0"><strong>Fecha límite:</strong> <strong>30/06/2025</strong></p>
+                        </div>
+                        <div class="mt-4 text-center">
+                            <a href="#" class="btn btn-primary w-100 rounded-pill">Ver detalles</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tarjeta 2 -->
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden">
+                    <div class="card-header bg-success text-white text-center fw-bold fs-5 border-0 rounded-top-4">Emprendimiento Verde</div>
+                    <div class="card-body d-flex flex-column justify-content-between">
+                        <div>
+                            <h6 class="fw-bold mt-2">Emprendimiento Verde</h6>
+                            <p class="text-muted mb-2">Proyectos de impacto ambiental y sostenible.</p>
+                            <p class="mb-0"><strong>Fecha límite:</strong> <strong>31/08/2025</strong></p>
+                        </div>
+                        <div class="mt-4 text-center">
+                            <a href="#" class="btn btn-success w-100 rounded-pill">Ver detalles</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tarjeta 3 -->
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden">
+                    <div class="card-header bg-warning text-white text-center fw-bold fs-5 border-0 rounded-top-4">Fintech Universitario</div>
+                    <div class="card-body d-flex flex-column justify-content-between">
+                        <div>
+                            <h6 class="fw-bold mt-2">Fintech Universitario</h6>
+                            <p class="text-muted mb-2">Proyectos de impacto ambiental y sostenible.</p>
+                            <p class="mb-0"><strong>Fecha límite:</strong> <strong>31/08/2025</strong></p>
+                        </div>
+                        <div class="mt-4 text-center">
+                            <a href="#" class="btn btn-warning w-100 rounded-pill text-white">Ver detalles</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- Estadísticas -->
+<section class="py-5 bg-white text-center">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4"><h3 class="fw-bold text-primary">120+</h3><p>Startups incubadas</p></div>
+            <div class="col-md-4"><h3 class="fw-bold text-primary">50+</h3><p>Mentores activos</p></div>
+            <div class="col-md-4"><h3 class="fw-bold text-primary">85%</h3><p>Tasa de éxito</p></div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="bg-primary text-white py-4">
+    <div class="container d-flex flex-column flex-md-row justify-content-between">
+        <div>
+            <a href="#" class="text-white me-3">Acerca de</a>
+            <a href="#" class="text-white">Mapa del sitio</a>
+        </div>
+        <div class="mt-3 mt-md-0">
+            <a href="#" class="text-white me-3"><i class="bi bi-linkedin"></i></a>
+            <a href="#" class="text-white me-3"><i class="bi bi-facebook"></i></a>
+            <a href="#" class="text-white me-3"><i class="bi bi-instagram"></i></a>
+            <a href="#" class="text-white me-3"><i class="bi bi-whatsapp"></i></a>
+            <a href="#" class="text-white"><i class="bi bi-youtube"></i></a>
+        </div>
+    </div>
+    <div class="text-center mt-3">&copy; 2025 Startup Hub. Todos los derechos reservados.</div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

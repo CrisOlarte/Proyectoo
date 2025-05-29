@@ -2,9 +2,10 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Startup Hub - Inicio</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" th:href="@{/css/inicio.css}">
+    <title th:text="${title}">Startup Hub - Inicio</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/Inicio.css}">
 </head>
 <body>
 
@@ -28,7 +29,7 @@
 </nav>
 
 <!-- Hero Section -->
-<section class="text-white text-center py-5" style="background: linear-gradient(135deg, #3f6ad8, #5e8dff);">
+<section class="text-white text-center d-flex align-items-center justify-content-center" style="min-height: 100vh; background: linear-gradient(135deg, #3f6ad8, #5e8dff);">
     <div class="container">
         <h1 class="display-4 fw-bold">Impulsa tu Startup Universitaria</h1>
         <p class="lead">Conectando emprendedores universitarios con mentores y recursos para transformar ideas innovadoras en empresas exitosas.</p>
@@ -41,15 +42,16 @@
     <div class="container">
         <h2 class="text-center mb-5 fw-bold">Convocatorias Activas</h2>
         <div class="row g-4 justify-content-center">
+
             <!-- Tarjeta 1 -->
-            <div class="col-md-4">
-                <div class="card h-300 border-0 shadow-sm rounded-4 overflow-hidden">
-                    <div class="card-header bg-primary text-white text-center fw-bold fs-5 border-0 rounded-top-4">Innovación Digital</div>
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="card h-100 shadow-sm border-0 rounded-4 overflow-hidden">
+                    <div class="card-header bg-primary text-white text-center fw-bold fs-5">Innovación Digital</div>
                     <div class="card-body d-flex flex-column justify-content-between">
                         <div>
-                            <h6 class="fw-bold mt-">Innovación digital 2025</h6>
+                            <h6 class="fw-bold mt-2">Innovación digital 2025</h6>
                             <p class="text-muted mb-2">Impulsa proyectos tecnológicos con impacto social.</p>
-                            <p class="mb-0"><strong>Fecha límite:</strong> <strong>30/06/2025</strong></p>
+                            <p class="mb-0"><strong>Fecha límite:</strong> 30/06/2025</p>
                         </div>
                         <div class="mt-4 text-center">
                             <a href="#" class="btn btn-primary w-100 rounded-pill">Ver detalles</a>
@@ -59,14 +61,14 @@
             </div>
 
             <!-- Tarjeta 2 -->
-            <div class="col-md-4">
-                <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden">
-                    <div class="card-header bg-success text-white text-center fw-bold fs-5 border-0 rounded-top-4">Emprendimiento Verde</div>
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="card h-100 shadow-sm border-0 rounded-4 overflow-hidden">
+                    <div class="card-header bg-success text-white text-center fw-bold fs-5">Emprendimiento Verde</div>
                     <div class="card-body d-flex flex-column justify-content-between">
                         <div>
-                            <h6 class="fw-bold mt-2">Emprendimiento Verde</h6>
-                            <p class="text-muted mb-2">Proyectos de impacto ambiental y sostenible.</p>
-                            <p class="mb-0"><strong>Fecha límite:</strong> <strong>31/08/2025</strong></p>
+                            <h6 class="fw-bold mt-2">Proyectos sostenibles</h6>
+                            <p class="text-muted mb-2">Iniciativas verdes y sostenibles para el medio ambiente.</p>
+                            <p class="mb-0"><strong>Fecha límite:</strong> 31/08/2025</p>
                         </div>
                         <div class="mt-4 text-center">
                             <a href="#" class="btn btn-success w-100 rounded-pill">Ver detalles</a>
@@ -76,25 +78,25 @@
             </div>
 
             <!-- Tarjeta 3 -->
-            <div class="col-md-4">
-                <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden">
-                    <div class="card-header bg-warning text-white text-center fw-bold fs-5 border-0 rounded-top-4">Fintech Universitario</div>
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="card h-100 shadow-sm border-0 rounded-4 overflow-hidden">
+                    <div class="card-header bg-warning text-dark text-center fw-bold fs-5">Fintech Universitario</div>
                     <div class="card-body d-flex flex-column justify-content-between">
                         <div>
-                            <h6 class="fw-bold mt-2">Fintech Universitario</h6>
-                            <p class="text-muted mb-2">Proyectos de impacto ambiental y sostenible.</p>
-                            <p class="mb-0"><strong>Fecha límite:</strong> <strong>31/08/2025</strong></p>
+                            <h6 class="fw-bold mt-2">Innovación financiera</h6>
+                            <p class="text-muted mb-2">Soluciones fintech pensadas por y para estudiantes.</p>
+                            <p class="mb-0"><strong>Fecha límite:</strong> 31/08/2025</p>
                         </div>
                         <div class="mt-4 text-center">
-                            <a href="#" class="btn btn-warning w-100 rounded-pill text-white">Ver detalles</a>
+                            <a href="#" class="btn btn-warning w-100 rounded-pill text-dark">Ver detalles</a>
                         </div>
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
 </section>
-
 
 <!-- Estadísticas -->
 <section class="py-5 bg-white text-center">
@@ -108,7 +110,7 @@
 </section>
 
 <!-- Footer -->
-<footer class="bg-primary text-white py-4">
+<footer class="bg-primary text-white py-4 mt-auto">
     <div class="container d-flex flex-column flex-md-row justify-content-between">
         <div>
             <a href="#" class="text-white me-3">Acerca de</a>
