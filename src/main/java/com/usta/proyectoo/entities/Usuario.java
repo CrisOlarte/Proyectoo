@@ -63,7 +63,7 @@ public class Usuario implements Serializable {
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
             name = "usuarios_startups",
-            joinColumns = @JoinColumn(name = "cedula", referencedColumnName = "cedula"),
+            joinColumns = @JoinColumn(name = "id_usuario", referencedColumnName = "id_usuario"),
             inverseJoinColumns = @JoinColumn(name = "id_startup", referencedColumnName = "id_startup")
     )
     private Collection<Startup> startups = new ArrayList<>();
