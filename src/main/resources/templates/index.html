@@ -18,6 +18,8 @@
             }
         }
     </script>
+    <!-- Font Awesome para íconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body class="bg-gray-50">
 <!-- Header/Navigation -->
@@ -145,11 +147,10 @@
         </div>
     </div>
 </section>
-
 <!-- Footer -->
 <footer class="bg-startup-blue text-white py-12">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid md:grid-cols-2 gap-8">
+        <div class="grid md:grid-cols-2 gap-8 items-center">
             <div>
                 <div class="mb-4">
                     <span class="font-bold text-lg">STARTUP HUB</span>
@@ -159,31 +160,34 @@
                     <a href="#" class="text-blue-200 hover:text-white">Mapa del sitio</a>
                 </div>
             </div>
-            <div class="text-right">
-                <div class="flex justify-end space-x-4 mb-4">
-                    <!-- Social Media Icons -->
-                    <div class="w-8 h-8 bg-blue-500 rounded flex items-center justify-center">
-                        <span class="text-xs">in</span>
-                    </div>
-                    <div class="w-8 h-8 bg-blue-600 rounded flex items-center justify-center">
-                        <span class="text-xs">f</span>
-                    </div>
-                    <div class="w-8 h-8 bg-pink-500 rounded flex items-center justify-center">
-                        <span class="text-xs">ig</span>
-                    </div>
-                    <div class="w-8 h-8 bg-green-500 rounded flex items-center justify-center">
-                        <span class="text-xs">wa</span>
-                    </div>
-                    <div class="w-8 h-8 bg-red-500 rounded flex items-center justify-center">
-                        <span class="text-xs">yt</span>
-                    </div>
-                </div>
-                <div class="text-sm text-blue-200">
-                    © 2025 Startup Hub. Todos los derechos reservados.
-                </div>
+            <div class="flex justify-end items-center gap-4">
+                <!-- LinkedIn -->
+                <a href="#" class="bg-[#0A66C2] w-10 h-10 flex items-center justify-center rounded-full text-white text-lg hover:opacity-80 transition">
+                    <i class="fab fa-linkedin-in"></i>
+                </a>
+                <!-- Facebook -->
+                <a href="#" class="bg-[#1877F2] w-10 h-10 flex items-center justify-center rounded-full text-white text-lg hover:opacity-80 transition">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <!-- Instagram -->
+                <a href="#" class="bg-gradient-to-tr from-yellow-400 via-pink-500 to-purple-600 w-10 h-10 flex items-center justify-center rounded-full text-white text-lg hover:opacity-80 transition">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <!-- WhatsApp -->
+                <a href="https://wa.me/573212715364" class="bg-[#25D366] w-10 h-10 flex items-center justify-center rounded-full text-white text-lg hover:opacity-80 transition">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+                <!-- YouTube -->
+                <a href="#" class="bg-[#FF0000] w-10 h-10 flex items-center justify-center rounded-full text-white text-lg hover:opacity-80 transition">
+                    <i class="fab fa-youtube"></i>
+                </a>
             </div>
+        </div>
+        <div class="text-sm text-blue-200 mt-6 text-center">
+            © 2025 Startup Hub. Todos los derechos reservados.
         </div>
     </div>
 </footer>
+
 </body>
 </html>

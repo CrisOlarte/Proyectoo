@@ -3,11 +3,10 @@ package com.usta.proyectoo.models.services;
 import com.usta.proyectoo.entities.Usuario;
 import com.usta.proyectoo.models.DAO.UsuarioDAO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-@Service
+
 public class UsuariosServicesImplement implements UsuarioServices {
 
     @Autowired
