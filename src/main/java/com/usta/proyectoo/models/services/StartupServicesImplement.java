@@ -1,7 +1,7 @@
 package com.usta.proyectoo.models.services;
 
 import com.usta.proyectoo.entities.Startup;
-import com.usta.proyectoo.models.DAO.StartupDao;
+import com.usta.proyectoo.models.DAO.StartupDAO;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,7 +12,7 @@ import java.util.List;
 public class StartupServicesImplement implements StartupServices {
 
     @Autowired
-    private StartupDao startupDao;
+    private StartupDAO startupDao;
 
     @Override
     @Transactional

@@ -2,7 +2,6 @@ package com.usta.proyectoo.models.DAO;
 
 
 import com.usta.proyectoo.entities.Startup;
-import com.usta.proyectoo.entities.Usuario;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -10,7 +9,7 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.Date;
 import java.util.List;
 
-public interface StartupDao extends CrudRepository<Startup, Long> {
+public interface StartupDAO extends CrudRepository<Startup, Long> {
 
     @Transactional
     @Query("SELECT s FROM Startup s WHERE s.nombre = ?1")

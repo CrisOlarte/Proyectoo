@@ -1,7 +1,7 @@
 package com.usta.proyectoo.models.services;
 
 import com.usta.proyectoo.entities.Usuario;
-import com.usta.proyectoo.models.DAO.UsuarioDao;
+import com.usta.proyectoo.models.DAO.UsuarioDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -10,7 +10,7 @@ import java.util.List;
 public class UsuariosServicesImplement implements UsuarioServices {
 
     @Autowired
-    private UsuarioDao usuarioDao;
+    private UsuarioDAO usuarioDao;
 
     @Override
     @Transactional
