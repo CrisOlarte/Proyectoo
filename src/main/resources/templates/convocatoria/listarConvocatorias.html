@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <title>Gestión de Convocatorias</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/css/style.css"> <!-- Tu CSS global -->
+    <link rel="stylesheet" href="/css/Style.css"> <!-- Tu CSS global -->
+    <a th:href="@{/usuarios/listar}" class="text-gray-600 hover:text-gray-900">Usuarios</a>
+
     <style>
         * {
             font-family: 'Inter', sans-serif;
@@ -154,7 +156,7 @@
         <li>Dashboard</li>
         <li>Usuarios</li>
         <li class="active" onclick="window.location.href='/convocatorias'">Convocatorias</li>
-        <a th:href="@{/usuarios/listar}" class="text-gray-600 hover:text-gray-900">Usuarios</a>
+
         <li>Startup</li>
         <li>Evaluaciones</li>
         <li>Reportes</li>
