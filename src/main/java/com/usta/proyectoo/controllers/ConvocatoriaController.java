@@ -43,5 +43,11 @@ public class ConvocatoriaController {
         model.addAttribute("convocatorias", convocatoriaServices.findAll());
         return "convocatoria/listar"; // aún no lo tienes, pero puedes crearlo luego
     }
+    @GetMapping
+    public String verGestionConvocatorias(Model model) {
+        model.addAttribute("convocatorias", convocatoriaServices.findAll());
+        return "convocatoria/listarConvocatorias";
+    }
+
 
 }
