@@ -4,10 +4,12 @@ import com.usta.proyectoo.entities.Startup;
 import com.usta.proyectoo.models.DAO.StartupDao;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
 
+@Service
 public class StartupServicesImplement implements StartupServices {
 
     @Autowired

@@ -6,9 +6,11 @@ import com.usta.proyectoo.entities.Usuario;
 import com.usta.proyectoo.models.DAO.ConvocatoriaDAO;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class ConvocatoriaServicesImplement implements ConvocatoriaServices{
 
     @Autowired
