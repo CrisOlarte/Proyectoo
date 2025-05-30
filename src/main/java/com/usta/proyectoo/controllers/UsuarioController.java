@@ -21,8 +21,6 @@ public class UsuarioController {
         model.addAttribute("usuarios", usuarioServices.findAll());
         return "usuarios/listarUsuarios"; // o listarUsuarios según tu archivo
     }
-
-
 }
 
 
