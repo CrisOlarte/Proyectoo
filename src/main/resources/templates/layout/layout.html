@@ -5,6 +5,11 @@
   <title th:replace="${title}">Startup Hub</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="icon" type="image/png" href="/images/Logo.png" sizes="32x32">
+  <style>
+    .text-startup-blue {
+      color: #5e7bff; /* Color azul personalizado */
+    }
+  </style>
 </head>
 
 <body class="bg-gray-50 text-gray-900">
@@ -28,6 +33,13 @@
 
   <!-- Main content -->
   <main class="flex-1 p-10">
+    <header class="flex justify-end mb-6">
+      <a href="/login">
+        <button class="bg-startup-blue text-white rounded-lg px-4 py-2 font-bold hover:bg-blue-600">
+          Reservar
+        </button>
+      </a>
+    </header>
     <div th:insert="~{::content}"></div>
   </main>
 </div>
