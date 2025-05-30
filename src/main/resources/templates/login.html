@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+
+<head th:replace="~{layout/layoutH :: head}">
     <meta charset="UTF-8">
     <title><!DOCTYPE html>
         <html lang="es">
@@ -37,37 +38,13 @@
             background-color: #f1f1f1;
         }
     </style>
+
 </head>
+
 <body>
 
 <!-- Header -->
-<header class="bg-white shadow-sm">
-    <nav class="navbar navbar-expand-lg navbar-light container py-3">
-        <a class="navbar-brand d-flex align-items-center fw-bold text-primary" href="#">
-            <div class="bg-primary text-white fw-bold rounded-circle d-flex align-items-center justify-content-center me-2" style="width: 32px; height: 32px;">S</div>
-            STARTUP HUB
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-            <ul class="navbar-nav fw-semibold">
-                <li class="nav-item">
-                    <a class="nav-link active" th:href="@{/inicio}">Inicio</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active" th:href="@{/convocatorias}">Convocatorias</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{sobreNosotros}">Sobre nosotros</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/contacto}">Contacto</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
-</header>
+<header th:replace="~{layout/layoutH :: header}"></header>
 
 <!-- Página de inicio de sesión -->
 <section class="min-vh-100 d-flex align-items-center justify-content-center px-3">
@@ -121,7 +98,7 @@
 </body>
 </html>
 </title>
-</head>
+
 <body>
 
 </body>

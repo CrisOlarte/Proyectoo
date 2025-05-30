@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
+<head th:fragment="head">
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Iniciar Sesión - Startup Hub</title>
@@ -33,11 +33,10 @@
 <body>
 
 <!-- Header -->
-<header class="bg-white shadow-sm">
+<header class="bg-white shadow-sm" th:fragment="header">
   <nav class="navbar navbar-expand-lg navbar-light container py-3">
-    <a class="navbar-brand d-flex align-items-center fw-bold text-primary" href="#">
-      <div class="bg-primary text-white fw-bold rounded-circle d-flex align-items-center justify-content-center me-2" style="width: 32px; height: 32px;">S</div>
-      STARTUP HUB
+    <a class="navbar-brand d-flex align-items-center" href="#">
+      <img src="/images/logo-cabecera.png" alt="Logo Startup Hub" style="width: auto; height: 32px;" class="me-2" />
     </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
       <span class="navbar-toggler-icon"></span>

@@ -8,26 +8,6 @@ body {
     padding: 0;
 }
 
-/* === Navbar personalizado === */
-.navbar {
-    padding-top: 1rem;
-    padding-bottom: 1rem;
-    transition: background-color 0.3s ease;
-}
-
-.navbar-brand {
-    font-size: 1.5rem;
-    letter-spacing: 1px;
-}
-
-.nav-link {
-    transition: color 0.2s ease;
-}
-
-.nav-link:hover {
-    color: #0d6efd;
-}
-
 /* === Hero Section === */
 .hero {
     background: linear-gradient(135deg, #3f6ad8, #5e8dff);
