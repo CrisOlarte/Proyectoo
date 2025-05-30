@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Sobre Nosotros - Startup Hub</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'startup-blue': '#6366f1',
+                        'startup-green': '#22c55e',
+                        'startup-orange': '#f97316'
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Font Awesome para íconos -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+</head>
+<body class="bg-gray-50">
+
+<!-- Header/Navigation -->
+<header class="bg-white shadow-sm">
+    <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-16">
+            <div class="flex items-center">
+                <div class="bg-startup-blue text-white px-3 py-1 rounded-md font-bold text-sm">
+                    STARTUP HUB
+                </div>
+            </div>
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="/" class="text-gray-600 hover:text-gray-900">Inicio</a>
+                <a href="/convocatorias" class="text-gray-600 hover:text-gray-900">Convocatorias</a>
+                <a href="/sobre-nosotros" class="text-startup-blue font-semibold">Sobre nosotros</a>
+                <a href="/contacto" class="text-gray-600 hover:text-gray-900">Contacto</a>
+                <button class="bg-startup-blue text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors">
+                    Reservar
+                </button>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<!-- Sobre Nosotros Section -->
+<section class="py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-3xl font-bold text-center text-gray-900 mb-12">
+            Sobre Nosotros
+        </h2>
+        <p class="text-lg text-gray-700 text-center mb-8 max-w-4xl mx-auto">
+            En Startup Hub, nos dedicamos a impulsar el espíritu emprendedor universitario, conectando a estudiantes con mentores y recursos que les permitan transformar sus ideas en realidades exitosas.
+        </p>
+        <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            <div class="bg-gray-100 rounded-xl shadow-lg p-6">
+                <h3 class="text-xl font-bold text-startup-blue mb-4">Nuestra Misión</h3>
+                <p class="text-gray-600 leading-relaxed">
+                    Fomentar un ecosistema de innovación y emprendimiento que permita a los estudiantes universitarios desarrollar sus proyectos y alcanzar sus metas profesionales.
+                </p>
+            </div>
+            <div class="bg-gray-100 rounded-xl shadow-lg p-6">
+                <h3 class="text-xl font-bold text-startup-green mb-4">Nuestros Valores</h3>
+                <ul class="list-disc list-inside text-gray-600 space-y-1">
+                    <li>Innovación</li>
+                    <li>Colaboración</li>
+                    <li>Sostenibilidad</li>
+                    <li>Compromiso</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="bg-startup-blue text-white py-12 mt-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid md:grid-cols-2 gap-8 items-center">
+            <div>
+                <div class="mb-4">
+                    <span class="font-bold text-lg">STARTUP HUB</span>
+                </div>
+                <div class="flex space-x-4">
+                    <a href="#" class="text-blue-200 hover:text-white">Acerca de</a>
+                    <a href="#" class="text-blue-200 hover:text-white">Mapa del sitio</a>
+                </div>
+            </div>
+            <div class="flex justify-end items-center gap-4">
+                <!-- LinkedIn -->
+                <a href="#" class="bg-[#0A66C2] w-10 h-10 flex items-center justify-center rounded-full text-white text-lg hover:opacity-80 transition">
+                    <i class="fab fa-linkedin-in"></i>
+                </a>
+                <!-- Facebook -->
+                <a href="#" class="bg-[#1877F2] w-10 h-10 flex items-center justify-center rounded-full text-white text-lg hover:opacity-80 transition">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <!-- Instagram -->
+                <a href="#" class="bg-gradient-to-tr from-yellow-400 via-pink-500 to-purple-600 w-10 h-10 flex items-center justify-center rounded-full text-white text-lg hover:opacity-80 transition">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <!-- WhatsApp -->
+                <a href="https://wa.me/573212715364" class="bg-[#25D366] w-10 h-10 flex items-center justify-center rounded-full text-white text-lg hover:opacity-80 transition">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+                <!-- YouTube -->
+                <a href="#" class="bg-[#FF0000] w-10 h-10 flex items-center justify-center rounded-full text-white text-lg hover:opacity-80 transition">
+                    <i class="fab fa-youtube"></i>
+                </a>
+            </div>
+        </div>
+        <div class="text-sm text-blue-200 mt-6 text-center">
+            © 2025 Startup Hub. Todos los derechos reservados.
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>
+
