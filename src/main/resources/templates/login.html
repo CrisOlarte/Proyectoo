@@ -52,7 +52,7 @@
         <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
             <ul class="navbar-nav fw-semibold">
                 <li class="nav-item">
-                    <a class="nav-link active" href="#">Inicio</a>
+                    <a class="nav-link active" th:href="@{/inicio}">Inicio</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Convocatorias</a>
@@ -108,7 +108,10 @@
             </button>
         </div>
 
-        <p class="text-center small">¿No tienes una cuenta? <a href="#" class="text-decoration-none text-primary">Regístrate ahora</a></p>
+        <p class="text-center small">¿No tienes una cuenta?
+            <a th:href="@{/registro}" class="text-decoration-none text-primary">Regístrate ahora</a>
+        </p>
+
     </div>
 </section>
 
