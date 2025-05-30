@@ -1,28 +1,17 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout/layout :: layout (~{::head}, ~{::content})}">
 <head>
     <meta charset="UTF-8">
     <title>Gestión de Usuarios - Startup Hub</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
+
 <body class="bg-gray-50 text-gray-900">
 
 <!-- Sidebar -->
 <div class="flex min-h-screen">
-    <aside class="w-64 bg-white shadow-lg">
-        <div class="p-6 font-bold text-xl text-startup-blue">STARTUP HUB</div>
-        <nav class="flex flex-col space-y-4 p-6">
-            <a href="#" class="text-gray-700">Dashboard</a>
-            <a th:href="@{/usuarios/listar}" class="text-blue-600 font-bold">Usuarios</a>
-            <a th:href="@{/convocatorias/listar}" class="text-gray-700 hover:text-blue-600">Convocatorias</a>
-            <a href="#" class="text-gray-700">Startup</a>
-            <a href="#" class="text-gray-700">Evaluaciones</a>
-        </nav>
-        <div class="absolute bottom-6 left-6">
-            <div class="text-sm font-bold">Admin</div>
-            <div class="text-xs text-gray-500">admin@startup.com</div>
-        </div>
-    </aside>
+
 
     <!-- Main content -->
     <main class="flex-1 p-10">
