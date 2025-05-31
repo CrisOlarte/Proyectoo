@@ -1,80 +1,230 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="~{layout/layout :: head}"></head>
+<head th:replace="~{layout/layout :: head}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Convocatorias</title>
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+        }
 
-<body class="bg-gray-50 font-sans">
+        * {
+            font-family: 'Inter', sans-serif;
+            box-sizing: border-box;
+        }
+
+        .card-hover {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .card-hover:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+        }
+
+        .btn-transition {
+            transition: all 0.2s ease;
+        }
+
+        .btn-transition:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(91, 103, 240, 0.3);
+        }
+
+        .status {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 12px;
+            display: inline-block;
+        }
+
+        .status.activa {
+            background: #dcfce7;
+            color: #16a34a;
+        }
+
+        .status.cerrada {
+            background: #fee2e2;
+            color: #dc2626;
+        }
+
+        .status.pendiente {
+            background: #fef3c7;
+            color: #d97706;
+        }
+
+        .sector-tag {
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-weight: 500;
+            font-size: 12px;
+            background: #e0f2fe;
+            color: #0369a1;
+        }
+
+        .convocatoria-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            background: #5b67f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 h-full">
 
 <!-- Estructura principal con sidebar y contenido -->
-<div class="flex min-h-screen">
+<div class="flex h-screen overflow-hidden">
 
     <!-- Sidebar -->
     <aside th:replace="~{layout/layout :: sidebar}"></aside>
 
     <!-- Contenido principal -->
-    <main class="flex-1 p-8 overflow-y-auto">
+    <main class="flex-1 h-full overflow-y-auto p-8 bg-gray-50">
 
-        <!-- Contenedor de contenido -->
-        <div class="bg-white shadow-md rounded-2xl p-8 space-y-8">
+        <!-- Header with Admin Badge -->
+        <div class="flex justify-between items-center mb-8">
+            <div>
+                <h1 class="text-3xl font-bold text-startup-blue mb-2">Gestión de Convocatorias</h1>
+                <p class="text-gray-600">Administra y supervisa todas las convocatorias de la plataforma</p>
+            </div>
+            <div class="bg-startup-orange text-white px-6 py-3 rounded-full font-bold text-sm">
+                Administrador
+            </div>
+        </div>
 
-            <!-- Título principal -->
-            <header>
-                <h1 class="text-3xl font-bold text-startup-blue mb-2">Bienvenido a Startup Hub</h1>
-                <p class="text-gray-600">Explora nuestras herramientas y recursos para potenciar tu emprendimiento universitario.</p>
-            </header>
-
-            <!-- Botones de acción -->
-            <div class="flex gap-4">
-                <a href="#" class="bg-startup-blue text-white px-4 py-2 rounded-lg font-semibold hover:bg-indigo-700 transition">Crear nueva convocatoria</a>
-                <a href="#" class="bg-startup-green text-white px-4 py-2 rounded-lg font-semibold hover:bg-green-600 transition">Registrar Startup</a>
+        <!-- Stats Cards -->
+        <div class="grid md:grid-cols-3 gap-6 mb-8">
+            <div class="card-hover bg-white p-6 rounded-2xl shadow-md border-l-4 border-startup-green">
+                <div class="flex justify-between items-center mb-4">
+                    <div class="text-sm font-semibold text-gray-600">Convocatorias Activas</div>
+                    <div class="text-2xl">📢</div>
+                </div>
+                <div class="text-3xl font-bold text-gray-800 mb-2">12</div>
+                <div class="text-sm font-semibold text-startup-green">+3 este mes</div>
             </div>
 
-            <!-- Tarjetas informativas -->
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div class="bg-gray-100 p-6 rounded-xl shadow-sm">
-                    <h3 class="text-lg font-bold text-startup-orange mb-2">Convocatorias abiertas</h3>
-                    <p class="text-gray-700 text-sm">Consulta y gestiona las oportunidades disponibles para emprendedores.</p>
+            <div class="card-hover bg-white p-6 rounded-2xl shadow-md border-l-4 border-startup-orange">
+                <div class="flex justify-between items-center mb-4">
+                    <div class="text-sm font-semibold text-gray-600">Total Startups Postuladas</div>
+                    <div class="text-2xl">🚀</div>
                 </div>
-                <div class="bg-gray-100 p-6 rounded-xl shadow-sm">
-                    <h3 class="text-lg font-bold text-startup-green mb-2">Startups activas</h3>
-                    <p class="text-gray-700 text-sm">Conoce las startups universitarias que están participando en el ecosistema.</p>
+                <div class="text-3xl font-bold text-gray-800 mb-2">186</div>
+                <div class="text-sm font-semibold text-startup-orange">+47 esta semana</div>
+            </div>
+
+            <div class="card-hover bg-white p-6 rounded-2xl shadow-md border-l-4 border-startup-blue">
+                <div class="flex justify-between items-center mb-4">
+                    <div class="text-sm font-semibold text-gray-600">En Evaluación</div>
+                    <div class="text-2xl">⏳</div>
                 </div>
-                <div class="bg-gray-100 p-6 rounded-xl shadow-sm">
-                    <h3 class="text-lg font-bold text-startup-blue mb-2">Evaluaciones recientes</h3>
-                    <p class="text-gray-700 text-sm">Revisa los resultados de las últimas rondas de evaluación y mentoría.</p>
+                <div class="text-3xl font-bold text-gray-800 mb-2">24</div>
+                <div class="text-sm font-semibold text-startup-blue">Pendientes</div>
+            </div>
+        </div>
+
+        <!-- Search and Actions Header -->
+        <div class="bg-white shadow-md rounded-2xl p-6 mb-6">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-xl font-bold text-gray-800">Lista de Convocatorias</h2>
+            </div>
+
+            <div class="flex gap-4 items-center">
+                <input type="text"
+                       class="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-startup-blue focus:border-transparent"
+                       placeholder="🔍 Buscar convocatorias...">
+
+                <select class="px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-startup-blue focus:border-transparent min-w-[160px]">
+                    <option>Todos los estados</option>
+                    <option>Activa</option>
+                    <option>Pendiente</option>
+                    <option>Cerrada</option>
+                </select>
+
+                <button class="bg-startup-blue text-white px-6 py-3 rounded-lg font-semibold hover:bg-indigo-700 transition btn-transition">
+                    + Nueva Convocatoria
+                </button>
+            </div>
+        </div>
+
+        <!-- Convocatorias Table -->
+        <div class="bg-white shadow-md rounded-2xl overflow-hidden">
+
+            <!-- Convocatorias Table -->
+            <div class="bg-white shadow-md rounded-2xl overflow-hidden">
+
+                <!-- Table Header -->
+                <div class="grid grid-cols-11 gap-4 px-6 py-4 bg-gray-100 font-semibold text-gray-700 text-sm border-b">
+                    <div class="col-span-3">Convocatoria</div>
+                    <div class="col-span-3">Descripción</div>
+                    <div class="col-span-1">Fecha Inicio</div>
+                    <div class="col-span-1">Fecha Fin</div>
+                    <div class="col-span-1">Estado</div>
+                    <div class="col-span-2">Acciones</div>
+                </div>
+
+                <!-- Table Rows -->
+                <div class="divide-y divide-gray-100">
+                    <div th:each="convocatoria : ${convocatorias}" class="grid grid-cols-11 gap-4 px-6 py-5 hover:bg-gray-50 items-center">
+                        <!-- Título -->
+                        <div class="col-span-3 flex items-center gap-3">
+                            <div class="convocatoria-icon bg-gray-300 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold">
+                                <span th:text="${#strings.substring(convocatoria.titulo, 0, 1)}">C</span>
+                            </div>
+                            <h4 class="font-semibold text-gray-800 text-sm" th:text="${convocatoria.titulo}">Título</h4>
+                        </div>
+
+                        <!-- Descripción -->
+                        <div class="col-span-3 text-xs text-gray-600" th:text="${convocatoria.descripcion}">Descripción</div>
+
+                        <!-- Fechas -->
+                        <div class="col-span-1 text-sm text-gray-700" th:text="${#dates.format(convocatoria.fechaInicio, 'dd MMM yyyy')}">01 Ene 2024</div>
+                        <div class="col-span-1 text-sm text-gray-700" th:text="${#dates.format(convocatoria.fechaCierre, 'dd MMM yyyy')}">30 Jun 2024</div>
+
+                        <!-- Estado -->
+                        <div class="col-span-1">
+                            <span th:if="${convocatoria.estado}" class="status activa">Activa</span>
+                            <span th:if="${!convocatoria.estado}" class="status cerrada">Inactiva</span>
+                        </div>
+
+                        <!-- Acciones -->
+                        <div class="col-span-2 flex gap-2">
+                            <a th:href="@{/convocatoria/editar/{id}(id=${convocatoria.idConvocatoria})}"
+                               class="bg-startup-blue text-white px-3 py-1 rounded text-xs font-semibold hover:bg-indigo-700 transition">Editar</a>
+                            <a th:href="@{/convocatoria/eliminar/{id}(id=${convocatoria.idConvocatoria})}"
+                               class="bg-red-500 text-white px-3 py-1 rounded text-xs font-semibold hover:bg-red-600 transition"
+                               onclick="return confirm('¿Estás seguro de eliminar esta convocatoria?')">Eliminar</a>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <!-- Tabla de ejemplo -->
-            <div class="overflow-x-auto mt-4">
-                <table class="min-w-full text-sm text-left border border-gray-200 rounded-lg">
-                    <thead class="bg-gray-100 text-gray-700 font-semibold">
-                    <tr>
-                        <th class="px-4 py-3 border-b">Startup</th>
-                        <th class="px-4 py-3 border-b">Categoría</th>
-                        <th class="px-4 py-3 border-b">Estado</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr class="hover:bg-gray-50">
-                        <td class="px-4 py-3 border-b">EcoIdeas</td>
-                        <td class="px-4 py-3 border-b">Sostenibilidad</td>
-                        <td class="px-4 py-3 border-b text-green-600 font-medium">Activa</td>
-                    </tr>
-                    <tr class="hover:bg-gray-50">
-                        <td class="px-4 py-3 border-b">TechNova</td>
-                        <td class="px-4 py-3 border-b">Tecnología</td>
-                        <td class="px-4 py-3 border-b text-yellow-600 font-medium">En revisión</td>
-                    </tr>
-                    <tr class="hover:bg-gray-50">
-                        <td class="px-4 py-3 border-b">MedInnova</td>
-                        <td class="px-4 py-3 border-b">Salud</td>
-                        <td class="px-4 py-3 border-b text-red-600 font-medium">Rechazada</td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
 
+
+
+
+            <!-- Pagination -->
+        <div class="flex justify-between items-center px-6 py-4 border-t border-gray-200 bg-gray-50">
+            <div class="text-sm text-gray-600">
+                Mostrando 1-5 de 12 convocatorias
+            </div>
+            <div class="flex gap-2">
+                <button class="px-3 py-1 border border-gray-300 rounded text-sm hover:bg-gray-100 transition">Anterior</button>
+                <button class="px-3 py-1 bg-startup-blue text-white rounded text-sm">1</button>
+                <button class="px-3 py-1 border border-gray-300 rounded text-sm hover:bg-gray-100 transition">2</button>
+                <button class="px-3 py-1 border border-gray-300 rounded text-sm hover:bg-gray-100 transition">3</button>
+                <button class="px-3 py-1 border border-gray-300 rounded text-sm hover:bg-gray-100 transition">Siguiente</button>
+            </div>
         </div>
 
     </main>
