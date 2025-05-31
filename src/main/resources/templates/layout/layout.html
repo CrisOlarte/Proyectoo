@@ -1,19 +1,28 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
-<head th:fragment="headv">
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title th:text="${title}">Startup Hub</title>
-  <link rel="icon" type="image/png" href="/images/Logo.png" sizes="32x32" />
-  <script src="https://cdn.tailwindcss.com"></script>
 
-  <!-- Tailwind config personalizado si quieres agregar -->
+<!-- 🔹 Fragmento reutilizable del HEAD -->
+<head th:fragment="head">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Startup Hub - Impulsa tu Startup Universitaria</title>
+  <link rel="icon" type="image/png" href="/images/Logo.png" sizes="32x32" />
+
+  <!-- Tailwind CSS + Google Fonts -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+
   <script>
     tailwind.config = {
       theme: {
         extend: {
+          fontFamily: {
+            inter: ['Inter', 'sans-serif'],
+          },
           colors: {
             'startup-blue': '#6366f1',
+            'startup-green': '#22c55e',
+            'startup-orange': '#f97316',
           }
         }
       }
@@ -21,34 +30,28 @@
   </script>
 </head>
 
-<body class="bg-gray-50 text-gray-900 font-inter">
-
-<!-- Sidebar -->
-<aside th:fragment="sidebar" class="w-64 bg-white shadow-lg relative min-h-screen">
-  <div class="p-6 font-bold text-xl text-startup-blue">STARTUP HUB</div>
-  <nav class="flex flex-col space-y-4 p-6">
-    <a th:href="@{/dashboard}" class="text-gray-700 hover:text-blue-600">Dashboard</a>
-    <a th:href="@{/usuarios/listar}" class="text-gray-700 hover:text-blue-600">Usuarios</a>
-    <a th:href="@{/convocatorias/listar}" class="text-gray-700 hover:text-blue-600">Convocatorias</a>
-    <a th:href="@{/startups/listar}" class="text-gray-700 hover:text-blue-600">Startup</a>
-    <a th:href="@{/evaluaciones/listar}" class="text-gray-700 hover:text-blue-600">Evaluaciones</a>
-  </nav>
-  <div class="absolute bottom-6 left-6">
-    <div class="text-sm font-bold">Admin</div>
-    <div class="text-xs text-gray-500">admin@startup.com</div>
+<!--  Fragmento reutilizable del SIDEBAR -->
+<body>
+<aside th:fragment="sidebar">
+  <div class="w-64 bg-white shadow-xl flex flex-col justify-between h-screen">
+    <div class="p-6">
+      <h1 class="text-2xl font-extrabold text-startup-blue tracking-tight">STARTUP HUB</h1>
+    </div>
+    <nav class="px-4 space-y-2">
+      <a th:href="@{/dashboard}" class="block px-4 py-3 rounded-lg font-medium text-gray-700 hover:bg-startup-blue hover:text-white transition">Dashboard</a>
+      <a th:href="@{/usuarios/listar}" class="block px-4 py-3 rounded-lg font-medium text-gray-700 hover:bg-startup-blue hover:text-white transition">Usuarios</a>
+      <a th:href="@{/convocatorias/listar}" class="block px-4 py-3 rounded-lg font-medium bg-startup-blue text-white transition">Convocatorias</a>
+      <a th:href="@{/startups/listar}" class="block px-4 py-3 rounded-lg font-medium text-gray-700 hover:bg-startup-blue hover:text-white transition">Startups</a>
+      <a th:href="@{/evaluaciones/listar}" class="block px-4 py-3 rounded-lg font-medium text-gray-700 hover:bg-startup-blue hover:text-white transition">Evaluaciones</a>
+    </nav>
+    <div class="p-6">
+      <div class="bg-gray-100 rounded-lg p-4 shadow-sm">
+        <div class="text-sm font-semibold text-gray-800">Admin</div>
+        <div class="text-xs text-gray-500">admin@startup.com</div>
+      </div>
+    </div>
   </div>
 </aside>
-
-<!-- Layout principal con sidebar y contenido -->
-<div th:fragment="layout(title)">
-  <div class="flex min-h-screen">
-    <div th:replace="~{::sidebar}"></div>
-
-    <main class="flex-1 p-10 bg-white rounded-lg shadow-md m-6">
-      <div th:replace="~{::content}"></div>
-    </main>
-  </div>
-</div>
-
 </body>
+
 </html>
