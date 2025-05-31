@@ -1,5 +1,6 @@
 package com.usta.proyectoo.controllers;
 
+import com.usta.proyectoo.models.services.EvaluacionServices;
 import com.usta.proyectoo.models.services.UsuarioServices;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,15 +12,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class UsuarioController {
 
     private final UsuarioServices usuarioServices;
+    private final EvaluacionServices evaluacionServices;
 
-    public UsuarioController(UsuarioServices usuarioServices) {
+    public UsuarioController(UsuarioServices usuarioServices, EvaluacionServices evaluacionServices) {
         this.usuarioServices = usuarioServices;
+        this.evaluacionServices = evaluacionServices;
     }
 
     @GetMapping("/listar")
-    public String listarUsuarios(Model model) {
-        model.addAttribute("usuarios", usuarioServices.findAll());
-        return "usuarios/listarUsuarios"; // o listarUsuarios según tu archivo
+    public String listarEvaluaciones(Model model) {
+        model.addAttribute("evaluaciones", evaluacionServices.findAll());
+        return "evaluacion/listar";
     }
 }
 
