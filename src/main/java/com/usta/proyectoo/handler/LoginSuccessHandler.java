@@ -1,5 +1,5 @@
 package com.usta.proyectoo.handler;
-
+/*
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -32,4 +32,4 @@ public class LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
         // Redirección por defecto
         super.onAuthenticationSuccess(request, response, authentication);
     }
-}
+}*/

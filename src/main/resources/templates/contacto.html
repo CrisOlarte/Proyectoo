@@ -1,136 +1,85 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<head th:replace="~{layout/layoutH :: head}">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Contacto - Startup Hub</title>
 
-    <!-- Bootstrap 5 -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-
-    <style>
-        body {
-            background-color: #f4f6fb;
-            font-family: 'Inter', sans-serif;
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'startup-blue': '#6366f1',
+                        'startup-green': '#22c55e',
+                        'startup-orange': '#f97316'
+                    }
+                }
+            }
         }
-
-        .btn-primary {
-            background-color: #5e7bff;
-            border: none;
-        }
-
-        .btn-primary:hover {
-            background-color: #4c65d6;
-        }
-
-        .rounded-4 {
-            border-radius: 1.5rem !important;
-        }
-
-        .register-container {
-            background: white;
-            border-radius: 1.5rem;
-            padding: 2rem;
-            width: 100%;
-            max-width: 500px;
-            box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
-        }
-
-        .text-primary {
-            color: #5e7bff !important;
-        }
-
-        .form-control {
-            border-radius: 0.75rem;
-            border: 1px solid #dee2e6;
-            padding: 0.75rem 1rem;
-        }
-
-        .form-control:focus {
-            border-color: #5e7bff;
-            box-shadow: 0 0 0 0.2rem rgba(94, 123, 255, 0.25);
-        }
-
-        .mb-3 {
-            margin-bottom: 1.5rem; /* Aumentar el margen inferior */
-        }
-
-        .my-4 {
-            margin: 2rem 0; /* Ajustar el margen vertical */
-        }
-
-        .d-grid {
-            margin-top: 1rem; /* Añadir margen superior al botón */
-        }
-    </style>
+    </script>
+    <!-- Font Awesome opcional si se usan íconos -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
 </head>
-<body>
+
+<body class="bg-gray-50 font-sans text-gray-700">
 
 <!-- Header -->
-<header class="bg-white shadow-sm">
-    <nav class="navbar navbar-expand-lg navbar-light container py-3">
-        <a class="navbar-brand d-flex align-items-center fw-bold text-primary" href="/inicio">
-            <div class="bg-primary text-white fw-bold rounded-circle d-flex align-items-center justify-content-center me-2" style="width: 32px; height: 32px;">S</div>
-            STARTUP HUB
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-            <ul class="navbar-nav fw-semibold">
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/inicio}">Inicio</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/convocatorias}">Convocatorias</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/sobreNosotros}">Sobre nosotros</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/contacto}">Contacto</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
-</header>
+<header th:replace="~{layout/layoutH :: header}"></header>
 
-<!-- Página de contacto -->
-<section class="min-vh-100 d-flex align-items-center justify-content-center px-3 py-5">
-    <div class="register-container">
-        <h3 class="fw-bold text-primary text-center mb-1">Contáctanos</h3>
-        <p class="text-center text-muted mb-4">¿Tienes preguntas o necesitas más información? Completa el formulario y nos pondremos en contacto contigo.</p>
+<!-- Formulario de contacto -->
+<section class="min-h-screen flex items-center justify-center px-4 py-10">
+    <div class="bg-white rounded-2xl shadow-md w-full max-w-md p-8">
+        <h3 class="text-3xl font-bold text-startup-blue text-center mb-2">Contáctanos</h3>
+        <p class="text-center text-gray-600 mb-6 text-base">
+            ¿Tienes preguntas o necesitas más información? Completa el formulario y nos pondremos en contacto contigo.
+        </p>
 
-        <form th:action="@{/contacto}" method="post">
-            <div class="mb-3">
-                <label for="nombre" class="form-label fw-semibold">Nombre *</label>
-                <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Tu nombre" required>
+        <form th:action="@{/contacto}" method="post" class="space-y-5">
+            <div>
+                <label for="nombre" class="block text-sm font-semibold mb-1">Nombre *</label>
+                <input type="text" id="nombre" name="nombre" placeholder="Tu nombre"
+                       class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-startup-blue"
+                       required>
             </div>
-            <div class="mb-3">
-                <label for="email" class="form-label fw-semibold">Correo electrónico *</label>
-                <input type="email" class="form-control" id="email" name="email" placeholder="correo@ejemplo.com" required>
+
+            <div>
+                <label for="email" class="block text-sm font-semibold mb-1">Correo electrónico *</label>
+                <input type="email" id="email" name="email" placeholder="correo@ejemplo.com"
+                       class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-startup-blue"
+                       required>
             </div>
-            <div class="mb-3">
-                <label for="asunto" class="form-label fw-semibold">Asunto *</label>
-                <input type="text" class="form-control" id="asunto" name="asunto" placeholder="Asunto de tu mensaje" required>
+
+            <div>
+                <label for="asunto" class="block text-sm font-semibold mb-1">Asunto *</label>
+                <input type="text" id="asunto" name="asunto" placeholder="Asunto de tu mensaje"
+                       class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-startup-blue"
+                       required>
             </div>
-            <div class="mb-3">
-                <label for="mensaje" class="form-label fw-semibold">Mensaje *</label>
-                <textarea class="form-control" id="mensaje" name="mensaje" rows="4" placeholder="Escribe tu mensaje aquí..." required></textarea>
+
+            <div>
+                <label for="mensaje" class="block text-sm font-semibold mb-1">Mensaje *</label>
+                <textarea id="mensaje" name="mensaje" rows="4" placeholder="Escribe tu mensaje aquí..."
+                          class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-startup-blue"
+                          required></textarea>
             </div>
-            <div class="d-grid mb-4">
-                <button type="submit" class="btn btn-primary rounded-pill py-2 fw-bold">ENVIAR MENSAJE</button>
+
+            <div>
+                <button type="submit"
+                        class="w-full bg-startup-blue hover:bg-indigo-600 text-white font-bold py-2.5 rounded-full transition">
+                    ENVIAR MENSAJE
+                </button>
             </div>
         </form>
 
-        <p class="text-center small">¿Ya tienes una cuenta?
-            <a href="/login" class="text-decoration-none text-primary">Iniciar sesión</a>
+        <p class="text-center text-sm mt-6 text-gray-600">¿Ya tienes una cuenta?
+            <a href="/login" class="text-startup-blue hover:underline">Iniciar sesión</a>
         </p>
     </div>
 </section>
 
-<!-- Bootstrap JS -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

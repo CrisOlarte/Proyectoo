@@ -1,5 +1,5 @@
 package com.usta.proyectoo.security;
-
+/*
 import com.usta.proyectoo.entities.Rol;
 import com.usta.proyectoo.entities.Usuario;
 import com.usta.proyectoo.models.services.UsuarioServices;
@@ -41,4 +41,4 @@ public class JpaUserDetailsService implements UserDetailsService {
     private Collection<? extends GrantedAuthority> mapearAutoridadesRol(Rol rol) {
         return List.of(new SimpleGrantedAuthority("ROLE_" + rol.getRol()));
     }
-}
+}*/
