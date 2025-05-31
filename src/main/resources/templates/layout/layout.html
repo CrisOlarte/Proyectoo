@@ -1,35 +1,53 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
-<head>
-  <meta charset="UTF-8">
-  <title th:replace="${title}">Startup Hub</title>
+<head th:fragment="headv">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title th:text="${title}">Startup Hub</title>
+  <link rel="icon" type="image/png" href="/images/Logo.png" sizes="32x32" />
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="icon" type="image/png" href="/images/Logo.png" sizes="32x32">
+
+  <!-- Tailwind config personalizado si quieres agregar -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'startup-blue': '#6366f1',
+          }
+        }
+      }
+    }
+  </script>
 </head>
 
-<body class="bg-gray-50 text-gray-900">
+<body class="bg-gray-50 text-gray-900 font-inter">
 
-<div class="flex min-h-screen">
-  <!-- Sidebar -->
-  <aside class="w-64 bg-white shadow-lg">
-    <div class="p-6 font-bold text-xl text-startup-blue">STARTUP HUB</div>
-    <nav class="flex flex-col space-y-4 p-6">
-      <a th:href="@{/dashboard}" class="text-gray-700 hover:text-blue-600">Dashboard</a>
-      <a th:href="@{/usuarios/listar}" class="text-gray-700 hover:text-blue-600">Usuarios</a>
-      <a th:href="@{/convocatorias/listar}" class="text-gray-700 hover:text-blue-600">Convocatorias</a>
-      <a th:href="@{/startups/listar}" class="text-gray-700 hover:text-blue-600">Startup</a>
-      <a th:href="@{/evaluaciones/listar}" class="text-gray-700 hover:text-blue-600">Evaluaciones</a>
-    </nav>
-    <div class="absolute bottom-6 left-6">
-      <div class="text-sm font-bold">Admin</div>
-      <div class="text-xs text-gray-500">admin@startup.com</div>
-    </div>
-  </aside>
+<!-- Sidebar -->
+<aside th:fragment="sidebar" class="w-64 bg-white shadow-lg relative min-h-screen">
+  <div class="p-6 font-bold text-xl text-startup-blue">STARTUP HUB</div>
+  <nav class="flex flex-col space-y-4 p-6">
+    <a th:href="@{/dashboard}" class="text-gray-700 hover:text-blue-600">Dashboard</a>
+    <a th:href="@{/usuarios/listar}" class="text-gray-700 hover:text-blue-600">Usuarios</a>
+    <a th:href="@{/convocatorias/listar}" class="text-gray-700 hover:text-blue-600">Convocatorias</a>
+    <a th:href="@{/startups/listar}" class="text-gray-700 hover:text-blue-600">Startup</a>
+    <a th:href="@{/evaluaciones/listar}" class="text-gray-700 hover:text-blue-600">Evaluaciones</a>
+  </nav>
+  <div class="absolute bottom-6 left-6">
+    <div class="text-sm font-bold">Admin</div>
+    <div class="text-xs text-gray-500">admin@startup.com</div>
+  </div>
+</aside>
 
-  <!-- Main content -->
-  <main class="flex-1 p-10">
-    <div th:insert="~{::content}"></div>
-  </main>
+<!-- Layout principal con sidebar y contenido -->
+<div th:fragment="layout(title)">
+  <div class="flex min-h-screen">
+    <div th:replace="~{::sidebar}"></div>
+
+    <main class="flex-1 p-10 bg-white rounded-lg shadow-md m-6">
+      <div th:replace="~{::content}"></div>
+    </main>
+  </div>
 </div>
 
 </body>
