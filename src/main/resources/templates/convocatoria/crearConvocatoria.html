@@ -1,10 +1,84 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout/layout :: head}">
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nueva Convocatoria</title>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
 </head>
-<body>
+<body class="bg-gray-100 h-full font-sans">
 
+<!-- CONTENIDO PRINCIPAL -->
+<main class="max-w-5xl mx-auto px-6 py-12 space-y-10">
+
+    <!-- Encabezado -->
+    <div class="flex items-center gap-4">
+        <i class="ph ph-megaphone text-startup-blue text-4xl"></i>
+        <div>
+            <h1 class="text-4xl font-extrabold text-startup-blue">Nueva Convocatoria</h1>
+            <p class="text-gray-600 text-sm mt-1">Completa los siguientes campos para registrar una nueva convocatoria.</p>
+        </div>
+    </div>
+
+    <!-- Formulario -->
+    <div class="bg-white border border-blue-100 shadow-xl rounded-3xl p-10">
+        <form th:action="@{/convocatorias/guardar}" th:object="${convocatoria}" method="post" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+            <input type="hidden" th:field="*{idConvocatoria}" />
+
+            <!-- Título -->
+            <div class="md:col-span-2">
+                <label for="titulo" class="block text-sm font-semibold text-gray-700 mb-2">Título</label>
+                <input type="text" id="titulo" th:field="*{titulo}" required
+                       class="w-full px-5 py-3 border border-gray-300 rounded-xl bg-gray-50 focus:ring-4 focus:ring-startup-blue/30 focus:border-startup-blue outline-none transition" />
+            </div>
+
+            <!-- Descripción -->
+            <div class="md:col-span-2">
+                <label for="descripcion" class="block text-sm font-semibold text-gray-700 mb-2">Descripción</label>
+                <textarea id="descripcion" th:field="*{descripcion}" rows="5" required
+                          class="w-full px-5 py-3 border border-gray-300 rounded-xl bg-gray-50 focus:ring-4 focus:ring-startup-blue/30 focus:border-startup-blue outline-none transition resize-none"></textarea>
+            </div>
+
+            <!-- Fecha de inicio -->
+            <div>
+                <label for="fechaInicio" class="block text-sm font-semibold text-gray-700 mb-2">Fecha de Inicio</label>
+                <input type="date" id="fechaInicio" th:field="*{fechaInicio}" required
+                       class="w-full px-5 py-3 border border-gray-300 rounded-xl bg-gray-50 focus:ring-4 focus:ring-startup-blue/30 focus:border-startup-blue outline-none transition" />
+            </div>
+
+            <!-- Fecha de cierre -->
+            <div>
+                <label for="fechaCierre" class="block text-sm font-semibold text-gray-700 mb-2">Fecha de Cierre</label>
+                <input type="date" id="fechaCierre" th:field="*{fechaCierre}" required
+                       class="w-full px-5 py-3 border border-gray-300 rounded-xl bg-gray-50 focus:ring-4 focus:ring-startup-blue/30 focus:border-startup-blue outline-none transition" />
+            </div>
+
+            <!-- Estado -->
+            <div class="md:col-span-2">
+                <label for="estado" class="block text-sm font-semibold text-gray-700 mb-2">Estado</label>
+                <select id="estado" th:field="*{estado}"
+                        class="w-full px-5 py-3 border border-gray-300 rounded-xl bg-gray-50 focus:ring-4 focus:ring-startup-blue/30 focus:border-startup-blue outline-none transition">
+                    <option th:value="true">Activa</option>
+                    <option th:value="false">Inactiva</option>
+                </select>
+            </div>
+
+            <!-- Botones -->
+            <div class="md:col-span-2 flex justify-end gap-4 pt-4">
+                <button type="button"
+                        onclick="history.back()"
+                        class="px-6 py-3 rounded-xl bg-red-500 text-white font-semibold hover:bg-red-600 transition flex items-center gap-2">
+                    <i class="ph ph-x-circle text-lg"></i> Cancelar
+                </button>
+                <button type="submit"
+                        class="px-6 py-3 rounded-xl bg-startup-blue text-white font-semibold hover:bg-indigo-700 shadow-md transition flex items-center gap-2">
+                    <i class="ph ph-floppy-disk text-lg"></i> Guardar Convocatoria
+                </button>
+            </div>
+
+        </form>
+    </div>
+</main>
 </body>
 </html>

@@ -1,44 +1,50 @@
-INSERT INTO rol (id_rol, activo, descripcion, nombre, rol) VALUES
-(1, true, 'Administrador del sistema', 'Admin', 'ADMIN'),
-(2, true, 'Usuario emprendedor', 'Emprendedor', 'EMPRENDEDOR'),
-(3, true, 'Evaluador técnico', 'Evaluador', 'EVALUADOR');
-INSERT INTO usuario (id_usuario, nombre, apellido, correo, contrasena, telefono, estado_usu, fecha_reg, ultimo_acceso, id_rol) VALUES
-(1, 'Carlos', 'Pérez', 'carlos@ejemplo.com', '1234', '3000000001', true, '2024-01-01', '2024-05-28 10:00:00', 1),
-(2, 'Lucía', 'Gómez', 'lucia@ejemplo.com', 'abcd', '3000000002', true, '2024-01-05', '2024-05-28 11:00:00', 2),
-(3, 'Juan', 'Rodríguez', 'juan@ejemplo.com', 'xyz', '3000000003', true, '2024-02-01', '2024-05-28 12:00:00', 2),
-(4, 'Ana', 'Martínez', 'ana@ejemplo.com', '4567', '3000000004', true, '2024-02-15', '2024-05-28 13:00:00', 2),
-(5, 'Mario', 'López', 'mario@ejemplo.com', 'hola123', '3000000005', true, '2024-03-01', '2024-05-28 14:00:00', 3),
-(6, 'Sofía', 'Torres', 'sofia@ejemplo.com', 'pass', '3000000006', true, '2024-03-15', '2024-05-28 15:00:00', 3),
-(7, 'Diego', 'Morales', 'diego@ejemplo.com', 'clave', '3000000007', true, '2024-04-01', '2024-05-28 16:00:00', 2),
-(8, 'Laura', 'Vargas', 'laura@ejemplo.com', 'qwerty', '3000000008', true, '2024-04-10', '2024-05-28 17:00:00', 2),
-(9, 'Felipe', 'Ruiz', 'felipe@ejemplo.com', 'asdf', '3000000009', true, '2024-04-20', '2024-05-28 18:00:00', 2),
-(10, 'Camila', 'Suárez', 'camila@ejemplo.com', 'zxcv', '3000000010', true, '2024-05-01', '2024-05-28 19:00:00', 2);
-INSERT INTO startup (id_startup, nombre, descripcion, sector, ubicacion, valoracion, fecha_creacion, estado) VALUES
-(1, 'AgroTech', 'Tecnología para el agro', 'Agrotech', 'Boyacá', 150000.00, '2022-01-15', true),
-(2, 'EcoLuz', 'Energía limpia para todos', 'Energía', 'Cundinamarca', 300000.00, '2021-12-10', true),
-(3, 'MedConnect', 'Plataforma médica', 'Salud', 'Bogotá', 250000.00, '2023-03-05', true),
-(4, 'EduLink', 'Educación en línea', 'Educación', 'Medellín', 180000.00, '2022-07-20', true),
-(5, 'FoodChain', 'Blockchain para alimentos', 'Tecnología', 'Cali', 220000.00, '2023-01-10', true),
-(6, 'BioFuel', 'Combustibles biodegradables', 'Energía', 'Pasto', 270000.00, '2022-11-01', true),
-(7, 'SafeNet', 'Ciberseguridad empresarial', 'Tecnología', 'Tunja', 320000.00, '2023-02-12', true),
-(8, 'GreenLife', 'Consultoría ambiental', 'Consultoría', 'Villavicencio', 200000.00, '2022-04-25', true),
-(9, 'FarmApp', 'Gestión agrícola móvil', 'Agrotech', 'Ipiales', 230000.00, '2023-06-15', true),
-(10, 'WaterSense', 'Monitoreo hídrico', 'Medio ambiente', 'Cartagena', 260000.00, '2022-09-09', true);
-INSERT INTO convocatoria (id_convocatoria, titulo, descripcion, estado, fecha_inicio, fecha_cierre) VALUES
-(1, 'Convocatoria 2024 A', 'Para startups en energía', true, '2024-01-01', '2024-06-30'),
-(2, 'Convocatoria 2024 B', 'Startups de impacto ambiental', true, '2024-03-01', '2024-08-31'),
-(3, 'Convocatoria Especial', 'Para agrotecnología y salud', true, '2024-02-15', '2024-07-15');
-INSERT INTO evaluacion (id_evaluacion, comentario, fecha_eval, puntaje, id_usuario, id_startup, id_convocatoria) VALUES
-(1, 'Excelente propuesta', '2024-04-01', 90.5, 5, 1, 1),
-(2, 'Muy innovadora', '2024-04-02', 88.0, 6, 2, 1),
-(3, 'Viabilidad técnica sólida', '2024-04-03', 85.0, 5, 3, 2),
-(4, 'Impacto ambiental claro', '2024-04-04', 92.0, 6, 4, 2),
-(5, 'Falta madurez de negocio', '2024-04-05', 70.0, 5, 5, 3),
-(6, 'Excelente equipo', '2024-04-06', 95.0, 6, 6, 1),
-(7, 'Tecnología destacada', '2024-04-07', 89.5, 5, 7, 1),
-(8, 'Falta evidencia de mercado', '2024-04-08', 72.5, 6, 8, 2),
-(9, 'Gran potencial de escalabilidad', '2024-04-09', 93.0, 5, 9, 3),
-(10, 'Evaluación positiva general', '2024-04-10', 90.0, 6, 10, 2);
+INSERT INTO rol (activo, descripcion, nombre, rol) VALUES
+(true, 'Administrador del sistema', 'Admin', 'ADMIN'),
+(true, 'Usuario emprendedor', 'Emprendedor', 'EMPRENDEDOR'),
+(true, 'Evaluador técnico', 'Evaluador', 'EVALUADOR');
+
+INSERT INTO usuario (nombre, apellido, correo, contrasena, telefono, estado_usu, fecha_reg, ultimo_acceso, id_rol) VALUES
+('Carlos', 'Pérez', 'carlos@ejemplo.com', '1234', '3000000001', true, '2024-01-01', '2024-05-28 10:00:00', 1),
+('Lucía', 'Gómez', 'lucia@ejemplo.com', 'abcd', '3000000002', true, '2024-01-05', '2024-05-28 11:00:00', 2),
+('Juan', 'Rodríguez', 'juan@ejemplo.com', 'xyz', '3000000003', true, '2024-02-01', '2024-05-28 12:00:00', 2),
+('Ana', 'Martínez', 'ana@ejemplo.com', '4567', '3000000004', true, '2024-02-15', '2024-05-28 13:00:00', 2),
+('Mario', 'López', 'mario@ejemplo.com', 'hola123', '3000000005', true, '2024-03-01', '2024-05-28 14:00:00', 3),
+('Sofía', 'Torres', 'sofia@ejemplo.com', 'pass', '3000000006', true, '2024-03-15', '2024-05-28 15:00:00', 3),
+('Diego', 'Morales', 'diego@ejemplo.com', 'clave', '3000000007', true, '2024-04-01', '2024-05-28 16:00:00', 2),
+('Laura', 'Vargas', 'laura@ejemplo.com', 'qwerty', '3000000008', true, '2024-04-10', '2024-05-28 17:00:00', 2),
+('Felipe', 'Ruiz', 'felipe@ejemplo.com', 'asdf', '3000000009', true, '2024-04-20', '2024-05-28 18:00:00', 2),
+('Camila', 'Suárez', 'camila@ejemplo.com', 'zxcv', '3000000010', true, '2024-05-01', '2024-05-28 19:00:00', 2);
+
+INSERT INTO startup (nombre, descripcion, sector, ubicacion, valoracion, fecha_creacion, estado) VALUES
+('AgroTech', 'Tecnología para el agro', 'Agrotech', 'Boyacá', 150000.00, '2022-01-15', true),
+('EcoLuz', 'Energía limpia para todos', 'Energía', 'Cundinamarca', 300000.00, '2021-12-10', true),
+('MedConnect', 'Plataforma médica', 'Salud', 'Bogotá', 250000.00, '2023-03-05', true),
+('EduLink', 'Educación en línea', 'Educación', 'Medellín', 180000.00, '2022-07-20', true),
+('FoodChain', 'Blockchain para alimentos', 'Tecnología', 'Cali', 220000.00, '2023-01-10', true),
+('BioFuel', 'Combustibles biodegradables', 'Energía', 'Pasto', 270000.00, '2022-11-01', true),
+('SafeNet', 'Ciberseguridad empresarial', 'Tecnología', 'Tunja', 320000.00, '2023-02-12', true),
+('GreenLife', 'Consultoría ambiental', 'Consultoría', 'Villavicencio', 200000.00, '2022-04-25', true),
+('FarmApp', 'Gestión agrícola móvil', 'Agrotech', 'Ipiales', 230000.00, '2023-06-15', true),
+('WaterSense', 'Monitoreo hídrico', 'Medio ambiente', 'Cartagena', 260000.00, '2022-09-09', true);
+
+INSERT INTO convocatoria (titulo, descripcion, estado, fecha_inicio, fecha_cierre) VALUES
+('Convocatoria 2024 A', 'Para startups en energía', true, '2024-01-01', '2024-06-30'),
+('Convocatoria 2024 B', 'Startups de impacto ambiental', true, '2024-03-01', '2024-08-31'),
+('Convocatoria Especial', 'Para agrotecnología y salud', true, '2024-02-15', '2024-07-15');
+
+INSERT INTO evaluacion (comentario, fecha_eval, puntaje, id_usuario, id_startup, id_convocatoria) VALUES
+('Excelente propuesta', '2024-04-01', 90.5, 5, 1, 1),
+('Muy innovadora', '2024-04-02', 88.0, 6, 2, 1),
+('Viabilidad técnica sólida', '2024-04-03', 85.0, 5, 3, 2),
+('Impacto ambiental claro', '2024-04-04', 92.0, 6, 4, 2),
+('Falta madurez de negocio', '2024-04-05', 70.0, 5, 5, 3),
+('Excelente equipo', '2024-04-06', 95.0, 6, 6, 1),
+('Tecnología destacada', '2024-04-07', 89.5, 5, 7, 1),
+('Falta evidencia de mercado', '2024-04-08', 72.5, 6, 8, 2),
+('Gran potencial de escalabilidad', '2024-04-09', 93.0, 5, 9, 3),
+('Evaluación positiva general', '2024-04-10', 90.0, 6, 10, 2);
+
+-- Esta tabla relaciona usuarios y startups, no se debe quitar id_usuario ni id_startup
 INSERT INTO usuarios_startups (id_usuario, id_startup) VALUES
 (2, 1),
 (3, 2),

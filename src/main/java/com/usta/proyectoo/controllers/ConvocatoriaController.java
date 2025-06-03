@@ -26,7 +26,7 @@ public class ConvocatoriaController {
     public String mostrarFormularioRegistro(Model model) {
         model.addAttribute("convocatoria", new Convocatoria());
         model.addAttribute("activePage", "convocatorias"); // ✅
-        return "convocatoria/crear";
+        return "convocatoria/crearConvocatoria";
     }
 
     // Guardar convocatoria
@@ -37,7 +37,7 @@ public class ConvocatoriaController {
         model.addAttribute("activePage", "convocatorias"); // ✅
 
         if (result.hasErrors()) {
-            return "convocatoria/crear";
+            return "convocatoria/crearConvocatoria";
         }
 
         convocatoriaServices.save(convocatoria);

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 
@@ -17,20 +18,18 @@ public class UsuarioController {
     @Autowired
     private UsuarioServices usuarioServices;
 
-    // Mostrar formulario para crear usuario
     @GetMapping("/crear")
     public String mostrarFormularioRegistro(Model model) {
         model.addAttribute("usuario", new Usuario());
-        model.addAttribute("activePage", "usuarios"); // 👈 Añadido
+        model.addAttribute("activePage", "usuarios");
         return "usuarios/crearUsuario";
     }
 
-    // Guardar un nuevo usuario
     @PostMapping("/guardar")
     public String guardarUsuario(@Valid @ModelAttribute("usuario") Usuario usuario,
                                  BindingResult result,
                                  Model model) {
-        model.addAttribute("activePage", "usuarios"); // 👈 Añadido
+        model.addAttribute("activePage", "usuarios");
 
         if (result.hasErrors()) {
             return "usuarios/crearUsuario";
@@ -40,19 +39,60 @@ public class UsuarioController {
         return "redirect:/usuarios/listar";
     }
 
-    // Listar todos los usuarios
-    @GetMapping("/listar")
+    @GetMapping({"/listar", ""})
     public String listarUsuarios(Model model) {
         model.addAttribute("usuarios", usuarioServices.findAll());
-        model.addAttribute("activePage", "usuarios"); // 👈 Añadido
+        model.addAttribute("activePage", "usuarios");
         return "usuarios/listarUsuarios";
     }
 
-    // Vista principal de gestión de usuarios
-    @GetMapping
-    public String verGestionUsuarios(Model model) {
-        model.addAttribute("usuarios", usuarioServices.findAll());
-        model.addAttribute("activePage", "usuarios"); // 👈 Añadido
-        return "usuarios/listarUsuarios";
+    @GetMapping("/editar/{id}")
+    public String mostrarFormularioEditar(@PathVariable("id") Long idUsuario,
+                                          Model model,
+                                          RedirectAttributes redirectAttributes) {
+        Usuario usuario = usuarioServices.findById(idUsuario);
+        if (usuario == null) {
+            redirectAttributes.addFlashAttribute("error", "Usuario no encontrado");
+            return "redirect:/usuarios/listar";
+        }
+        model.addAttribute("usuario", usuario);
+        model.addAttribute("activePage", "usuarios");
+        model.addAttribute("title", "Editar Usuario");
+        return "usuarios/editarUsuario";
     }
+
+    @PostMapping("/editar/{id}")
+    public String guardarCambiosEditar(@PathVariable("id") Long idUsuario,
+                                       @Valid @ModelAttribute("usuario") Usuario usuario,
+                                       BindingResult result,
+                                       RedirectAttributes redirectAttributes,
+                                       Model model) {
+        model.addAttribute("activePage", "usuarios");
+        model.addAttribute("title", "Editar Usuario");
+
+        if (result.hasErrors()) {
+            return "usuarios/editarUsuario";
+        }
+
+        usuario.setIdUsuario(idUsuario);
+        usuarioServices.actualizar(usuario);
+
+        redirectAttributes.addFlashAttribute("success", "Usuario actualizado con éxito");
+        return "redirect:/usuarios/listar";
+    }
+
+    @GetMapping("/eliminar/{id}")
+    public String eliminarUsuario(@PathVariable("id") Long idUsuario,
+                                  RedirectAttributes redirectAttributes) {
+        Usuario usuario = usuarioServices.findById(idUsuario);
+        if (usuario != null) {
+            usuarioServices.deleteById(usuario);
+            redirectAttributes.addFlashAttribute("success", "Usuario eliminado con éxito");
+        } else {
+            redirectAttributes.addFlashAttribute("error", "Usuario no encontrado");
+        }
+        return "redirect:/usuarios/listar";
+    }
+
+
 }
