@@ -1,36 +1,82 @@
-<!DOCTYPE html> <html xmlns:th="http://www.thymeleaf.org" lang="es"> <head> <meta charset="UTF-8"> <title>Lista de Evaluaciones</title> <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.4.1/dist/tailwind.min.css" rel="stylesheet"> </head> <body class="bg-gray-100 min-h-screen p-8"> <div class="max-w-6xl mx-auto bg-white shadow-lg rounded-xl p-6"> <h1 class="text-3xl font-bold mb-6 text-center text-indigo-600">Listado de Evaluaciones</h1>
-    php-template
-    Copiar
-    Editar
-    <div class="overflow-x-auto">
-        <table class="min-w-full table-auto border-collapse border border-gray-300">
-            <thead class="bg-indigo-100">
-            <tr>
-                <th class="border px-4 py-2">ID</th>
-                <th class="border px-4 py-2">Comentario</th>
-                <th class="border px-4 py-2">Puntaje</th>
-                <th class="border px-4 py-2">Fecha</th>
-                <th class="border px-4 py-2">Startup</th>
-                <th class="border px-4 py-2">Usuario</th>
-                <th class="border px-4 py-2">Convocatoria</th>
-                <th class="border px-4 py-2">Acciones</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="evaluacion : ${evaluaciones}" class="hover:bg-gray-50">
-                <td class="border px-4 py-2" th:text="${evaluacion.idEvaluacion}">1</td>
-                <td class="border px-4 py-2" th:text="${evaluacion.comentario}">Buen trabajo</td>
-                <td class="border px-4 py-2" th:text="${evaluacion.puntaje}">4.5</td>
-                <td class="border px-4 py-2" th:text="${#dates.format(evaluacion.fechaEvaluacion, 'yyyy-MM-dd')}">2025-05-31</td>
-                <td class="border px-4 py-2" th:text="${evaluacion.startup.nombreStartup}">Mi Startup</td>
-                <td class="border px-4 py-2" th:text="${evaluacion.usuario.nombreUsuario}">Usuario</td>
-                <td class="border px-4 py-2" th:text="${evaluacion.convocatoria.titulo}">Convocatoria X</td>
-                <td class="border px-4 py-2">
-                    <a th:href="@{/evaluacion/editar/{id}(id=${evaluacion.idEvaluacion})}" class="text-blue-600 hover:underline">Editar</a>
-                    <a th:href="@{/evaluacion/eliminar/{id}(id=${evaluacion.idEvaluacion})}" class="text-red-600 hover:underline" onclick="return confirm('¿Estás seguro de eliminar esta evaluación?')">Eliminar</a>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-</div> </body> </html>
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{layout/layout :: head}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Evaluaciones</title>
+</head>
+
+<body class="bg-gray-50 h-full">
+<div class="flex h-screen overflow-hidden">
+
+    <!-- Sidebar -->
+    <aside th:replace="~{layout/layout :: sidebar}"></aside>
+
+    <!-- Contenido principal -->
+    <main class="flex-1 h-full overflow-y-auto p-8 bg-gray-50">
+
+        <!-- Header -->
+        <div class="flex justify-between items-center mb-8">
+            <div>
+                <h1 class="text-3xl font-bold text-startup-blue mb-2">Gestión de Evaluaciones</h1>
+                <p class="text-gray-600">Administra y revisa las evaluaciones realizadas por los usuarios</p>
+            </div>
+            <div class="bg-startup-orange text-white px-6 py-3 rounded-full font-bold text-sm">
+                Administrador
+            </div>
+        </div>
+
+        <!-- Search and Actions Header -->
+        <div class="bg-white shadow-md rounded-2xl p-6 mb-6">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-xl font-bold text-gray-800">Lista de Evaluaciones</h2>
+            </div>
+
+            <div class="flex gap-4 items-center">
+                <input type="text"
+                       class="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-startup-blue focus:border-transparent"
+                       placeholder="🔍 Buscar evaluaciones...">
+
+                <select class="px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-startup-blue focus:border-transparent min-w-[160px]">
+                    <option>Todos los estados</option>
+                    <option>Activa</option>
+                    <option>Pendiente</option>
+                    <option>Cerrada</option>
+                </select>
+
+            </div>
+        </div>
+        <!-- Tabla de Evaluaciones -->
+        <div class="bg-white shadow-md rounded-2xl overflow-hidden">
+            <div class="grid grid-cols-8 gap-4 px-6 py-4 bg-gray-100 font-semibold text-gray-700 text-sm border-b">
+                <div class="col-span-1">Fecha</div>
+                <div class="col-span-1">Puntaje</div>
+                <div class="col-span-2">Convocatoria</div>
+                <div class="col-span-2">Startup</div>
+                <div class="col-span-1">Usuario</div>
+                <div class="col-span-1">Acciones</div>
+            </div>
+
+            <div class="divide-y divide-gray-100">
+                <div th:each="eval : ${evaluaciones}" class="grid grid-cols-8 gap-4 px-6 py-5 hover:bg-gray-50 items-center">
+                    <div class="col-span-1 text-sm text-gray-700" th:text="${#dates.format(eval.fechaEvaluacion, 'dd MMM yyyy')}">10 May 2025</div>
+                    <div class="col-span-1 text-sm font-semibold text-gray-800" th:text="${eval.puntaje}">85.0</div>
+                    <div class="col-span-2 text-sm text-gray-600" th:text="${eval.convocatoria.titulo}">Convocatoria ABC</div>
+                    <div class="col-span-2 text-sm text-gray-600" th:text="${eval.startup.nombre}">Startup XYZ</div>
+                    <div class="col-span-1 text-sm text-gray-600" th:text="${eval.usuario.nombre + ' ' + eval.usuario.apellido}">Ana López</div>
+                    <div class="col-span-1 flex gap-2">
+                        <a th:href="@{/evaluaciones/ver/{id}(id=${eval.idEvaluacion})}"
+                           class="bg-startup-blue text-white px-3 py-1 rounded text-xs font-semibold hover:bg-indigo-700 transition">Ver</a>
+                        <a th:href="@{/evaluaciones/eliminar/{id}(id=${eval.idEvaluacion})}"
+                           class="bg-red-500 text-white px-3 py-1 rounded text-xs font-semibold hover:bg-red-600 transition"
+                           onclick="return confirm('¿Estás seguro de eliminar esta evaluación?')">Eliminar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+</div>
+</body>
+</html>
