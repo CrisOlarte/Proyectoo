@@ -1,114 +1,237 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org">
-
-<head th:replace="~{layout/layout :: head}"></head>
-
+<html lang="es">
+<head th:replace="~{layout/layout :: head}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Startup Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'startup-blue': '#6366f1',
+                        'startup-orange': '#f59e0b'
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+</head>
 <body class="bg-gray-50 font-sans">
-
-<!-- Estructura principal con sidebar y contenido -->
-<div class="flex min-h-screen">
-
-    <!-- Sidebar -->
+<div class="flex h-screen overflow-hidden">
     <aside th:replace="~{layout/layout :: sidebar}"></aside>
+    <!-- Main Content -->
+    <main class="flex-1 overflow-y-auto">
+        <!-- Header -->
+        <header class="border-b border-gray-100 px-4 py-4 md:px-8 md:py-6">
+            <div class="flex justify-between items-center">
+                <div>
+                    <h1 class="text-2xl md:text-3xl font-bold text-startup-blue mb-1">Dashboard</h1>
+                    <p class="text-gray-600">Bienvenido al panel de control de Startup Hub</p>
+                </div>
+                <div class="flex items-center gap-4">
+                    <div class="bg-startup-orange text-white px-3 py-1 rounded-full font-semibold text-sm">
+                        Administrador
+                    </div>
+                    <div class="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center">
+                        <i class="fas fa-user text-gray-600"></i>
+                    </div>
+                </div>
+            </div>
+        </header>
 
-    <!-- Contenido principal -->
-    <main class="flex-1 p-8 overflow-y-auto">
-
-
-        <!-- Contenedor de contenido -->
-        <div class="bg-white shadow-md rounded-2xl p-8 space-y-8">
-
-            <!-- Título principal -->
-            <header>
-                <h1 class="text-3xl font-bold text-startup-blue mb-2">Panel Administrativo</h1>
-                <p class="text-gray-600">Administra convocatorias, usuarios, startups y procesos de evaluación desde un solo lugar.</p>
-            </header>
-
+        <!-- Dashboard Content -->
+        <div class="p-4 md:p-8 space-y-4 md:space-y-8">
             <!-- Stats Cards -->
-            <div class="grid md:grid-cols-3 gap-6 mb-8">
-                <div class="card-hover bg-white p-6 rounded-2xl shadow-md border-l-4 border-startup-green">
-                    <div class="flex justify-between items-center mb-4">
-                        <div class="text-sm font-semibold text-gray-600">Convocatorias Activas</div>
-                        <div class="text-2xl">📢</div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+                <div class="bg-white rounded-2xl p-4 md:p-6 shadow-sm border border-gray-100">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-gray-500 text-sm font-medium">Total Usuarios</p>
+                            <p class="text-2xl md:text-3xl font-bold text-gray-900 mt-1">1,248</p>
+                            <p class="text-green-600 text-sm mt-2">
+                                <i class="fas fa-arrow-up"></i> +12% vs mes anterior
+                            </p>
+                        </div>
+                        <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
+                            <i class="fas fa-users text-startup-blue text-xl"></i>
+                        </div>
                     </div>
-                    <div class="text-3xl font-bold text-gray-800 mb-2">12</div>
-                    <div class="text-sm font-semibold text-startup-green">+3 este mes</div>
                 </div>
 
-                <div class="card-hover bg-white p-6 rounded-2xl shadow-md border-l-4 border-startup-orange">
-                    <div class="flex justify-between items-center mb-4">
-                        <div class="text-sm font-semibold text-gray-600">Total Startups Postuladas</div>
-                        <div class="text-2xl">🚀</div>
+                <div class="bg-white rounded-2xl p-4 md:p-6 shadow-sm border border-gray-100">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-gray-500 text-sm font-medium">Startups Activas</p>
+                            <p class="text-2xl md:text-3xl font-bold text-gray-900 mt-1">120</p>
+                            <p class="text-green-600 text-sm mt-2">
+                                <i class="fas fa-arrow-up"></i> +8% vs mes anterior
+                            </p>
+                        </div>
+                        <div class="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center">
+                            <i class="fas fa-rocket text-startup-orange text-xl"></i>
+                        </div>
                     </div>
-                    <div class="text-3xl font-bold text-gray-800 mb-2">186</div>
-                    <div class="text-sm font-semibold text-startup-orange">+47 esta semana</div>
                 </div>
 
-                <div class="card-hover bg-white p-6 rounded-2xl shadow-md border-l-4 border-startup-blue">
-                    <div class="flex justify-between items-center mb-4">
-                        <div class="text-sm font-semibold text-gray-600">En Evaluación</div>
-                        <div class="text-2xl">⏳</div>
+                <div class="bg-white rounded-2xl p-4 md:p-6 shadow-sm border border-gray-100">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-gray-500 text-sm font-medium">Mentores</p>
+                            <p class="text-2xl md:text-3xl font-bold text-gray-900 mt-1">50</p>
+                            <p class="text-blue-600 text-sm mt-2">
+                                <i class="fas fa-minus"></i> Sin cambios
+                            </p>
+                        </div>
+                        <div class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center">
+                            <i class="fas fa-user-tie text-green-600 text-xl"></i>
+                        </div>
                     </div>
-                    <div class="text-3xl font-bold text-gray-800 mb-2">24</div>
-                    <div class="text-sm font-semibold text-startup-blue">Pendientes</div>
                 </div>
-            </div>
-            <!-- Botones de acción -->
-            <div class="flex gap-4">
-                <a href="#" class="bg-startup-blue text-white px-4 py-2 rounded-lg font-semibold hover:bg-indigo-700 transition">Gestionar usuarios</a>
-                <a href="#" class="bg-startup-green text-white px-4 py-2 rounded-lg font-semibold hover:bg-green-600 transition">Ver convocatorias</a>
-            </div>
 
-            <!-- Tarjetas informativas -->
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div class="bg-gray-100 p-6 rounded-xl shadow-sm">
-                    <h3 class="text-lg font-bold text-startup-blue mb-2">Total de usuarios</h3>
-                    <p class="text-gray-700 text-sm">Administra los perfiles de los usuarios registrados en la plataforma.</p>
-                </div>
-                <div class="bg-gray-100 p-6 rounded-xl shadow-sm">
-                    <h3 class="text-lg font-bold text-startup-green mb-2">Convocatorias activas</h3>
-                    <p class="text-gray-700 text-sm">Consulta y modifica las convocatorias en curso.</p>
-                </div>
-                <div class="bg-gray-100 p-6 rounded-xl shadow-sm">
-                    <h3 class="text-lg font-bold text-startup-orange mb-2">Startups registradas</h3>
-                    <p class="text-gray-700 text-sm">Visualiza y administra las startups dentro del ecosistema.</p>
+                <div class="bg-white rounded-2xl p-4 md:p-6 shadow-sm border border-gray-100">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-gray-500 text-sm font-medium">Tasa de Éxito</p>
+                            <p class="text-2xl md:text-3xl font-bold text-gray-900 mt-1">85%</p>
+                            <p class="text-green-600 text-sm mt-2">
+                                <i class="fas fa-arrow-up"></i> +3% vs mes anterior
+                            </p>
+                        </div>
+                        <div class="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center">
+                            <i class="fas fa-chart-line text-purple-600 text-xl"></i>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <!-- Tabla de ejemplo -->
-            <div class="overflow-x-auto mt-4">
-                <table class="min-w-full text-sm text-left border border-gray-200 rounded-lg">
-                    <thead class="bg-gray-100 text-gray-700 font-semibold">
-                    <tr>
-                        <th class="px-4 py-3 border-b">Usuario</th>
-                        <th class="px-4 py-3 border-b">Rol</th>
-                        <th class="px-4 py-3 border-b">Estado</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr class="hover:bg-gray-50">
-                        <td class="px-4 py-3 border-b">María Gómez</td>
-                        <td class="px-4 py-3 border-b">Administrador</td>
-                        <td class="px-4 py-3 border-b text-green-600 font-medium">Activo</td>
-                    </tr>
-                    <tr class="hover:bg-gray-50">
-                        <td class="px-4 py-3 border-b">Luis Torres</td>
-                        <td class="px-4 py-3 border-b">Evaluador</td>
-                        <td class="px-4 py-3 border-b text-yellow-600 font-medium">Pendiente</td>
-                    </tr>
-                    <tr class="hover:bg-gray-50">
-                        <td class="px-4 py-3 border-b">Ana Ruiz</td>
-                        <td class="px-4 py-3 border-b">Startup</td>
-                        <td class="px-4 py-3 border-b text-red-600 font-medium">Inactivo</td>
-                    </tr>
-                    </tbody>
-                </table>
+            <!-- Charts Section -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-8">
+                <!-- Activity Chart -->
+                <div class="bg-white rounded-2xl p-4 md:p-6 shadow-sm border border-gray-100">
+                    <div class="flex justify-between items-center mb-4 md:mb-6">
+                        <h3 class="text-xl font-bold text-gray-900">Actividad Mensual</h3>
+                        <select class="px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-startup-blue">
+                            <option>Últimos 6 meses</option>
+                            <option>Último año</option>
+                        </select>
+                    </div>
+                    <div class="h-48 flex items-end justify-between gap-2">
+                        <div class="flex flex-col items-center gap-2">
+                            <div class="w-8 bg-startup-blue rounded-t h-32"></div>
+                            <span class="text-xs text-gray-500">Ene</span>
+                        </div>
+                        <div class="flex flex-col items-center gap-2">
+                            <div class="w-8 bg-startup-blue rounded-t h-40"></div>
+                            <span class="text-xs text-gray-500">Feb</span>
+                        </div>
+                        <div class="flex flex-col items-center gap-2">
+                            <div class="w-8 bg-startup-blue rounded-t h-48"></div>
+                            <span class="text-xs text-gray-500">Mar</span>
+                        </div>
+                        <div class="flex flex-col items-center gap-2">
+                            <div class="w-8 bg-startup-blue rounded-t h-36"></div>
+                            <span class="text-xs text-gray-500">Abr</span>
+                        </div>
+                        <div class="flex flex-col items-center gap-2">
+                            <div class="w-8 bg-startup-blue rounded-t h-40"></div>
+                            <span class="text-xs text-gray-500">May</span>
+                        </div>
+                        <div class="flex flex-col items-center gap-2">
+                            <div class="w-8 bg-startup-orange rounded-t h-44"></div>
+                            <span class="text-xs text-gray-500">Jun</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Activity -->
+                <div class="bg-white rounded-2xl p-4 md:p-6 shadow-sm border border-gray-100">
+                    <h3 class="text-xl font-bold text-gray-900 mb-4 md:mb-6">Actividad Reciente</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-center gap-4">
+                            <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
+                                <i class="fas fa-user-plus text-green-600"></i>
+                            </div>
+                            <div class="flex-1">
+                                <p class="font-medium text-gray-900">Nuevo usuario registrado</p>
+                                <p class="text-sm text-gray-500">María González se unió como emprendedora</p>
+                            </div>
+                            <span class="text-xs text-gray-400">hace 2 min</span>
+                        </div>
+
+                        <div class="flex items-center gap-4">
+                            <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
+                                <i class="fas fa-rocket text-startup-blue"></i>
+                            </div>
+                            <div class="flex-1">
+                                <p class="font-medium text-gray-900">Nueva startup incubada</p>
+                                <p class="text-sm text-gray-500">EcoTech fue aceptada en el programa</p>
+                            </div>
+                            <span class="text-xs text-gray-400">hace 1 hora</span>
+                        </div>
+
+                        <div class="flex items-center gap-4">
+                            <div class="w-10 h-10 bg-orange-100 rounded-full flex items-center justify-center">
+                                <i class="fas fa-bullhorn text-startup-orange"></i>
+                            </div>
+                            <div class="flex-1">
+                                <p class="font-medium text-gray-900">Convocatoria publicada</p>
+                                <p class="text-sm text-gray-500">Fintech Universitario 2025 está disponible</p>
+                            </div>
+                            <span class="text-xs text-gray-400">hace 3 horas</span>
+                        </div>
+
+                        <div class="flex items-center gap-4">
+                            <div class="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center">
+                                <i class="fas fa-handshake text-purple-600"></i>
+                            </div>
+                            <div class="flex-1">
+                                <p class="font-medium text-gray-900">Nueva mentoría asignada</p>
+                                <p class="text-sm text-gray-500">Carlos Mendez comenzó a mentorear InnovateLab</p>
+                            </div>
+                            <span class="text-xs text-gray-400">hace 5 horas</span>
+                        </div>
+                    </div>
+                </div>
             </div>
 
+            <!-- Quick Actions -->
+            <div class="bg-white rounded-2xl p-4 md:p-6 shadow-sm border border-gray-100">
+                <h3 class="text-xl font-bold text-gray-900 mb-4 md:mb-6">Acciones Rápidas</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <button class="flex items-center gap-3 p-4 border-2 border-dashed border-gray-200 rounded-xl hover:border-startup-blue hover:bg-blue-50 transition-colors group">
+                        <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center group-hover:bg-startup-blue group-hover:text-white">
+                            <i class="fas fa-user-plus"></i>
+                        </div>
+                        <span class="font-medium text-gray-700 group-hover:text-startup-blue">Nuevo Usuario</span>
+                    </button>
+
+                    <button class="flex items-center gap-3 p-4 border-2 border-dashed border-gray-200 rounded-xl hover:border-startup-orange hover:bg-orange-50 transition-colors group">
+                        <div class="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center group-hover:bg-startup-orange group-hover:text-white">
+                            <i class="fas fa-bullhorn"></i>
+                        </div>
+                        <span class="font-medium text-gray-700 group-hover:text-startup-orange">Nueva Convocatoria</span>
+                    </button>
+
+                    <button class="flex items-center gap-3 p-4 border-2 border-dashed border-gray-200 rounded-xl hover:border-green-500 hover:bg-green-50 transition-colors group">
+                        <div class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center group-hover:bg-green-500 group-hover:text-white">
+                            <i class="fas fa-rocket"></i>
+                        </div>
+                        <span class="font-medium text-gray-700 group-hover:text-green-500">Incubar Startup</span>
+                    </button>
+
+                    <button class="flex items-center gap-3 p-4 border-2 border-dashed border-gray-200 rounded-xl hover:border-purple-500 hover:bg-purple-50 transition-colors group">
+                        <div class="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center group-hover:bg-purple-500 group-hover:text-white">
+                            <i class="fas fa-chart-bar"></i>
+                        </div>
+                        <span class="font-medium text-gray-700 group-hover:text-purple-500">Ver Reportes</span>
+                    </button>
+                </div>
+            </div>
         </div>
-
     </main>
 </div>
-
 </body>
 </html>
