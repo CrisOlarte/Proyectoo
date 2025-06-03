@@ -172,9 +172,9 @@
 
                         <!-- Acciones -->
                         <div class="col-span-2 flex gap-2">
-                            <a th:href="@{/convocatoria/editar/{id}(id=${convocatoria.idConvocatoria})}"
+                            <a th:href="@{/convocatorias/editar/{id}(id=${convocatoria.idConvocatoria})}"
                                class="bg-startup-blue text-white px-3 py-1 rounded text-xs font-semibold hover:bg-indigo-700 transition">Editar</a>
-                            <a th:href="@{/convocatoria/eliminar/{id}(id=${convocatoria.idConvocatoria})}"
+                            <a th:href="@{/convocatorias/eliminar/{id}(id=${convocatoria.idConvocatoria})}"
                                class="bg-red-500 text-white px-3 py-1 rounded text-xs font-semibold hover:bg-red-600 transition"
                                onclick="return confirm('¿Estás seguro de eliminar esta convocatoria?')">Eliminar</a>
                         </div>
@@ -199,7 +199,7 @@
                 <button class="px-3 py-1 border border-gray-300 rounded text-sm hover:bg-gray-100 transition">Siguiente</button>
             </div>
         </div>
-
+        </div>
     </main>
 </div>
 

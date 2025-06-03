@@ -21,15 +21,18 @@ public class UsuarioController {
     @GetMapping("/crear")
     public String mostrarFormularioRegistro(Model model) {
         model.addAttribute("usuario", new Usuario());
-        model.addAttribute("activePage", "usuarios");
+        model.addAttribute("activePage", "usuarios"); // ✅
         return "usuarios/crearUsuario";
     }
 
+
+    // ✅ Guardar nuevo usuario
     @PostMapping("/guardar")
     public String guardarUsuario(@Valid @ModelAttribute("usuario") Usuario usuario,
                                  BindingResult result,
                                  Model model) {
         model.addAttribute("activePage", "usuarios");
+        model.addAttribute("title", "Nuevo Usuario");
 
         if (result.hasErrors()) {
             return "usuarios/crearUsuario";
@@ -39,6 +42,7 @@ public class UsuarioController {
         return "redirect:/usuarios/listar";
     }
 
+    // ✅ Listar todos los usuarios
     @GetMapping({"/listar", ""})
     public String listarUsuarios(Model model) {
         model.addAttribute("usuarios", usuarioServices.findAll());
@@ -46,6 +50,7 @@ public class UsuarioController {
         return "usuarios/listarUsuarios";
     }
 
+    // ✅ Mostrar formulario para editar un usuario
     @GetMapping("/editar/{id}")
     public String mostrarFormularioEditar(@PathVariable("id") Long idUsuario,
                                           Model model,
@@ -61,6 +66,7 @@ public class UsuarioController {
         return "usuarios/editarUsuario";
     }
 
+    // ✅ Guardar cambios de edición
     @PostMapping("/editar/{id}")
     public String guardarCambiosEditar(@PathVariable("id") Long idUsuario,
                                        @Valid @ModelAttribute("usuario") Usuario usuario,
@@ -74,13 +80,24 @@ public class UsuarioController {
             return "usuarios/editarUsuario";
         }
 
-        usuario.setIdUsuario(idUsuario);
-        usuarioServices.actualizar(usuario);
+        Usuario usuarioExistente = usuarioServices.findById(idUsuario);
+        if (usuarioExistente == null) {
+            redirectAttributes.addFlashAttribute("error", "Usuario no encontrado");
+            return "redirect:/usuarios/listar";
+        }
 
+        usuario.setIdUsuario(idUsuario);
+        usuario.setFechaReg(usuarioExistente.getFechaReg());
+        if (usuario.getContrasena() == null || usuario.getContrasena().isBlank()) {
+            usuario.setContrasena(usuarioExistente.getContrasena());
+        }
+
+        usuarioServices.actualizar(usuario);
         redirectAttributes.addFlashAttribute("success", "Usuario actualizado con éxito");
         return "redirect:/usuarios/listar";
     }
 
+    // ✅ Eliminar usuario
     @GetMapping("/eliminar/{id}")
     public String eliminarUsuario(@PathVariable("id") Long idUsuario,
                                   RedirectAttributes redirectAttributes) {
@@ -93,6 +110,4 @@ public class UsuarioController {
         }
         return "redirect:/usuarios/listar";
     }
-
-
 }

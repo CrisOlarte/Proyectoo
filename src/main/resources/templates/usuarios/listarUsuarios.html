@@ -30,8 +30,15 @@
             </div>
 
             <div class="flex gap-4 items-center">
-                <input type="text" class="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-startup-blue focus:border-transparent" placeholder="🔍 Buscar usuarios...">
-                <a th:href="@{/usuarios/nuevo}" class="bg-startup-blue text-white px-6 py-3 rounded-lg font-semibold hover:bg-indigo-700 transition">
+
+
+                <input type="text"
+                       class="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-startup-blue focus:border-transparent"
+                       placeholder="🔍 Buscar usuarios...">
+
+                <!-- Botón para crear nuevo usuario -->
+                <a th:href="@{/usuarios/crear}"
+                   class="bg-startup-blue text-white px-6 py-3 rounded-lg font-semibold hover:bg-indigo-700 transition">
                     + Nuevo Usuario
                 </a>
             </div>
