@@ -39,33 +39,33 @@
     </div>
     <nav class="px-4 space-y-2">
 
-      <a th:href="@{/dashboard}"
+      <a th:href="@{/dashboard/administrativo}"
          class="block px-4 py-3 rounded-lg font-medium transition-colors duration-200"
-         th:classappend="${#httpServletRequest != null and #httpServletRequest.requestURI.startsWith('/dashboard')} ? ' bg-startup-blue text-white' : ' text-gray-700 hover:bg-startup-blue hover:text-white'">
+         th:classappend="${activePage == 'dashboard'} ? ' bg-startup-blue text-white' : ' text-gray-700 hover:bg-startup-blue hover:text-white'">
         Dashboard
       </a>
 
       <a th:href="@{/usuarios/listar}"
          class="block px-4 py-3 rounded-lg font-medium transition-colors duration-200"
-         th:classappend="${#httpServletRequest != null and #httpServletRequest.requestURI.startsWith('/usuarios')} ? ' bg-startup-blue text-white' : ' text-gray-700 hover:bg-startup-blue hover:text-white'">
+         th:classappend="${activePage == 'usuarios'} ? ' bg-startup-blue text-white' : ' text-gray-700 hover:bg-startup-blue hover:text-white'">
         Usuarios
       </a>
 
       <a th:href="@{/convocatorias/listar}"
          class="block px-4 py-3 rounded-lg font-medium transition-colors duration-200"
-         th:classappend="${#httpServletRequest != null and #httpServletRequest.requestURI.startsWith('/convocatorias')} ? ' bg-startup-blue text-white' : ' text-gray-700 hover:bg-startup-blue hover:text-white'">
+         th:classappend="${activePage == 'convocatorias'} ? ' bg-startup-blue text-white' : ' text-gray-700 hover:bg-startup-blue hover:text-white'">
         Convocatorias
       </a>
 
       <a th:href="@{/startups/listar}"
          class="block px-4 py-3 rounded-lg font-medium transition-colors duration-200"
-         th:classappend="${#httpServletRequest != null and #httpServletRequest.requestURI.startsWith('/startups')} ? ' bg-startup-blue text-white' : ' text-gray-700 hover:bg-startup-blue hover:text-white'">
+         th:classappend="${activePage == 'startups'} ? ' bg-startup-blue text-white' : ' text-gray-700 hover:bg-startup-blue hover:text-white'">
         Startups
       </a>
 
       <a th:href="@{/evaluaciones/listar}"
          class="block px-4 py-3 rounded-lg font-medium transition-colors duration-200"
-         th:classappend="${#httpServletRequest != null and #httpServletRequest.requestURI.startsWith('/evaluaciones')} ? ' bg-startup-blue text-white' : ' text-gray-700 hover:bg-startup-blue hover:text-white'">
+         th:classappend="${activePage == 'evaluaciones'} ? ' bg-startup-blue text-white' : ' text-gray-700 hover:bg-startup-blue hover:text-white'">
         Evaluaciones
       </a>
 

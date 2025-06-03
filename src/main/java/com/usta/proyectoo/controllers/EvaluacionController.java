@@ -21,7 +21,8 @@ public class EvaluacionController {
     @GetMapping("/crear")
     public String mostrarFormularioRegistro(Model model) {
         model.addAttribute("evaluacion", new Evaluacion());
-        return "evaluaciones/crearEvaluacion"; // Asegúrate de tener esta vista
+        model.addAttribute("activePage", "evaluaciones"); // ✅
+        return "evaluaciones/crearEvaluacion";
     }
 
     // Guardar una nueva evaluación
@@ -29,6 +30,7 @@ public class EvaluacionController {
     public String guardarEvaluacion(@Valid @ModelAttribute("evaluacion") Evaluacion evaluacion,
                                     BindingResult result,
                                     Model model) {
+        model.addAttribute("activePage", "evaluaciones"); // ✅
         if (result.hasErrors()) {
             return "evaluaciones/crearEvaluacion";
         }
@@ -41,13 +43,15 @@ public class EvaluacionController {
     @GetMapping("/listar")
     public String listarEvaluaciones(Model model) {
         model.addAttribute("evaluaciones", evaluacionServices.findAll());
-        return "evaluaciones/listarEvaluaciones"; // Asegúrate de tener esta vista
+        model.addAttribute("activePage", "evaluaciones"); // ✅
+        return "evaluaciones/listarEvaluaciones";
     }
 
     // Vista principal de gestión de evaluaciones (opcional)
     @GetMapping
     public String verGestionEvaluaciones(Model model) {
         model.addAttribute("evaluaciones", evaluacionServices.findAll());
+        model.addAttribute("activePage", "evaluaciones"); // ✅
         return "evaluaciones/listarEvaluaciones";
     }
 }

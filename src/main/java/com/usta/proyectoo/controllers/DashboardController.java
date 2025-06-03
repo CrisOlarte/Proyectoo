@@ -12,18 +12,20 @@ public class DashboardController {
     // Dashboard para usuario administrativo
     @GetMapping("/administrativo")
     public String dashboardAdministrativo(Model model) {
+        model.addAttribute("activePage", "dashboard"); // 👈 Aquí marcamos el ítem activo
         return "dashboard/dashboardAdministrativo";
     }
 
     // Dashboard para usuario emprendedor
     @GetMapping("/emprendedor")
     public String dashboardEmprendedor(Model model) {
+        model.addAttribute("activePage", "dashboard"); // 👈 También se marca dashboard
         return "dashboard/dashboardEmprendedor";
     }
 
-    // Ruta general opcional (puedes redirigir según rol aquí si quieres lógica más avanzada)
+    // Ruta general
     @GetMapping
     public String dashboardGeneral() {
-        return "redirect:/dashboard/administrativo"; // o emprendedor, según lo que desees
+        return "redirect:/dashboard/administrativo"; // Puedes redirigir según rol
     }
 }

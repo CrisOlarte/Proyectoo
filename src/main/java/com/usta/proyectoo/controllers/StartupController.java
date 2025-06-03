@@ -18,12 +18,14 @@ public class StartupController {
     @GetMapping("/crear")
     public String mostrarFormularioRegistro(Model model) {
         model.addAttribute("startup", new Startup());
+        model.addAttribute("activePage", "startups"); // ✅ Marca activa
         return "startups/crearStartup";
     }
 
     // Guardar una nueva startup
     @PostMapping("/guardar")
-    public String guardarStartup(@ModelAttribute("startup") Startup startup) {
+    public String guardarStartup(@ModelAttribute("startup") Startup startup, Model model) {
+        model.addAttribute("activePage", "startups"); // ✅ Para evitar errores si hay redirección fallida
         startupServices.save(startup);
         return "redirect:/startups/listar";
     }
@@ -32,6 +34,7 @@ public class StartupController {
     @GetMapping("/listar")
     public String listarStartups(Model model) {
         model.addAttribute("startups", startupServices.findAll());
+        model.addAttribute("activePage", "startups"); // ✅
         return "startups/listarStartups";
     }
 
@@ -39,6 +42,7 @@ public class StartupController {
     @GetMapping
     public String verGestionStartups(Model model) {
         model.addAttribute("startups", startupServices.findAll());
+        model.addAttribute("activePage", "startups"); // ✅
         return "startups/listarStartups";
     }
 }

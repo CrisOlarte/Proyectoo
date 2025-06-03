@@ -10,13 +10,14 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-//
+
 @Controller
 @RequestMapping("/convocatorias")
 public class ConvocatoriaController {
 
     @Autowired
     private ConvocatoriaServices convocatoriaServices;
+
     @Autowired
     private UsuarioServices usuarioServices;
 
@@ -24,7 +25,8 @@ public class ConvocatoriaController {
     @GetMapping("/crear")
     public String mostrarFormularioRegistro(Model model) {
         model.addAttribute("convocatoria", new Convocatoria());
-        return "convocatoria/crear"; // nombre del HTML sin extensión
+        model.addAttribute("activePage", "convocatorias"); // ✅
+        return "convocatoria/crear";
     }
 
     // Guardar convocatoria
@@ -32,6 +34,8 @@ public class ConvocatoriaController {
     public String guardarConvocatoria(@Valid @ModelAttribute("convocatoria") Convocatoria convocatoria,
                                       BindingResult result,
                                       Model model) {
+        model.addAttribute("activePage", "convocatorias"); // ✅
+
         if (result.hasErrors()) {
             return "convocatoria/crear";
         }
@@ -40,15 +44,19 @@ public class ConvocatoriaController {
         return "redirect:/convocatorias/listar";
     }
 
-    // Mostrar todas las convocatorias (opcional)
+    // Mostrar todas las convocatorias
     @GetMapping("/listar")
     public String listarConvocatorias(Model model) {
         model.addAttribute("convocatorias", convocatoriaServices.findAll());
-        return "convocatoria/listarConvocatorias"; // aún no lo tienes, pero puedes crearlo luego
+        model.addAttribute("activePage", "convocatorias"); // ✅
+        return "convocatoria/listarConvocatorias";
     }
+
+    // Página principal de convocatorias (opcional)
     @GetMapping
     public String verGestionConvocatorias(Model model) {
         model.addAttribute("convocatorias", convocatoriaServices.findAll());
+        model.addAttribute("activePage", "convocatorias"); // ✅
         return "convocatoria/listarConvocatorias";
     }
 }

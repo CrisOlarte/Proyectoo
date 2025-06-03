@@ -21,7 +21,8 @@ public class UsuarioController {
     @GetMapping("/crear")
     public String mostrarFormularioRegistro(Model model) {
         model.addAttribute("usuario", new Usuario());
-        return "usuarios/crearUsuario"; // Asegúrate de tener esta vista
+        model.addAttribute("activePage", "usuarios"); // 👈 Añadido
+        return "usuarios/crearUsuario";
     }
 
     // Guardar un nuevo usuario
@@ -29,6 +30,8 @@ public class UsuarioController {
     public String guardarUsuario(@Valid @ModelAttribute("usuario") Usuario usuario,
                                  BindingResult result,
                                  Model model) {
+        model.addAttribute("activePage", "usuarios"); // 👈 Añadido
+
         if (result.hasErrors()) {
             return "usuarios/crearUsuario";
         }
@@ -41,13 +44,15 @@ public class UsuarioController {
     @GetMapping("/listar")
     public String listarUsuarios(Model model) {
         model.addAttribute("usuarios", usuarioServices.findAll());
-        return "usuarios/listarUsuarios"; // Asegúrate de tener esta vista
+        model.addAttribute("activePage", "usuarios"); // 👈 Añadido
+        return "usuarios/listarUsuarios";
     }
 
-    // Vista principal de gestión de usuarios (opcional)
+    // Vista principal de gestión de usuarios
     @GetMapping
     public String verGestionUsuarios(Model model) {
         model.addAttribute("usuarios", usuarioServices.findAll());
+        model.addAttribute("activePage", "usuarios"); // 👈 Añadido
         return "usuarios/listarUsuarios";
     }
 }
