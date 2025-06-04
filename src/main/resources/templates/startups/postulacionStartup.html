@@ -1,10 +1,359 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 
+<head th:replace="~{layout/layout :: head}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mis Postulaciones</title>
+</head>
+
+<body class="bg-gray-50 h-full">
+<div class="flex h-screen overflow-hidden">
+
+    <!-- Sidebar -->
+    <aside th:replace="~{layout/layout :: sidebar}"></aside>
+
+    <!-- Contenido principal -->
+    <main class="flex-1 h-full overflow-y-auto p-8 bg-gray-50">
+
+        <!-- Header -->
+        <div class="flex justify-between items-center mb-8">
+            <div>
+                <h1 class="text-3xl font-bold text-startup-blue mb-2">Mis Postulaciones</h1>
+                <p class="text-gray-600">Revisa el estado de tus postulaciones a convocatorias</p>
+            </div>
+            <div class="bg-green-500 text-white px-6 py-3 rounded-full font-bold text-sm">
+                Estudiante
+            </div>
+        </div>
+
+        <!-- Estadísticas del estudiante -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
+            <div class="bg-white shadow-md rounded-2xl p-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm font-medium text-gray-600">Total Postulaciones</p>
+                        <p class="text-2xl font-bold text-startup-blue" th:text="${totalPostulaciones}">8</p>
+                    </div>
+                    <div class="bg-blue-100 rounded-full p-3">
+                        <svg class="w-6 h-6 text-startup-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white shadow-md rounded-2xl p-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm font-medium text-gray-600">Aprobadas</p>
+                        <p class="text-2xl font-bold text-green-600" th:text="${postulacionesAprobadas}">3</p>
+                    </div>
+                    <div class="bg-green-100 rounded-full p-3">
+                        <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white shadow-md rounded-2xl p-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm font-medium text-gray-600">En Revisión</p>
+                        <p class="text-2xl font-bold text-startup-orange" th:text="${postulacionesRevision}">3</p>
+                    </div>
+                    <div class="bg-orange-100 rounded-full p-3">
+                        <svg class="w-6 h-6 text-startup-orange" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white shadow-md rounded-2xl p-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm font-medium text-gray-600">Rechazadas</p>
+                        <p class="text-2xl font-bold text-red-600" th:text="${postulacionesRechazadas}">2</p>
+                    </div>
+                    <div class="bg-red-100 rounded-full p-3">
+                        <svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Search and Filter Header -->
+        <div class="bg-white shadow-md rounded-2xl p-6 mb-6">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-xl font-bold text-gray-800">Historial de Postulaciones</h2>
+                <a href="/convocatorias/nueva-postulacion"
+                   class="bg-startup-blue text-white px-4 py-2 rounded-lg font-semibold hover:bg-indigo-700 transition flex items-center gap-2">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                    </svg>
+                    Nueva Postulación
+                </a>
+            </div>
+
+            <div class="flex gap-4 items-center">
+                <input type="text" id="searchInput"
+                       class="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-startup-blue focus:border-transparent"
+                       placeholder="🔍 Buscar por convocatoria, startup o observaciones..." onkeyup="filtrarPostulaciones()">
+
+                <select id="filterSelect" class="px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-startup-blue focus:border-transparent min-w-[160px]" onchange="filtrarPorEstado()">
+                    <option value="">Todos los estados</option>
+                    <option value="aprobada">Aprobadas</option>
+                    <option value="revision">En Revisión</option>
+                    <option value="rechazada">Rechazadas</option>
+                    <option value="pendiente">Pendientes</option>
+                </select>
+
+                <select id="orderSelect" class="px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-startup-blue focus:border-transparent min-w-[160px]" onchange="ordenarPostulaciones()">
+                    <option value="fecha-desc">Más recientes</option>
+                    <option value="fecha-asc">Más antiguas</option>
+                    <option value="convocatoria-asc">Por convocatoria</option>
+                    <option value="estado-asc">Por estado</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Tabla de Postulaciones -->
+        <div class="bg-white shadow-md rounded-2xl overflow-hidden">
+            <div class="grid grid-cols-8 gap-4 px-6 py-4 bg-gray-100 font-semibold text-gray-700 text-sm border-b">
+                <div class="col-span-1">Fecha</div>
+                <div class="col-span-1">Estado</div>
+                <div class="col-span-2">Convocatoria</div>
+                <div class="col-span-1">Startup</div>
+                <div class="col-span-1">Rol</div>
+                <div class="col-span-1">Observaciones</div>
+                <div class="col-span-1">Acciones</div>
+            </div>
+
+            <div class="divide-y divide-gray-100" id="postulacionesTable">
+                <div th:each="post : ${postulacionesEstudiante}" class="grid grid-cols-8 gap-4 px-6 py-5 hover:bg-gray-50 items-center postulacion-row">
+                    <div class="col-span-1 text-sm text-gray-700 fecha-postulacion" th:text="${#dates.format(post.fecha_postulacion, 'dd MMM yyyy')}">20 May 2025</div>
+                    <div class="col-span-1">
+                        <span class="px-3 py-1 rounded-full text-xs font-semibold estado-badge"
+                              th:classappend="${post.estado == 'aprobada'} ? 'bg-green-100 text-green-800' : (${post.estado == 'revision'} ? 'bg-orange-100 text-orange-800' : (${post.estado == 'rechazada'} ? 'bg-red-100 text-red-800' : 'bg-gray-100 text-gray-800'))"
+                              th:text="${post.estado == 'aprobada'} ? 'Aprobada' : (${post.estado == 'revision'} ? 'En Revisión' : (${post.estado == 'rechazada'} ? 'Rechazada' : 'Pendiente'))"
+                              data-estado th:attr="data-estado=${post.estado}">En Revisión</span>
+                    </div>
+                    <div class="col-span-2 text-sm text-gray-600 convocatoria-postulacion" th:text="${post.convocatoria.nombre}">Convocatoria Tech Innovation 2025</div>
+                    <div class="col-span-1 text-sm text-gray-600 startup-postulacion" th:text="${post.startup.nombre}">EcoTech Solutions</div>
+                    <div class="col-span-1 text-sm text-gray-600 rol-postulacion" th:text="${post.rol_solicitado}">Evaluador</div>
+                    <div class="col-span-1 text-xs text-gray-500 observaciones-postulacion" th:text="${#strings.abbreviate(post.observaciones, 25)}">Experiencia en innovación...</div>
+                    <div class="col-span-1 flex gap-2">
+                        <a th:href="@{/estudiante/postulaciones/ver/{id}(id=${post.id_postulacion})}"
+                           class="bg-startup-blue text-white px-3 py-2 rounded-lg text-xs font-semibold hover:bg-indigo-700 transition flex items-center gap-1">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                            </svg>
+                            Ver
+                        </a>
+                        <a th:if="${post.estado == 'pendiente' or post.estado == 'revision'}"
+                           th:href="@{/estudiante/postulaciones/editar/{id}(id=${post.id_postulacion})}"
+                           class="bg-yellow-500 text-white px-3 py-2 rounded-lg text-xs font-semibold hover:bg-yellow-600 transition flex items-center gap-1">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                            </svg>
+                            Editar
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Ejemplo de filas de datos -->
+                <div class="grid grid-cols-8 gap-4 px-6 py-5 hover:bg-gray-50 items-center postulacion-row">
+                    <div class="col-span-1 text-sm text-gray-700 fecha-postulacion">20 May 2025</div>
+                    <div class="col-span-1">
+                        <span class="px-3 py-1 rounded-full text-xs font-semibold estado-badge bg-green-100 text-green-800" data-estado="aprobada">Aprobada</span>
+                    </div>
+                    <div class="col-span-2 text-sm text-gray-600 convocatoria-postulacion">Convocatoria Tech Innovation 2025</div>
+                    <div class="col-span-1 text-sm text-gray-600 startup-postulacion">EcoTech Solutions</div>
+                    <div class="col-span-1 text-sm text-gray-600 rol-postulacion">Evaluador</div>
+                    <div class="col-span-1 text-xs text-gray-500 observaciones-postulacion">Experiencia en sostenibilidad...</div>
+                    <div class="col-span-1 flex gap-2">
+                        <a href="/estudiante/postulaciones/ver/1"
+                           class="bg-startup-blue text-white px-3 py-2 rounded-lg text-xs font-semibold hover:bg-indigo-700 transition flex items-center gap-1">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                            </svg>
+                            Ver
+                        </a>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-8 gap-4 px-6 py-5 hover:bg-gray-50 items-center postulacion-row">
+                    <div class="col-span-1 text-sm text-gray-700 fecha-postulacion">18 May 2025</div>
+                    <div class="col-span-1">
+                        <span class="px-3 py-1 rounded-full text-xs font-semibold estado-badge bg-orange-100 text-orange-800" data-estado="revision">En Revisión</span>
+                    </div>
+                    <div class="col-span-2 text-sm text-gray-600 convocatoria-postulacion">StartupBoost Program 2025</div>
+                    <div class="col-span-1 text-sm text-gray-600 startup-postulacion">HealthTech Pro</div>
+                    <div class="col-span-1 text-sm text-gray-600 rol-postulacion">Mentor</div>
+                    <div class="col-span-1 text-xs text-gray-500 observaciones-postulacion">Experiencia en sector salud...</div>
+                    <div class="col-span-1 flex gap-2">
+                        <a href="/estudiante/postulaciones/ver/2"
+                           class="bg-startup-blue text-white px-3 py-2 rounded-lg text-xs font-semibold hover:bg-indigo-700 transition flex items-center gap-1">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                            </svg>
+                            Ver
+                        </a>
+                        <a href="/estudiante/postulaciones/editar/2"
+                           class="bg-yellow-500 text-white px-3 py-2 rounded-lg text-xs font-semibold hover:bg-yellow-600 transition flex items-center gap-1">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                            </svg>
+                            Editar
+                        </a>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-8 gap-4 px-6 py-5 hover:bg-gray-50 items-center postulacion-row">
+                    <div class="col-span-1 text-sm text-gray-700 fecha-postulacion">15 May 2025</div>
+                    <div class="col-span-1">
+                        <span class="px-3 py-1 rounded-full text-xs font-semibold estado-badge bg-red-100 text-red-800" data-estado="rechazada">Rechazada</span>
+                    </div>
+                    <div class="col-span-2 text-sm text-gray-600 convocatoria-postulacion">AI Innovation Challenge</div>
+                    <div class="col-span-1 text-sm text-gray-600 startup-postulacion">SmartAI Labs</div>
+                    <div class="col-span-1 text-sm text-gray-600 rol-postulacion">Evaluador</div>
+                    <div class="col-span-1 text-xs text-gray-500 observaciones-postulacion">No cumple requisitos mínimos</div>
+                    <div class="col-span-1 flex gap-2">
+                        <a href="/estudiante/postulaciones/ver/3"
+                           class="bg-startup-blue text-white px-3 py-2 rounded-lg text-xs font-semibold hover:bg-indigo-700 transition flex items-center gap-1">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                            </svg>
+                            Ver
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mensaje cuando no hay postulaciones -->
+            <div th:if="${#lists.isEmpty(postulacionesEstudiante)}" class="text-center py-16" id="noPostulaciones" style="display: none;">
+                <div class="mx-auto w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mb-4">
+                    <svg class="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
+                    </svg>
+                </div>
+                <h3 class="text-lg font-semibold text-gray-900 mb-2">No tienes postulaciones aún</h3>
+                <p class="text-gray-500 mb-6">Cuando te postules a convocatorias, aparecerán aquí para que puedas hacer seguimiento.</p>
+                <a href="/convocatorias" class="bg-startup-blue text-white px-6 py-3 rounded-lg font-semibold hover:bg-indigo-700 transition">
+                    Explorar Convocatorias
+                </a>
+            </div>
+        </div>
+
+        <script>
+            function filtrarPostulaciones() {
+                aplicarFiltros();
+            }
+
+            function filtrarPorEstado() {
+                aplicarFiltros();
+            }
+
+            function aplicarFiltros() {
+                const searchFilter = document.getElementById('searchInput').value.toLowerCase();
+                const estadoFilter = document.getElementById('filterSelect').value;
+                const rows = document.querySelectorAll('.postulacion-row');
+                let visibleRows = 0;
+
+                rows.forEach(row => {
+                    const convocatoria = row.querySelector('.convocatoria-postulacion').textContent.toLowerCase();
+                    const startup = row.querySelector('.startup-postulacion').textContent.toLowerCase();
+                    const observaciones = row.querySelector('.observaciones-postulacion').textContent.toLowerCase();
+                    const estado = row.querySelector('.estado-badge').getAttribute('data-estado');
+
+                    let searchMatch = searchFilter === '' ||
+                        convocatoria.includes(searchFilter) ||
+                        startup.includes(searchFilter) ||
+                        observaciones.includes(searchFilter);
+
+                    let estadoMatch = estadoFilter === '' || estado === estadoFilter;
+
+                    if (searchMatch && estadoMatch) {
+                        row.style.display = '';
+                        visibleRows++;
+                    } else {
+                        row.style.display = 'none';
+                    }
+                });
+
+                // Mostrar mensaje si no hay resultados
+                const noResultsMsg = document.getElementById('noPostulaciones');
+                if (visibleRows === 0) {
+                    noResultsMsg.style.display = 'block';
+                } else {
+                    noResultsMsg.style.display = 'none';
+                }
+            }
+
+            function ordenarPostulaciones() {
+                const orderBy = document.getElementById('orderSelect').value;
+                const table = document.getElementById('postulacionesTable');
+                const rows = Array.from(table.querySelectorAll('.postulacion-row'));
+
+                rows.sort((a, b) => {
+                    if (orderBy.includes('fecha')) {
+                        const fechaA = new Date(a.querySelector('.fecha-postulacion').textContent);
+                        const fechaB = new Date(b.querySelector('.fecha-postulacion').textContent);
+                        return orderBy.includes('desc') ? fechaB - fechaA : fechaA - fechaB;
+                    } else if (orderBy.includes('convocatoria')) {
+                        const convocatoriaA = a.querySelector('.convocatoria-postulacion').textContent;
+                        const convocatoriaB = b.querySelector('.convocatoria-postulacion').textContent;
+                        return convocatoriaA.localeCompare(convocatoriaB);
+                    } else if (orderBy.includes('estado')) {
+                        const estadoA = a.querySelector('.estado-badge').textContent;
+                        const estadoB = b.querySelector('.estado-badge').textContent;
+                        return estadoA.localeCompare(estadoB);
+                    }
+                });
+
+                // Limpiar tabla y agregar filas ordenadas
+                const postulacionRows = table.querySelectorAll('.postulacion-row');
+                postulacionRows.forEach(row => row.remove());
+                rows.forEach(row => table.appendChild(row));
+            }
+
+            // Función para actualizar contadores dinámicamente
+            function actualizarContadores() {
+                const rows = document.querySelectorAll('.postulacion-row');
+                let aprobadas = 0, revision = 0, rechazadas = 0, pendientes = 0;
+
+                rows.forEach(row => {
+                    const estado = row.querySelector('.estado-badge').getAttribute('data-estado');
+                    switch(estado) {
+                        case 'aprobada': aprobadas++; break;
+                        case 'revision': revision++; break;
+                        case 'rechazada': rechazadas++; break;
+                        case 'pendiente': pendientes++; break;
+                    }
+                });
+
+                // Actualizar los contadores en las tarjetas (si no vienen del backend)
+                // document.querySelector('[th\\:text="${totalPostulaciones}"]').textContent = rows.length;
+                // document.querySelector('[th\\:text="${postulacionesAprobadas}"]').textContent = aprobadas;
+                // document.querySelector('[th\\:text="${postulacionesRevision}"]').textContent = revision;
+                // document.querySelector('[th\\:text="${postulacionesRechazadas}"]').textContent = rechazadas;
+            }
+
+            // Inicializar
+            document.addEventListener('DOMContentLoaded', function() {
+                actualizarContadores();
+            });
+        </script>
+
+    </main>
+</div>
 </body>
 </html>
