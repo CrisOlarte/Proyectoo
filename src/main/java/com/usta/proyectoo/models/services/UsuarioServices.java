@@ -13,4 +13,5 @@ public interface UsuarioServices {
     void changeStatus(Long id);
     Usuario findByCorreo(String correo);
     List<Usuario> findUsuariosActivos();
+
 }

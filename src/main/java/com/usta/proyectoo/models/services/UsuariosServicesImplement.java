@@ -19,6 +19,7 @@ public class UsuariosServicesImplement implements UsuarioServices {
         return (List<Usuario>) usuarioDao.findAll();
     }
 
+
     @Override
     @Transactional
     public void save(Usuario usuario) {

@@ -5,13 +5,17 @@ import com.usta.proyectoo.entities.Usuario;
 import com.usta.proyectoo.models.services.RolesServices;
 import com.usta.proyectoo.models.services.UsuarioServices;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.beans.PropertyEditorSupport;
 
 @Controller
 @RequestMapping("/usuarios")
@@ -30,6 +34,24 @@ public class UsuarioController {
         model.addAttribute("roles", rolesServices.findAll());
         model.addAttribute("activePage", "usuarios");
         return "usuario/crearUsuario";
+    }
+
+
+
+    @InitBinder
+    public void initBinder(WebDataBinder binder) {
+        binder.registerCustomEditor(Rol.class, new PropertyEditorSupport() {
+            @Override
+            public void setAsText(String idStr) throws IllegalArgumentException {
+                try {
+                    Long id = Long.parseLong(idStr);
+                    Rol rol = rolesServices.findById(id);
+                    setValue(rol);
+                } catch (NumberFormatException e) {
+                    setValue(null);
+                }
+            }
+        });
     }
 
 
@@ -106,17 +128,19 @@ public class UsuarioController {
 
     // ✅ Eliminar usuario
     @GetMapping("/eliminar/{id}")
-    public String eliminarUsuario(@PathVariable("id") Long idUsuario,
+    public String eliminarUsuario(@PathVariable("id") Long id,
                                   RedirectAttributes redirectAttributes) {
-        Usuario usuario = usuarioServices.findById(idUsuario);
+        Usuario usuario = usuarioServices.findById(id);
         if (usuario != null) {
             usuarioServices.deleteById(usuario);
             redirectAttributes.addFlashAttribute("success", "Usuario eliminado con éxito");
         } else {
             redirectAttributes.addFlashAttribute("error", "Usuario no encontrado");
         }
-        return "redirect:/usuario/listar";
+        return "redirect:/usuarios/listar";
     }
+
+
 
 
 }
