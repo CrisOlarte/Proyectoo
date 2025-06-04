@@ -35,8 +35,11 @@
 <aside th:fragment="sidebar">
   <div class="w-64 bg-white shadow-xl flex flex-col justify-between h-screen">
     <div class="p-6">
-      <h1 class="text-2xl font-extrabold text-startup-blue tracking-tight">STARTUP HUB</h1>
+      <a th:href="@{/}" class="text-2xl font-extrabold text-startup-blue tracking-tight hover:underline">
+        STARTUP HUB
+      </a>
     </div>
+
 
     <nav class="px-4 space-y-2">
       <!-- Estudiante -->
