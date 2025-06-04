@@ -78,11 +78,14 @@ public class StartupController {
     @GetMapping("/eliminar/{id}")
     public String eliminarStartup(@PathVariable("id") Long idStartup,
                                   RedirectAttributes redirectAttributes) {
+        System.out.println("➡️ Intentando eliminar startup con ID: " + idStartup);
         Startup startup = startupServices.findById(idStartup);
         if (startup != null) {
-            startupServices.deleteById(idStartup); // Solo se pasa el ID
+            startupServices.deleteById(idStartup);
+            System.out.println("✅ Eliminada startup: " + startup.getNombre()); // o lo que tenga
             redirectAttributes.addFlashAttribute("success", "Startup eliminada con éxito");
         } else {
+            System.out.println("❌ Startup no encontrada");
             redirectAttributes.addFlashAttribute("error", "Startup no encontrada");
         }
         return "redirect:/startups/listar";

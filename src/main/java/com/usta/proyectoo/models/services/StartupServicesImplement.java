@@ -35,7 +35,7 @@ public class StartupServicesImplement implements StartupServices {
 
     @Override
     public void deleteById(Long id) {
-
+    startupDao.deleteById(id);
     }
 
     @Override

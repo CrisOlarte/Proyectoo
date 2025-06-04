@@ -67,11 +67,16 @@
                     <!-- Botones de Acción -->
                     <div class="col-span-1 flex gap-2">
                         <a th:href="@{/startups/editar/{id}(id=${startup.idStartup})}"
-                           class="bg-startup-blue text-white px-3 py-1 rounded text-xs font-semibold hover:bg-indigo-700 transition">Editar</a>
+                           class="bg-startup-blue text-white px-3 py-1 rounded text-xs font-semibold hover:bg-indigo-700 transition">
+                            Editar
+                        </a>
                         <a th:href="@{/startups/eliminar/{id}(id=${startup.idStartup})}"
                            class="bg-red-500 text-white px-3 py-1 rounded text-xs font-semibold hover:bg-red-600 transition"
-                           onclick="return confirm('¿Estás seguro de eliminar esta startup?')">Eliminar</a>
+                           onclick="return confirm('¿Estás seguro de eliminar esta startup?')">
+                            Eliminar
+                        </a>
                     </div>
+
                 </div>
             </div>
 

@@ -178,11 +178,17 @@
                     <!-- Acciones -->
                     <div class="col-span-1 flex gap-2">
                         <a th:href="@{/convocatorias/editar/{id}(id=${convocatoria.idConvocatoria})}"
-                           class="bg-startup-blue text-white px-3 py-1 rounded text-xs font-semibold hover:bg-indigo-700 transition">Editar</a>
-                        <a href="#"
-                           data-href="@{/convocatorias/eliminar/{id}(id=${convocatoria.idConvocatoria})}"
-                           class="bg-red-500 text-white px-3 py-1 rounded text-xs font-semibold hover:bg-red-600 transition delete-btn">Eliminar</a>
+                           class="bg-startup-blue text-white px-3 py-1 rounded text-xs font-semibold hover:bg-indigo-700 transition">
+                            Editar
+                        </a>
+                        <a th:href="@{/convocatorias/eliminar/{id}(id=${convocatoria.idConvocatoria})}"
+                           class="bg-red-500 text-white px-3 py-1 rounded text-xs font-semibold hover:bg-red-600 transition"
+                           onclick="return confirm('¿Estás seguro de eliminar esta convocatoria?')">
+                            Eliminar
+                        </a>
                     </div>
+
+
                 </div>
             </div>
 
