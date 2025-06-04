@@ -16,16 +16,13 @@ public class DashboardController {
         return "dashboard/dashboardAdministrativo";
     }
 
-    // Dashboard para usuario emprendedor
-    @GetMapping("/emprendedor")
-    public String dashboardEmprendedor(Model model) {
-        model.addAttribute("activePage", "dashboard"); // 👈 También se marca dashboard
-        return "dashboard/dashboardEmprendedor";
+    // Dashboard para usuario estudiante
+    @GetMapping("/estudiante")
+    public String dashboardEstudiante(Model model) {
+        model.addAttribute("activePage", "dashboard"); // 👈 Aquí marcamos el ítem activo
+        return "dashboard/dashboardEstudiante";
     }
 
-    // Ruta general
-    @GetMapping
-    public String dashboardGeneral() {
-        return "redirect:/dashboard/administrativo"; // Puedes redirigir según rol
-    }
+
+
 }

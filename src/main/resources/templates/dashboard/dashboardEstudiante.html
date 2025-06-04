@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="es">
+<head th:replace="~{layout/layout :: head}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Estudiante</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'student-blue': '#3b82f6',
+                        'student-green': '#10b981'
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-50 font-sans">
+<div class="flex h-screen overflow-hidden">
+    <aside th:replace="~{layout/layout :: sidebar}"></aside>
+    <!-- Main Content -->
+    <main class="flex-1 overflow-y-auto">
+        <!-- Header -->
+        <header class="border-b border-gray-100 px-4 py-4 md:px-8 md:py-6">
+            <div class="flex justify-between items-center">
+                <div>
+                    <h1 class="text-2xl md:text-3xl font-bold text-student-blue mb-1">Dashboard Estudiante</h1>
+                    <p class="text-gray-600">Bienvenido, [Nombre del Estudiante]</p>
+                </div>
+                <div class="flex items-center gap-4">
+                    <div class="bg-student-green text-white px-3 py-1 rounded-full font-semibold text-sm">
+                        Estudiante
+                    </div>
+                    <div class="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center">
+                        <i class="fas fa-user text-gray-600"></i>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Dashboard Content -->
+        <div class="p-4 md:p-8 space-y-4 md:space-y-8">
+            <!-- Stats Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+                <div class="bg-white rounded-2xl p-4 md:p-6 shadow-sm border border-gray-100">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-gray-500 text-sm font-medium">Cursos Inscritos</p>
+                            <p class="text-2xl md:text-3xl font-bold text-gray-900 mt-1">5</p>
+                        </div>
+                        <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
+                            <i class="fas fa-book text-student-blue text-xl"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl p-4 md:p-6 shadow-sm border border-gray-100">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-gray-500 text-sm font-medium">Tareas Pendientes</p>
+                            <p class="text-2xl md:text-3xl font-bold text-gray-900 mt-1">3</p>
+                        </div>
+                        <div class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center">
+                            <i class="fas fa-tasks text-student-green text-xl"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl p-4 md:p-6 shadow-sm border border-gray-100">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-gray-500 text-sm font-medium">Exámenes Próximos</p>
+                            <p class="text-2xl md:text-3xl font-bold text-gray-900 mt-1">2</p>
+                        </div>
+                        <div class="w-12 h-12 bg-yellow-100 rounded-xl flex items-center justify-center">
+                            <i class="fas fa-calendar-alt text-yellow-600 text-xl"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl p-4 md:p-6 shadow-sm border border-gray-100">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-gray-500 text-sm font-medium">Promedio General</p>
+                            <p class="text-2xl md:text-3xl font-bold text-gray-900 mt-1">85%</p>
+                        </div>
+                        <div class="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center">
+                            <i class="fas fa-chart-line text-purple-600 text-xl"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Activity -->
+            <div class="bg-white rounded-2xl p-4 md:p-6 shadow-sm border border-gray-100">
+                <h3 class="text-xl font-bold text-gray-900 mb-4 md:mb-6">Actividad Reciente</h3>
+                <div class="space-y-4">
+                    <div class="flex items-center gap-4">
+                        <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
+                            <i class="fas fa-user-plus text-green-600"></i>
+                        </div>
+                        <div class="flex-1">
+                            <p class="font-medium text-gray-900">Nueva tarea asignada</p>
+                            <p class="text-sm text-gray-500">Matemáticas - Tarea 3</p>
+                        </div>
+                        <span class="text-xs text-gray-400">hace 10 min</span>
+                    </div>
+
+                    <div class="flex items-center gap-4">
+                        <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
+                            <i class="fas fa-calendar-check text-student-blue"></i>
+                        </div>
+                        <div class="flex-1">
+                            <p class="font-medium text-gray-900">Tarea entregada</p>
+                            <p class="text-sm text-gray-500">Historia - Proyecto Final</p>
+                        </div>
+                        <span class="text-xs text-gray-400">hace 1 hora</span>
+                    </div>
+
+                    <div class="flex items-center gap-4">
+                        <div class="w-10 h-10 bg-orange-100 rounded-full flex items-center justify-center">
+                            <i class="fas fa-exclamation-circle text-orange-600"></i>
+                        </div>
+                        <div class="flex-1">
+                            <p class="font-medium text-gray-900">Examen próximo</p>
+                            <p class="text-sm text-gray-500">Ciencias - 15 de marzo</p>
+                        </div>
+                        <span class="text-xs text-gray-400">hace 3 horas</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="bg-white rounded-2xl p-4 md:p-6 shadow-sm border border-gray-100">
+                <h3 class="text-xl font-bold text-gray-900 mb-4 md:mb-6">Acciones Rápidas</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <button class="flex items-center gap-3 p-4 border-2 border-dashed border-gray-200 rounded-xl hover:border-student-blue hover:bg-blue-50 transition-colors group">
+                        <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center group-hover:bg-student-blue group-hover:text-white">
+                            <i class="fas fa-book-open"></i>
+                        </div>
+                        <span class="font-medium text-gray-700 group-hover:text-student-blue">Ver Cursos</span>
+                    </button>
+
+                    <button class="flex items-center gap-3 p-4 border-2 border-dashed border-gray-200 rounded-xl hover:border-green-500 hover:bg-green-50 transition-colors group">
+                        <div class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center group-hover:bg-green-500 group-hover:text-white">
+                            <i class="fas fa-tasks"></i>
+                        </div>
+                        <span class="font-medium text-gray-700 group-hover:text-green-500">Ver Tareas</span>
+                    </button>
+
+                    <button class="flex items-center gap-3 p-4 border-2 border-dashed border-gray-200 rounded-xl hover:border-yellow-500 hover:bg-yellow-50 transition-colors group">
+                        <div class="w-10 h-10 bg-yellow-100 rounded-lg flex items-center justify-center group-hover:bg-yellow-500 group-hover:text-white">
+                            <i class="fas fa-calendar-alt"></i>
+                        </div>
+                        <span class="font-medium text-gray-700 group-hover:text-yellow-500">Ver Exámenes</span>
+                    </button>
+
+                    <button class="flex items-center gap-3 p-4 border-2 border-dashed border-gray-200 rounded-xl hover:border-purple-500 hover:bg-purple-50 transition-colors group">
+                        <div class="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center group-hover:bg-purple-500 group-hover:text-white">
+                            <i class="fas fa-chart-bar"></i>
+                        </div>
+                        <span class="font-medium text-gray-700 group-hover:text-purple-500">Ver Calificaciones</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+</body>
+</html>

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.util.Arrays;
 
 @Controller
 @RequestMapping("/convocatorias")
@@ -44,6 +45,7 @@ public class ConvocatoriaController {
         convocatoriaServices.save(convocatoria);
         return "redirect:/convocatorias/listar";
     }
+
 
     // Mostrar todas las convocatorias
     @GetMapping("/listar")
