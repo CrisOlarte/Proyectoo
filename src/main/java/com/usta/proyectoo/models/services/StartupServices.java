@@ -9,7 +9,7 @@ public interface StartupServices {
     List<Startup> findAll();
     void save(Startup startup);
     Startup findById(Long id);
-    void deleteById(Startup startup);
+    void deleteById(Long id);
     Startup actualizar(Startup startup);
     List<Startup> findByNombre(String nombre);
     List<Startup> findBySector(String sector);

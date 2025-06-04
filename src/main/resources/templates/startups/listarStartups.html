@@ -33,9 +33,10 @@
 
             <div class="flex gap-4 items-center">
                 <input type="text" class="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-startup-blue focus:border-transparent" placeholder="🔍 Buscar startups...">
-                <button class="bg-startup-blue text-white px-6 py-3 rounded-lg font-semibold hover:bg-indigo-700 transition btn-transition">
+                <a th:href="@{/startups/crear}"
+                   class="bg-startup-blue text-white px-6 py-3 rounded-lg font-semibold hover:bg-indigo-700 transition btn-transition">
                     + Nueva Startup
-                </button>
+                </a>
             </div>
         </div>
 
@@ -55,6 +56,8 @@
                     <div class="col-span-2 text-xs text-gray-600" th:text="${startup.descripcion}">Descripción</div>
                     <div class="col-span-2 text-xs text-gray-600" th:text="${startup.sector}">Tecnología</div>
                     <div class="col-span-1 text-sm text-gray-700" th:text="${#dates.format(startup.fechaCreacion, 'dd MMM yyyy')}">10 Mar 2025</div>
+
+                    <!-- Botones de Acción -->
                     <div class="col-span-1 flex gap-2">
                         <a th:href="@{/startups/editar/{id}(id=${startup.idStartup})}"
                            class="bg-startup-blue text-white px-3 py-1 rounded text-xs font-semibold hover:bg-indigo-700 transition">Editar</a>

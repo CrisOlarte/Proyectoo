@@ -34,9 +34,8 @@ public class StartupServicesImplement implements StartupServices {
     }
 
     @Override
-    @Transactional
-    public void deleteById(Startup startup) {
-        startupDao.delete(startup);
+    public void deleteById(Long id) {
+
     }
 
     @Override
