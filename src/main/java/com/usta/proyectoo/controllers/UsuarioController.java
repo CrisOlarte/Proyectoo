@@ -1,6 +1,8 @@
 package com.usta.proyectoo.controllers;
 
+import com.usta.proyectoo.entities.Rol;
 import com.usta.proyectoo.entities.Usuario;
+import com.usta.proyectoo.models.services.RolesServices;
 import com.usta.proyectoo.models.services.UsuarioServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,12 +19,17 @@ public class UsuarioController {
 
     @Autowired
     private UsuarioServices usuarioServices;
+    @Autowired
+    private RolesServices rolesServices;
 
     @GetMapping("/crear")
     public String mostrarFormularioRegistro(Model model) {
-        model.addAttribute("usuario", new Usuario());
-        model.addAttribute("activePage", "usuarios"); // ✅
-        return "usuarios/crearUsuario";
+        Usuario usuario = new Usuario();
+        usuario.setRol(new Rol()); // evitar null
+        model.addAttribute("usuario", usuario);
+        model.addAttribute("roles", rolesServices.findAll());
+        model.addAttribute("activePage", "usuarios");
+        return "usuario/crearUsuario";
     }
 
 
@@ -35,7 +42,7 @@ public class UsuarioController {
         model.addAttribute("title", "Nuevo Usuario");
 
         if (result.hasErrors()) {
-            return "usuarios/crearUsuario";
+            return "usuario/crearUsuario"; // carpeta en singular
         }
 
         usuarioServices.save(usuario);
@@ -47,7 +54,7 @@ public class UsuarioController {
     public String listarUsuarios(Model model) {
         model.addAttribute("usuarios", usuarioServices.findAll());
         model.addAttribute("activePage", "usuarios");
-        return "usuarios/listarUsuarios";
+        return "usuario/listarUsuarios";
     }
 
     // ✅ Mostrar formulario para editar un usuario
@@ -63,7 +70,7 @@ public class UsuarioController {
         model.addAttribute("usuario", usuario);
         model.addAttribute("activePage", "usuarios");
         model.addAttribute("title", "Editar Usuario");
-        return "usuarios/editarUsuario";
+        return "usuario/editarUsuario";
     }
 
     // ✅ Guardar cambios de edición
@@ -77,7 +84,7 @@ public class UsuarioController {
         model.addAttribute("title", "Editar Usuario");
 
         if (result.hasErrors()) {
-            return "usuarios/editarUsuario";
+            return "usuario/editarUsuario";
         }
 
         Usuario usuarioExistente = usuarioServices.findById(idUsuario);
@@ -108,6 +115,8 @@ public class UsuarioController {
         } else {
             redirectAttributes.addFlashAttribute("error", "Usuario no encontrado");
         }
-        return "redirect:/usuarios/listar";
+        return "redirect:/usuario/listar";
     }
+
+
 }
