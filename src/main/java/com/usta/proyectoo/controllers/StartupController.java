@@ -90,6 +90,24 @@ public class StartupController {
 
 
 
+// === VISTA MIS STARTUPS ===
+    @GetMapping("/misStartups")
+    public String misStartupsView(Model model) {
+        model.addAttribute("activePage", "mis-startups"); // Marca activa para la vista
+        return "startups/misStartups"; // Archivo .html que se debe mostrar
+    }
+
+// === ESTUDIANTE - POSTULAR ===
+    @GetMapping("/postulaciones")
+    public String vistaPostulacionStartup(Model model) {
+        model.addAttribute("activePage", "postulaciones"); // Marca el ítem activo en el sidebar
+        return "startups/postulacionStartup"; // Ruta de la plantilla HTML
+    }
+
+
+
+
+
 
 
 }

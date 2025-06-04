@@ -54,4 +54,26 @@ public class EvaluacionController {
         model.addAttribute("activePage", "evaluaciones"); // ✅
         return "evaluaciones/listarEvaluaciones";
     }
+
+    // Vista de evaluaciones asignadas al evaluador
+    @GetMapping("/mis-evaluaciones")
+    public String mostrarMisEvaluaciones(Model model) {
+        model.addAttribute("activePage", "mis-evaluaciones");
+        return "evaluaciones/misEvaluaciones";
+    }
+    // ✅ Vista: Evaluar startups asignadas
+    @GetMapping("/evaluar")
+    public String mostrarFormularioEvaluacion(Model model) {
+        model.addAttribute("activePage", "evaluar");
+        return "evaluaciones/evaluarStartups"; // Ruta de la vista HTML
+    }
+    // ✅ Vista: Historial de evaluaciones realizadas por el evaluador
+    @GetMapping("/historial")
+    public String verHistorialEvaluaciones(Model model) {
+        model.addAttribute("activePage", "historial-evaluaciones");
+        return "evaluaciones/historialStartups"; // Nombre de la vista .html
+    }
+
+
+
 }

@@ -23,6 +23,12 @@ public class DashboardController {
         return "dashboard/dashboardEstudiante";
     }
 
+    // Dashboard para usuario evaluador
+    @GetMapping("/evaluador")
+    public String dashboardEvaluador(Model model) {
+        model.addAttribute("activePage", "dashboard-evaluador"); // 👈 Marca activa para el evaluador
+        return "dashboard/dashboardEvaluador";
+    }
 
 
 }

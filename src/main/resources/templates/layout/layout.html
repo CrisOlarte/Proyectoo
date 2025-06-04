@@ -39,44 +39,84 @@
     </div>
     <nav class="px-4 space-y-2">
 
+      <!-- Estudiante -->
       <a th:href="@{/dashboard/estudiante}"
          class="block px-4 py-3 rounded-lg font-medium transition-colors duration-200"
          th:classappend="${activePage == 'dashboard'} ? ' bg-startup-blue text-white' : ' text-gray-700 hover:bg-startup-blue hover:text-white'">
-        Dashboard E
+        Dashboard Estudiante
+      </a>
+      <a th:href="@{/startups/misStartups}"
+         class="block px-4 py-3 rounded-lg font-medium transition-colors duration-200"
+         th:classappend="${activePage == 'mis-startups'} ? ' bg-startup-blue text-white' : ' text-gray-700 hover:bg-startup-blue hover:text-white'">
+        Mis Startups
+      </a>
+      <a th:href="@{/startups/postulaciones}"
+         class="block px-4 py-3 rounded-lg font-medium transition-colors duration-200"
+         th:classappend="${activePage == 'postulaciones'} ? ' bg-startup-blue text-white' : ' text-gray-700 hover:bg-startup-blue hover:text-white'">
+        Postulaciones
+      </a>
+      <a th:href="@{/evaluaciones/mis-evaluaciones}"
+         class="block px-4 py-3 rounded-lg font-medium transition-colors duration-200"
+         th:classappend="${activePage == 'mis-evaluaciones'} ? ' bg-startup-blue text-white' : ' text-gray-700 hover:bg-startup-blue hover:text-white'">
+        Mis Evaluaciones
       </a>
 
+
+
+
+
+      <!-- Admin -->
       <a th:href="@{/dashboard/administrativo}"
          class="block px-4 py-3 rounded-lg font-medium transition-colors duration-200"
          th:classappend="${activePage == 'dashboard'} ? ' bg-startup-blue text-white' : ' text-gray-700 hover:bg-startup-blue hover:text-white'">
         Dashboard
       </a>
-
       <a th:href="@{/usuarios/listar}"
          class="block px-4 py-3 rounded-lg font-medium transition-colors duration-200"
          th:classappend="${activePage == 'usuarios'} ? ' bg-startup-blue text-white' : ' text-gray-700 hover:bg-startup-blue hover:text-white'">
         Usuarios
       </a>
-
       <a th:href="@{/convocatorias/listar}"
          class="block px-4 py-3 rounded-lg font-medium transition-colors duration-200"
          th:classappend="${activePage == 'convocatorias'} ? ' bg-startup-blue text-white' : ' text-gray-700 hover:bg-startup-blue hover:text-white'">
         Convocatorias
       </a>
-
       <a th:href="@{/startups/listar}"
          class="block px-4 py-3 rounded-lg font-medium transition-colors duration-200"
          th:classappend="${activePage == 'startups'} ? ' bg-startup-blue text-white' : ' text-gray-700 hover:bg-startup-blue hover:text-white'">
         Startups
       </a>
-
       <a th:href="@{/evaluaciones/listar}"
          class="block px-4 py-3 rounded-lg font-medium transition-colors duration-200"
          th:classappend="${activePage == 'evaluaciones'} ? ' bg-startup-blue text-white' : ' text-gray-700 hover:bg-startup-blue hover:text-white'">
         Evaluaciones
       </a>
 
-    </nav>
 
+
+      <!-- Evaluador -->
+      <a th:href="@{/dashboard/evaluador}"
+         class="block px-4 py-3 rounded-lg font-medium transition-colors duration-200"
+         th:classappend="${activePage == 'dashboard-evaluador'} ? ' bg-startup-blue text-white' : ' text-gray-700 hover:bg-startup-blue hover:text-white'">
+        Dashboard Evaluador
+      </a>
+      <a th:href="@{/evaluaciones/evaluar}"
+         class="block px-4 py-3 rounded-lg font-medium transition-colors duration-200"
+         th:classappend="${activePage == 'evaluar'} ? ' bg-startup-blue text-white' : ' text-gray-700 hover:bg-startup-blue hover:text-white'">
+        Evaluar Startups
+      </a>
+
+      <a th:href="@{/evaluaciones/historial}"
+         class="block px-4 py-3 rounded-lg font-medium transition-colors duration-200"
+         th:classappend="${activePage == 'historial-evaluaciones'} ? ' bg-startup-blue text-white' : ' text-gray-700 hover:bg-startup-blue hover:text-white'">
+        Historial Evaluaciones
+      </a>
+
+
+
+
+
+    </nav>
 
     <div class="p-6">
       <div class="bg-gray-100 rounded-lg p-4 shadow-sm mb-4">
@@ -97,5 +137,6 @@
   </div>
 </aside>
 </body>
+
 
 </html>
