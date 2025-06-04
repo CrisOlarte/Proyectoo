@@ -73,4 +73,6 @@ public class Usuario implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "id_startup", referencedColumnName = "id_startup")
     )
     private Collection<Startup> startups = new ArrayList<>();
+
 }
+

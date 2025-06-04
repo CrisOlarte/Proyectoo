@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 
 <head th:fragment="head">
   <meta charset="UTF-8" />
@@ -46,7 +46,18 @@
         <button class="bg-startup-blue text-white px-4 py-2 rounded-md font-semibold hover:bg-indigo-600 transition">
           Reservar
         </button>
+
       </a>
+      <div sec:authorize="isAuthenticated()">
+        <form th:action="@{/logout}" method="post">
+          <button type="submit"
+                  class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-xl font-bold transition">
+            Cerrar Sesión
+          </button>
+        </form>
+      </div>
+
+
     </div>
     <!-- Mobile menu button -->
     <button class="md:hidden text-gray-700">

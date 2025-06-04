@@ -1,5 +1,6 @@
-package com.usta.proyectoo.models.DAO;
+// Tu UsuarioDAO.java actualizado debe quedar así:
 
+package com.usta.proyectoo.models.DAO;
 
 import com.usta.proyectoo.entities.Usuario;
 import jakarta.transaction.Transactional;

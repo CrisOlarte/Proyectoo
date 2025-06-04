@@ -34,16 +34,24 @@
         <h3 class="text-center font-bold text-startup-blue text-3xl mb-2">Iniciar Sesión</h3>
         <p class="text-center text-gray-600 mb-6 text-base">Accede a tu cuenta para gestionar tus proyectos</p>
 
-        <form>
+        <div th:if="${param.error}" class="text-red-500 text-center mb-4">
+            Credenciales incorrectas. Intenta de nuevo.
+        </div>
+
+        <div th:if="${param.logout}" class="text-green-500 text-center mb-4">
+            Has cerrado sesión correctamente.
+        </div>
+
+        <form th:action="@{/login}" method="post">
             <div class="mb-4">
                 <label for="email" class="block font-semibold text-sm mb-1">Correo electrónico</label>
-                <input type="email" id="email" required
+                <input type="email" id="email" name="username" required
                        class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-startup-blue outline-none"
                        placeholder="correo@ejemplo.com">
             </div>
             <div class="mb-2">
                 <label for="password" class="block font-semibold text-sm mb-1">Contraseña</label>
-                <input type="password" id="password" required
+                <input type="password" id="password" name="password" required
                        class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-startup-blue outline-none"
                        placeholder="Ingresa tu contraseña">
             </div>
@@ -55,6 +63,7 @@
                 INICIAR SESIÓN
             </button>
         </form>
+
 
         <div class="my-6 flex items-center justify-between">
             <hr class="w-full border-gray-300">
