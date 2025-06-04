@@ -7,6 +7,12 @@
     <title>Gestión de Startups</title>
     <style>
         /* Puedes mantener los mismos estilos del archivo original */
+        .startup-blue { color: #3B82F6; }
+        .bg-startup-blue { background-color: #3B82F6; }
+        .startup-orange { color: #F59E0B; }
+        .bg-startup-orange { background-color: #F59E0B; }
+        .btn-transition { transition: all 0.3s ease; }
+        .hidden { display: none; }
     </style>
 </head>
 
@@ -32,7 +38,8 @@
             </div>
 
             <div class="flex gap-4 items-center">
-                <input type="text" class="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-startup-blue focus:border-transparent" placeholder="🔍 Buscar startups...">
+                <input type="text" id="searchInput" class="flex-1 px-4 py-3 border border-gray-300
+                rounded-lg focus:ring-2 focus:ring-startup-blue focus:border-transparent" placeholder="🔍 Buscar startups...">
                 <a th:href="@{/startups/crear}"
                    class="bg-startup-blue text-white px-6 py-3 rounded-lg font-semibold hover:bg-indigo-700 transition btn-transition">
                     + Nueva Startup
@@ -50,11 +57,11 @@
                 <div class="col-span-1">Acciones</div>
             </div>
 
-            <div class="divide-y divide-gray-100">
-                <div th:each="startup : ${startups}" class="grid grid-cols-8 gap-4 px-6 py-5 hover:bg-gray-50 items-center">
-                    <div class="col-span-2 font-semibold text-gray-800 text-sm" th:text="${startup.nombre}">Startup X</div>
-                    <div class="col-span-2 text-xs text-gray-600" th:text="${startup.descripcion}">Descripción</div>
-                    <div class="col-span-2 text-xs text-gray-600" th:text="${startup.sector}">Tecnología</div>
+            <div class="divide-y divide-gray-100" id="startupsContainer">
+                <div th:each="startup : ${startups}" class="startup-row grid grid-cols-8 gap-4 px-6 py-5 hover:bg-gray-50 items-center">
+                    <div class="col-span-2 font-semibold text-gray-800 text-sm startup-name" th:text="${startup.nombre}">Startup X</div>
+                    <div class="col-span-2 text-xs text-gray-600 startup-description" th:text="${startup.descripcion}">Descripción</div>
+                    <div class="col-span-2 text-xs text-gray-600 startup-sector" th:text="${startup.sector}">Tecnología</div>
                     <div class="col-span-1 text-sm text-gray-700" th:text="${#dates.format(startup.fechaCreacion, 'dd MMM yyyy')}">10 Mar 2025</div>
 
                     <!-- Botones de Acción -->
@@ -67,11 +74,17 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Mensaje cuando no hay resultados -->
+            <div id="noResultsMessage" class="hidden px-6 py-8 text-center text-gray-500">
+                <p class="text-lg">No se encontraron startups que coincidan con tu búsqueda</p>
+                <p class="text-sm mt-2">Intenta con otros términos de búsqueda</p>
+            </div>
         </div>
 
         <!-- Paginación -->
         <div class="flex justify-between items-center px-6 py-4 border-t border-gray-200 bg-gray-50">
-            <div class="text-sm text-gray-600">
+            <div class="text-sm text-gray-600" id="resultsCounter">
                 Mostrando 1-5 de X startups
             </div>
             <div class="flex gap-2">
@@ -83,5 +96,76 @@
         </div>
     </main>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const searchInput = document.getElementById('searchInput');
+        const startupsContainer = document.getElementById('startupsContainer');
+        const noResultsMessage = document.getElementById('noResultsMessage');
+        const resultsCounter = document.getElementById('resultsCounter');
+
+        // Obtener todas las filas de startups
+        const allStartupRows = document.querySelectorAll('.startup-row');
+        const totalStartups = allStartupRows.length;
+
+        function updateResultsCounter(visibleCount) {
+            if (visibleCount === 0) {
+                resultsCounter.textContent = 'No hay startups que mostrar';
+            } else if (visibleCount === totalStartups) {
+                resultsCounter.textContent = `Mostrando 1-${visibleCount} de ${totalStartups} startups`;
+            } else {
+                resultsCounter.textContent = `Mostrando ${visibleCount} de ${totalStartups} startups`;
+            }
+        }
+
+        function filterStartups() {
+            const searchTerm = searchInput.value.toLowerCase().trim();
+            let visibleCount = 0;
+
+            allStartupRows.forEach(function(row) {
+                const name = row.querySelector('.startup-name').textContent.toLowerCase();
+                const description = row.querySelector('.startup-description').textContent.toLowerCase();
+                const sector = row.querySelector('.startup-sector').textContent.toLowerCase();
+
+                // Buscar en nombre, descripción y sector
+                const matchesSearch = name.includes(searchTerm) ||
+                    description.includes(searchTerm) ||
+                    sector.includes(searchTerm);
+
+                if (matchesSearch || searchTerm === '') {
+                    row.style.display = '';
+                    visibleCount++;
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+
+            // Mostrar/ocultar mensaje de "no resultados"
+            if (visibleCount === 0 && searchTerm !== '') {
+                noResultsMessage.classList.remove('hidden');
+            } else {
+                noResultsMessage.classList.add('hidden');
+            }
+
+            // Actualizar contador de resultados
+            updateResultsCounter(visibleCount);
+        }
+
+        // Ejecutar búsqueda en tiempo real mientras el usuario escribe
+        searchInput.addEventListener('input', filterStartups);
+
+        // También ejecutar búsqueda cuando se presiona Enter
+        searchInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                filterStartups();
+            }
+        });
+
+        // Inicializar contador
+        updateResultsCounter(totalStartups);
+    });
+</script>
+
 </body>
 </html>

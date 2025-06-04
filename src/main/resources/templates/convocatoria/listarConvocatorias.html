@@ -111,15 +111,14 @@
             </div>
 
             <div class="flex gap-4 items-center">
-                <input type="text"
+                <input type="text" id="searchInput"
                        class="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-startup-blue focus:border-transparent"
-                       placeholder="🔍 Buscar convocatorias...">
+                       placeholder="🔍 Buscar convocatorias..." onkeyup="filtrarConvocatorias()">
 
-                <select class="px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-startup-blue focus:border-transparent min-w-[160px]">
-                    <option>Todos los estados</option>
-                    <option>Activa</option>
-                    <option>Pendiente</option>
-                    <option>Cerrada</option>
+                <select id="estadoFilter" class="px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-startup-blue focus:border-transparent min-w-[160px]" onchange="filtrarConvocatorias()">
+                    <option value="">Todos los estados</option>
+                    <option value="activa">Activa</option>
+                    <option value="inactiva">Inactiva</option>
                 </select>
 
                 <a th:href="@{/convocatorias/crear}"
@@ -132,126 +131,156 @@
 
         <!-- Convocatorias Table -->
 
-                <div class="bg-white shadow-md rounded-2xl overflow-hidden">
+        <div class="bg-white shadow-md rounded-2xl overflow-hidden">
 
-                    <!-- Table Header -->
-                    <div class="grid grid-cols-8 gap-4 px-6 py-4 bg-gray-100 font-semibold text-gray-700 text-sm border-b">
-                        <div class="col-span-2">Convocatoria</div>
-                        <div class="col-span-2">Descripción</div>
-                        <div class="col-span-1">Fecha Inicio</div>
-                        <div class="col-span-1">Fecha Fin</div>
-                        <div class="col-span-1">Estado</div>
-                        <div class="col-span-1">Acciones</div>
-                    </div>
+            <!-- Table Header -->
+            <div class="grid grid-cols-8 gap-4 px-6 py-4 bg-gray-100 font-semibold text-gray-700 text-sm border-b">
+                <div class="col-span-2">Convocatoria</div>
+                <div class="col-span-2">Descripción</div>
+                <div class="col-span-1">Fecha Inicio</div>
+                <div class="col-span-1">Fecha Fin</div>
+                <div class="col-span-1">Estado</div>
+                <div class="col-span-1">Acciones</div>
+            </div>
 
-                    <!-- Table Rows -->
-                    <div class="divide-y divide-gray-100">
-                        <div th:each="convocatoria, convocatoriaStat : ${convocatorias}" class="grid grid-cols-8 gap-4 px-6 py-5 hover:bg-gray-50 items-center">
-                            <!-- Título -->
-                            <div class="col-span-2 flex items-center gap-3">
-                                <div class="convocatoria-icon text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold"
-                                     th:classappend="${convocatoriaStat.index % 6 == 0} ? 'bg-blue-500' :
+            <!-- Table Rows -->
+            <div class="divide-y divide-gray-100" id="convocatoriasTable">
+                <div th:each="convocatoria, convocatoriaStat : ${convocatorias}" class="grid grid-cols-8 gap-4 px-6 py-5 hover:bg-gray-50 items-center convocatoria-row">
+                    <!-- Título -->
+                    <div class="col-span-2 flex items-center gap-3">
+                        <div class="convocatoria-icon text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold"
+                             th:classappend="${convocatoriaStat.index % 6 == 0} ? 'bg-blue-500' :
                  (${convocatoriaStat.index % 6 == 1} ? 'bg-green-500' :
                  (${convocatoriaStat.index % 6 == 2} ? 'bg-purple-500' :
                  (${convocatoriaStat.index % 6 == 3} ? 'bg-orange-500' :
                  (${convocatoriaStat.index % 6 == 4} ? 'bg-pink-500' : 'bg-indigo-500'))))">
-                                    <span th:text="${#strings.substring(convocatoria.titulo, 0, 1)}">C</span>
-                                </div>
-                                <h4 class="font-semibold text-gray-800 text-sm" th:text="${convocatoria.titulo}">Título</h4>
-                            </div>
+                            <span th:text="${#strings.substring(convocatoria.titulo, 0, 1)}">C</span>
+                        </div>
+                        <h4 class="font-semibold text-gray-800 text-sm titulo-convocatoria" th:text="${convocatoria.titulo}">Título</h4>
+                    </div>
 
-                            <!-- Descripción -->
-                            <div class="col-span-2 text-sm text-gray-600" th:text="${convocatoria.descripcion}">Descripción</div>
+                    <!-- Descripción -->
+                    <div class="col-span-2 text-sm text-gray-600 descripcion-convocatoria" th:text="${convocatoria.descripcion}">Descripción</div>
 
-                            <!-- Fechas -->
-                            <div class="col-span-1 text-sm text-gray-600" th:text="${#dates.format(convocatoria.fechaInicio, 'dd MMM yyyy')}">01 Ene 2024</div>
-                            <div class="col-span-1 text-sm text-gray-600" th:text="${#dates.format(convocatoria.fechaCierre, 'dd MMM yyyy')}">30 Jun 2024</div>
+                    <!-- Fechas -->
+                    <div class="col-span-1 text-sm text-gray-600" th:text="${#dates.format(convocatoria.fechaInicio, 'dd MMM yyyy')}">01 Ene 2024</div>
+                    <div class="col-span-1 text-sm text-gray-600" th:text="${#dates.format(convocatoria.fechaCierre, 'dd MMM yyyy')}">30 Jun 2024</div>
 
-                            <!-- Estado -->
-                            <div class="col-span-1 text-sm">
-            <span th:text="${convocatoria.estado ? 'Activa' : 'Inactiva'}"
-                  th:classappend="${convocatoria.estado} ? 'text-green-600 font-semibold' : 'text-red-600 font-semibold'">
+                    <!-- Estado -->
+                    <div class="col-span-1 text-sm">
+            <span class="estado-convocatoria" th:text="${convocatoria.estado ? 'Activa' : 'Inactiva'}"
+                  th:classappend="${convocatoria.estado} ? 'text-green-600 font-semibold' : 'text-red-600 font-semibold'"
+                  th:data-estado="${convocatoria.estado ? 'activa' : 'inactiva'}">
                 Activa
             </span>
-                            </div>
-
-                            <!-- Acciones -->
-                            <div class="col-span-1 flex gap-2">
-                                <a th:href="@{/convocatorias/editar/{id}(id=${convocatoria.idConvocatoria})}"
-                                   class="bg-startup-blue text-white px-3 py-1 rounded text-xs font-semibold hover:bg-indigo-700 transition">Editar</a>
-                                <a href="#"
-                                   data-href="@{/convocatorias/eliminar/{id}(id=${convocatoria.idConvocatoria})}"
-                                   class="bg-red-500 text-white px-3 py-1 rounded text-xs font-semibold hover:bg-red-600 transition delete-btn">Eliminar</a>
-                            </div>
-                        </div>
                     </div>
 
-                    <!-- Modal backdrop -->
-                    <div id="confirm-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
-                        <div class="bg-white rounded-lg shadow-lg max-w-sm w-full p-6 space-y-4">
-                            <h2 class="text-xl font-semibold text-gray-800">Confirmar eliminación</h2>
-                            <p class="text-gray-600">¿Estás seguro de eliminar esta convocatoria? Esta acción no se puede deshacer.</p>
-                            <div class="flex justify-end space-x-3 mt-4">
-                                <button id="cancel-btn" class="px-4 py-2 rounded bg-gray-200 hover:bg-gray-300 font-semibold text-gray-700 transition">Cancelar</button>
-                                <button id="confirm-btn" class="px-4 py-2 rounded bg-red-600 hover:bg-red-700 text-white font-semibold transition">Eliminar</button>
-                            </div>
-                        </div>
+                    <!-- Acciones -->
+                    <div class="col-span-1 flex gap-2">
+                        <a th:href="@{/convocatorias/editar/{id}(id=${convocatoria.idConvocatoria})}"
+                           class="bg-startup-blue text-white px-3 py-1 rounded text-xs font-semibold hover:bg-indigo-700 transition">Editar</a>
+                        <a href="#"
+                           data-href="@{/convocatorias/eliminar/{id}(id=${convocatoria.idConvocatoria})}"
+                           class="bg-red-500 text-white px-3 py-1 rounded text-xs font-semibold hover:bg-red-600 transition delete-btn">Eliminar</a>
                     </div>
-
-                    <script>
-                        // Get DOM elements
-                        const deleteBtns = document.querySelectorAll('.delete-btn');
-                        const modal = document.getElementById('confirm-modal');
-                        const confirmBtn = document.getElementById('confirm-btn');
-                        const cancelBtn = document.getElementById('cancel-btn');
-                        let deleteUrl = '';
-
-                        // Show modal on delete button click
-                        deleteBtns.forEach(btn => {
-                            btn.addEventListener('click', function(event) {
-                                event.preventDefault();
-                                deleteUrl = btn.getAttribute('data-href');
-                                modal.classList.remove('hidden');
-                            });
-                        });
-
-                        // On cancel, hide modal
-                        cancelBtn.addEventListener('click', function() {
-                            modal.classList.add('hidden');
-                        });
-
-                        // On confirm, proceed to the link href
-                        confirmBtn.addEventListener('click', function() {
-                            window.location.href = deleteUrl;
-                        });
-
-                        // Optional: close modal if clicking outside the dialog box
-                        modal.addEventListener('click', function(event) {
-                            if (event.target === modal) {
-                                modal.classList.add('hidden');
-                            }
-                        });
-
-                        // Optional: close modal on ESC key press
-                        document.addEventListener('keydown', function(event) {
-                            if (event.key === "Escape" && !modal.classList.contains('hidden')) {
-                                modal.classList.add('hidden');
-                            }
-                        });
-                    </script>
-                    <!-- Pagination -->
-        <div class="flex justify-between items-center px-6 py-4 border-t border-gray-200 bg-gray-50">
-            <div class="text-sm text-gray-600">
-                Mostrando 1-5 de 12 convocatorias
+                </div>
             </div>
-            <div class="flex gap-2">
-                <button class="px-3 py-1 border border-gray-300 rounded text-sm hover:bg-gray-100 transition">Anterior</button>
-                <button class="px-3 py-1 bg-startup-blue text-white rounded text-sm">1</button>
-                <button class="px-3 py-1 border border-gray-300 rounded text-sm hover:bg-gray-100 transition">2</button>
-                <button class="px-3 py-1 border border-gray-300 rounded text-sm hover:bg-gray-100 transition">3</button>
-                <button class="px-3 py-1 border border-gray-300 rounded text-sm hover:bg-gray-100 transition">Siguiente</button>
+
+            <!-- Modal backdrop -->
+            <div id="confirm-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
+                <div class="bg-white rounded-lg shadow-lg max-w-sm w-full p-6 space-y-4">
+                    <h2 class="text-xl font-semibold text-gray-800">Confirmar eliminación</h2>
+                    <p class="text-gray-600">¿Estás seguro de eliminar esta convocatoria? Esta acción no se puede deshacer.</p>
+                    <div class="flex justify-end space-x-3 mt-4">
+                        <button id="cancel-btn" class="px-4 py-2 rounded bg-gray-200 hover:bg-gray-300 font-semibold text-gray-700 transition">Cancelar</button>
+                        <button id="confirm-btn" class="px-4 py-2 rounded bg-red-600 hover:bg-red-700 text-white font-semibold transition">Eliminar</button>
+                    </div>
+                </div>
             </div>
-        </div>
+
+            <script>
+                // Get DOM elements
+                const deleteBtns = document.querySelectorAll('.delete-btn');
+                const modal = document.getElementById('confirm-modal');
+                const confirmBtn = document.getElementById('confirm-btn');
+                const cancelBtn = document.getElementById('cancel-btn');
+                let deleteUrl = '';
+
+                // Show modal on delete button click
+                deleteBtns.forEach(btn => {
+                    btn.addEventListener('click', function(event) {
+                        event.preventDefault();
+                        deleteUrl = btn.getAttribute('data-href');
+                        modal.classList.remove('hidden');
+                    });
+                });
+
+                // On cancel, hide modal
+                cancelBtn.addEventListener('click', function() {
+                    modal.classList.add('hidden');
+                });
+
+                // On confirm, proceed to the link href
+                confirmBtn.addEventListener('click', function() {
+                    window.location.href = deleteUrl;
+                });
+
+                // Optional: close modal if clicking outside the dialog box
+                modal.addEventListener('click', function(event) {
+                    if (event.target === modal) {
+                        modal.classList.add('hidden');
+                    }
+                });
+
+                // Optional: close modal on ESC key press
+                document.addEventListener('keydown', function(event) {
+                    if (event.key === "Escape" && !modal.classList.contains('hidden')) {
+                        modal.classList.add('hidden');
+                    }
+                });
+
+                // Función para filtrar convocatorias
+                function filtrarConvocatorias() {
+                    const searchInput = document.getElementById('searchInput');
+                    const estadoFilter = document.getElementById('estadoFilter');
+                    const searchFilter = searchInput.value.toLowerCase();
+                    const estadoFilterValue = estadoFilter.value.toLowerCase();
+                    const rows = document.querySelectorAll('.convocatoria-row');
+
+                    rows.forEach(row => {
+                        const titulo = row.querySelector('.titulo-convocatoria').textContent.toLowerCase();
+                        const descripcion = row.querySelector('.descripcion-convocatoria').textContent.toLowerCase();
+                        const estadoElement = row.querySelector('.estado-convocatoria');
+                        const estado = estadoElement.getAttribute('data-estado').toLowerCase();
+
+                        // Verificar si coincide con el filtro de búsqueda
+                        const matchesSearch = titulo.includes(searchFilter) || descripcion.includes(searchFilter);
+
+                        // Verificar si coincide con el filtro de estado
+                        const matchesEstado = estadoFilterValue === '' || estado === estadoFilterValue;
+
+                        // Mostrar/ocultar fila según ambos filtros
+                        if (matchesSearch && matchesEstado) {
+                            row.style.display = '';
+                        } else {
+                            row.style.display = 'none';
+                        }
+                    });
+                }
+            </script>
+            <!-- Pagination -->
+            <div class="flex justify-between items-center px-6 py-4 border-t border-gray-200 bg-gray-50">
+                <div class="text-sm text-gray-600">
+                    Mostrando 1-5 de 12 convocatorias
+                </div>
+                <div class="flex gap-2">
+                    <button class="px-3 py-1 border border-gray-300 rounded text-sm hover:bg-gray-100 transition">Anterior</button>
+                    <button class="px-3 py-1 bg-startup-blue text-white rounded text-sm">1</button>
+                    <button class="px-3 py-1 border border-gray-300 rounded text-sm hover:bg-gray-100 transition">2</button>
+                    <button class="px-3 py-1 border border-gray-300 rounded text-sm hover:bg-gray-100 transition">3</button>
+                    <button class="px-3 py-1 border border-gray-300 rounded text-sm hover:bg-gray-100 transition">Siguiente</button>
+                </div>
+            </div>
         </div>
     </main>
 </div>

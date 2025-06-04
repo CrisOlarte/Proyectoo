@@ -5,8 +5,7 @@ import com.usta.proyectoo.entities.Usuario;
 import com.usta.proyectoo.models.services.RolesServices;
 import com.usta.proyectoo.models.services.UsuarioServices;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -23,6 +22,7 @@ public class UsuarioController {
 
     @Autowired
     private UsuarioServices usuarioServices;
+
     @Autowired
     private RolesServices rolesServices;
 
@@ -35,8 +35,6 @@ public class UsuarioController {
         model.addAttribute("activePage", "usuarios");
         return "usuario/crearUsuario";
     }
-
-
 
     @InitBinder
     public void initBinder(WebDataBinder binder) {
@@ -54,21 +52,22 @@ public class UsuarioController {
         });
     }
 
-
     // ✅ Guardar nuevo usuario
     @PostMapping("/guardar")
     public String guardarUsuario(@Valid @ModelAttribute("usuario") Usuario usuario,
                                  BindingResult result,
-                                 Model model) {
-        model.addAttribute("activePage", "usuarios");
-        model.addAttribute("title", "Nuevo Usuario");
-
+                                 RedirectAttributes redirectAttributes) {
         if (result.hasErrors()) {
             return "usuario/crearUsuario"; // carpeta en singular
         }
-
-        usuarioServices.save(usuario);
-        return "redirect:/usuarios/listar";
+        try {
+            usuarioServices.save(usuario);
+            redirectAttributes.addFlashAttribute("success", "Usuario creado exitosamente");
+            return "redirect:/usuarios/listar";
+        } catch (DataIntegrityViolationException e) {
+            redirectAttributes.addFlashAttribute("error", "Error: El correo ya está registrado");
+            return "redirect:/usuarios/crear"; // Redirigir de nuevo al formulario
+        }
     }
 
     // ✅ Listar todos los usuarios
@@ -100,11 +99,7 @@ public class UsuarioController {
     public String guardarCambiosEditar(@PathVariable("id") Long idUsuario,
                                        @Valid @ModelAttribute("usuario") Usuario usuario,
                                        BindingResult result,
-                                       RedirectAttributes redirectAttributes,
-                                       Model model) {
-        model.addAttribute("activePage", "usuarios");
-        model.addAttribute("title", "Editar Usuario");
-
+                                       RedirectAttributes redirectAttributes) {
         if (result.hasErrors()) {
             return "usuario/editarUsuario";
         }
@@ -139,8 +134,4 @@ public class UsuarioController {
         }
         return "redirect:/usuarios/listar";
     }
-
-
-
-
 }

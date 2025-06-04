@@ -34,9 +34,9 @@
             </div>
 
             <div class="flex gap-4 items-center">
-                <input type="text"
+                <input type="text" id="searchInput"
                        class="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-startup-blue focus:border-transparent"
-                       placeholder="🔍 Buscar evaluaciones...">
+                       placeholder="🔍 Buscar evaluaciones..." onkeyup="filtrarEvaluaciones()">
 
                 <select class="px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-startup-blue focus:border-transparent min-w-[160px]">
                     <option>Todos los estados</option>
@@ -58,13 +58,13 @@
                 <div class="col-span-1">Acciones</div>
             </div>
 
-            <div class="divide-y divide-gray-100">
-                <div th:each="eval : ${evaluaciones}" class="grid grid-cols-8 gap-4 px-6 py-5 hover:bg-gray-50 items-center">
-                    <div class="col-span-1 text-sm text-gray-700" th:text="${#dates.format(eval.fechaEvaluacion, 'dd MMM yyyy')}">10 May 2025</div>
-                    <div class="col-span-1 text-sm font-semibold text-gray-800" th:text="${eval.puntaje}">85.0</div>
-                    <div class="col-span-2 text-sm text-gray-600" th:text="${eval.convocatoria.titulo}">Convocatoria ABC</div>
-                    <div class="col-span-2 text-sm text-gray-600" th:text="${eval.startup.nombre}">Startup XYZ</div>
-                    <div class="col-span-1 text-sm text-gray-600" th:text="${eval.usuario.nombre + ' ' + eval.usuario.apellido}">Ana López</div>
+            <div class="divide-y divide-gray-100" id="evaluacionesTable">
+                <div th:each="eval : ${evaluaciones}" class="grid grid-cols-8 gap-4 px-6 py-5 hover:bg-gray-50 items-center evaluacion-row">
+                    <div class="col-span-1 text-sm text-gray-700 fecha-evaluacion" th:text="${#dates.format(eval.fechaEvaluacion, 'dd MMM yyyy')}">10 May 2025</div>
+                    <div class="col-span-1 text-sm font-semibold text-gray-800 puntaje-evaluacion" th:text="${eval.puntaje}">85.0</div>
+                    <div class="col-span-2 text-sm text-gray-600 convocatoria-evaluacion" th:text="${eval.convocatoria.titulo}">Convocatoria ABC</div>
+                    <div class="col-span-2 text-sm text-gray-600 startup-evaluacion" th:text="${eval.startup.nombre}">Startup XYZ</div>
+                    <div class="col-span-1 text-sm text-gray-600 usuario-evaluacion" th:text="${eval.usuario.nombre + ' ' + eval.usuario.apellido}">Ana López</div>
                     <div class="col-span-1 flex gap-2">
                         <a th:href="@{/evaluaciones/ver/{id}(id=${eval.idEvaluacion})}"
                            class="bg-startup-blue text-white px-3 py-1 rounded text-xs font-semibold hover:bg-indigo-700 transition">Ver</a>
@@ -75,6 +75,28 @@
                 </div>
             </div>
         </div>
+
+        <script>
+            function filtrarEvaluaciones() {
+                const input = document.getElementById('searchInput');
+                const filter = input.value.toLowerCase();
+                const rows = document.querySelectorAll('.evaluacion-row');
+
+                rows.forEach(row => {
+                    const fecha = row.querySelector('.fecha-evaluacion').textContent.toLowerCase();
+                    const puntaje = row.querySelector('.puntaje-evaluacion').textContent.toLowerCase();
+                    const convocatoria = row.querySelector('.convocatoria-evaluacion').textContent.toLowerCase();
+                    const startup = row.querySelector('.startup-evaluacion').textContent.toLowerCase();
+                    const usuario = row.querySelector('.usuario-evaluacion').textContent.toLowerCase();
+
+                    if (fecha.includes(filter) || puntaje.includes(filter) || convocatoria.includes(filter) || startup.includes(filter) || usuario.includes(filter)) {
+                        row.style.display = '';
+                    } else {
+                        row.style.display = 'none';
+                    }
+                });
+            }
+        </script>
 
     </main>
 </div>

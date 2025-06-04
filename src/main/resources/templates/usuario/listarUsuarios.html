@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 
@@ -31,10 +32,9 @@
 
             <div class="flex gap-4 items-center">
 
-
-                <input type="text"
+                <input type="text" id="searchInput"
                        class="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-startup-blue focus:border-transparent"
-                       placeholder="🔍 Buscar usuarios...">
+                       placeholder="🔍 Buscar usuarios..." onkeyup="filtrarUsuarios()">
 
                 <!-- Botón para crear nuevo usuario -->
                 <a th:href="@{/usuarios/crear}"
@@ -54,8 +54,8 @@
                 <div class="col-span-1">Acciones</div>
             </div>
 
-            <div class="divide-y divide-gray-100">
-                <div th:each="usuario, usuarioStat : ${usuarios}" class="grid grid-cols-8 gap-4 px-6 py-5 hover:bg-gray-50 items-center">
+            <div class="divide-y divide-gray-100" id="usuariosTable">
+                <div th:each="usuario, usuarioStat : ${usuarios}" class="grid grid-cols-8 gap-4 px-6 py-5 hover:bg-gray-50 items-center usuario-row">
                     <div class="col-span-2 flex items-center gap-3">
                         <div class="text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold"
                              th:classappend="${usuarioStat.index % 6 == 0} ? 'bg-blue-500' :
@@ -65,13 +65,13 @@
                         (${usuarioStat.index % 6 == 4} ? 'bg-pink-500' : 'bg-indigo-500'))))">
                             <span th:text="${#strings.substring(usuario.nombre, 0, 1)}">J</span>
                         </div>
-                        <div class="font-semibold text-gray-800 text-sm"
+                        <div class="font-semibold text-gray-800 text-sm nombre-completo"
                              th:text="${usuario.nombre + ' ' + usuario.apellido}">Juan Pérez</div>
                     </div>
 
-                    <div class="col-span-2 text-sm text-gray-600" th:text="${usuario.correo}">correo@ejemplo.com</div>
+                    <div class="col-span-2 text-sm text-gray-600 correo-usuario" th:text="${usuario.correo}">correo@ejemplo.com</div>
 
-                    <div class="col-span-1 text-sm text-gray-600" th:text="${usuario.telefono}">123456789</div>
+                    <div class="col-span-1 text-sm text-gray-600 telefono-usuario" th:text="${usuario.telefono}">123456789</div>
 
                     <div class="col-span-1 text-sm text-gray-600"
                          th:text="${#dates.format(usuario.fechaReg, 'dd MMM yyyy')}">10 Mar 2025</div>
@@ -93,6 +93,27 @@
                 </div>
             </div>
         </div>
+
+        <script>
+            function filtrarUsuarios() {
+                const input = document.getElementById('searchInput');
+                const filter = input.value.toLowerCase();
+                const rows = document.querySelectorAll('.usuario-row');
+
+                rows.forEach(row => {
+                    const nombre = row.querySelector('.nombre-completo').textContent.toLowerCase();
+                    const correo = row.querySelector('.correo-usuario').textContent.toLowerCase();
+                    const telefono = row.querySelector('.telefono-usuario').textContent.toLowerCase();
+
+                    if (nombre.includes(filter) || correo.includes(filter) || telefono.includes(filter)) {
+                        row.style.display = '';
+                    } else {
+                        row.style.display = 'none';
+                    }
+                });
+            }
+        </script>
+
 
 
         <!-- Paginación (Opcional) -->
