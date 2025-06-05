@@ -78,17 +78,18 @@
            th:classappend="${activePage == 'convocatorias'} ? ' bg-startup-blue text-white' : ' text-gray-700 hover:bg-startup-blue hover:text-white'">
           Convocatorias
         </a>
-        <a th:href="@{/startups/listar}"
-           class="block px-4 py-3 rounded-lg font-medium transition-colors duration-200"
-           th:classappend="${activePage == 'startups'} ? ' bg-startup-blue text-white' : ' text-gray-700 hover:bg-startup-blue hover:text-white'">
-          Startups
-        </a>
+          <a th:href="@{/startups/listar}"
+             class="block px-4 py-3 rounded-lg font-medium transition-colors duration-200"
+             th:classappend="${activePage == 'startups'} ? ' bg-startup-blue text-white' : ' text-gray-700 hover:bg-startup-blue hover:text-white'">
+            Startups
+          </a>
         <a th:href="@{/evaluaciones/listar}"
            class="block px-4 py-3 rounded-lg font-medium transition-colors duration-200"
            th:classappend="${activePage == 'evaluaciones'} ? ' bg-startup-blue text-white' : ' text-gray-700 hover:bg-startup-blue hover:text-white'">
           Evaluaciones
         </a>
       </div>
+
 
       <!-- Evaluador -->
       <div sec:authorize="hasRole('EVALUADOR')">
@@ -97,16 +98,17 @@
            th:classappend="${activePage == 'dashboard-evaluador'} ? ' bg-startup-blue text-white' : ' text-gray-700 hover:bg-startup-blue hover:text-white'">
           Dashboard Evaluador
         </a>
-        <a th:href="@{/evaluaciones/evaluar}"
+        <a th:href="@{/startups/listar2}"
            class="block px-4 py-3 rounded-lg font-medium transition-colors duration-200"
-           th:classappend="${activePage == 'evaluar'} ? ' bg-startup-blue text-white' : ' text-gray-700 hover:bg-startup-blue hover:text-white'">
+           th:classappend="${activePage == 'startups'} ? ' bg-startup-blue text-white' : ' text-gray-700 hover:bg-startup-blue hover:text-white'">
           Evaluar Startups
         </a>
-        <a th:href="@{/evaluaciones/historial}"
+        <a th:href="@{/evaluaciones/listar}"
            class="block px-4 py-3 rounded-lg font-medium transition-colors duration-200"
-           th:classappend="${activePage == 'historial-evaluaciones'} ? ' bg-startup-blue text-white' : ' text-gray-700 hover:bg-startup-blue hover:text-white'">
-          Historial Evaluaciones
+           th:classappend="${activePage == 'evaluaciones'} ? ' bg-startup-blue text-white' : ' text-gray-700 hover:bg-startup-blue hover:text-white'">
+          Evaluaciones
         </a>
+
       </div>
     </nav>
 

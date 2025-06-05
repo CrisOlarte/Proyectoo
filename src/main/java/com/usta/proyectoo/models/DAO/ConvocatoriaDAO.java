@@ -20,4 +20,7 @@ public interface ConvocatoriaDAO extends CrudRepository<Convocatoria, Long> {
     @Query("SELECT s FROM Startup s WHERE s.estado = true")
     List<Startup> findAllActivas();
 
+    @Query("SELECT c FROM Convocatoria c WHERE c.estado = true")
+    Convocatoria findConvocatoriaActual();
+
 }

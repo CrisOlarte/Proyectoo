@@ -57,4 +57,9 @@ public class ConvocatoriaServicesImplement implements ConvocatoriaServices{
     public List<Startup> findAllActivas() {
         return convocatoriaDAO.findAllActivas();
     }
+
+    @Override
+    public Convocatoria obtenerConvocatoriaActual() {
+        return convocatoriaDAO.findConvocatoriaActual();
+    }
 }

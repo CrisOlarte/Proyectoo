@@ -14,4 +14,8 @@ public interface ConvocatoriaServices {
     Convocatoria actualizar(Convocatoria convocatoria);
     List<Startup> findByUsuario(Usuario usuario);
     List<Startup> findAllActivas();
+
+    // NUEVO
+    Convocatoria obtenerConvocatoriaActual();
 }
+

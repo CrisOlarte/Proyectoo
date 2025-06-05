@@ -1,12 +1,8 @@
 package com.usta.proyectoo.controllers;
 
 import com.usta.proyectoo.entities.Evaluacion;
-import com.usta.proyectoo.entities.Usuario;
 import com.usta.proyectoo.models.services.EvaluacionServices;
-import com.usta.proyectoo.models.services.UsuarioServices;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -15,7 +11,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @Controller
 @RequestMapping("/evaluaciones")
@@ -63,7 +58,11 @@ public class EvaluacionController {
     }
 
     // Vista de evaluaciones asignadas al evaluador
-
+    @GetMapping("/mis-evaluaciones")
+    public String mostrarMisEvaluaciones(Model model) {
+        model.addAttribute("activePage", "mis-evaluaciones");
+        return "evaluaciones/misEvaluaciones";
+    }
     // ✅ Vista: Evaluar startups asignadas
     @GetMapping("/evaluar")
     public String mostrarFormularioEvaluacion(Model model) {
@@ -76,13 +75,6 @@ public class EvaluacionController {
         model.addAttribute("activePage", "historial-evaluaciones");
         return "evaluaciones/historialStartups"; // Nombre de la vista .html
     }
-
-    @GetMapping("/misEvaluaciones")
-    public String misEvaluacionesView(Model model) {
-        model.addAttribute("activePage", "mis-evaluaciones"); // útil para marcar en el menú
-        return "evaluaciones/misEvaluaciones"; // Ruta a la plantilla HTML
-    }
-
 
 
 

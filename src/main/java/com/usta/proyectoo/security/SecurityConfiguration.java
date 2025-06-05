@@ -16,7 +16,6 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration {
-
     private final UserDetailsService userDetailsService;
     private final LoginSuccessHandler loginSuccessHandler;
 
@@ -30,7 +29,6 @@ public class SecurityConfiguration {
         return new BCryptPasswordEncoder();
     }
 
-    // Configura el AuthenticationProvider manualmente
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
@@ -39,22 +37,27 @@ public class SecurityConfiguration {
         return authProvider;
     }
 
-    // Expone el AuthenticationManager como un bean
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
         return config.getAuthenticationManager();
     }
 
-    // Configura la cadena de filtros de seguridad
     @Bean
     public SecurityFilterChain configure(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(authorize -> authorize
+                        // Públicas
                         .requestMatchers("/", "/inicio", "/contacto", "/sobreNosotros", "/registro").permitAll()
                         .requestMatchers("/images/**", "/css/**", "/js/**", "/webjars/**").permitAll()
-                        .requestMatchers("/dashboard").hasAnyRole("ESTUDIANTE", "ADMINISTRATIVO")
-                        .requestMatchers("/convocatoria/**", "/evaluacion/**").hasRole("ADMINISTRATIVO")
-                        .requestMatchers("/startup/**").hasRole("ESTUDIANTE")
+
+                        // Acceso por rol
+                        .requestMatchers("/dashboard").hasAnyRole("EMPRENDEDOR", "ADMIN", "EVALUADOR")
+                        .requestMatchers("/startups/evaluacion").hasAnyRole("EMPRENDEDOR", "ADMIN", "EVALUADOR")
+                        .requestMatchers("/convocatoria/**", "/evaluacion/**").hasAnyRole("EMPRENDEDOR", "ADMIN", "EVALUADOR")
+                        .requestMatchers("/startups/**").hasAnyRole("ADMIN", "EMPRENDEDOR", "EVALUADOR")
+
+
+                        // Todo lo demás requiere autenticación
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
@@ -76,5 +79,4 @@ public class SecurityConfiguration {
 
         return http.build();
     }
-
 }
