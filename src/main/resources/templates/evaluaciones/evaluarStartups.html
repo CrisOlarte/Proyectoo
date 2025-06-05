@@ -1,10 +1,311 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{layout/layout :: head}">
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evaluar Startups - Evaluador</title>
 </head>
-<body>
+
+<body class="bg-gray-50 h-full">
+<div class="flex h-screen overflow-hidden">
+
+    <!-- Sidebar -->
+    <aside th:replace="~{layout/layout :: sidebar}"></aside>
+
+    <!-- Contenido principal -->
+    <main class="flex-1 h-full overflow-y-auto p-8 bg-gray-50">
+
+        <!-- Header -->
+        <div class="flex justify-between items-center mb-8">
+            <div>
+                <h1 class="text-3xl font-bold text-startup-blue mb-2">Evaluar Startups</h1>
+                <p class="text-gray-600">Gestiona y evalúa las startups asignadas</p>
+            </div>
+            <div class="flex items-center gap-4">
+                <div class="bg-startup-orange text-white px-4 py-2 rounded-full text-sm font-semibold">
+                    <span th:text="${evaluacionesPendientes}">7</span> Pendientes
+                </div>
+                <div class="bg-green-500 text-white px-4 py-2 rounded-full text-sm font-semibold">
+                    <span th:text="${evaluacionesCompletadas}">28</span> Completadas
+                </div>
+            </div>
+        </div>
+
+        <!-- Filtros y búsqueda -->
+        <div class="bg-white shadow-md rounded-2xl p-6 mb-8">
+            <div class="flex flex-col lg:flex-row gap-4">
+                <!-- Búsqueda -->
+                <div class="flex-1">
+                    <div class="relative">
+                        <input type="text" placeholder="Buscar startup por nombre..."
+                               class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-startup-blue focus:border-transparent">
+                        <svg class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- Filtros -->
+                <div class="flex gap-4">
+                    <select class="px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-startup-blue focus:border-transparent">
+                        <option value="">Todas las convocatorias</option>
+                        <option th:each="convocatoria : ${convocatorias}"
+                                th:value="${convocatoria.id}"
+                                th:text="${convocatoria.nombre}">Innovation Challenge 2025</option>
+                    </select>
+
+                    <select class="px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-startup-blue focus:border-transparent">
+                        <option value="">Todos los estados</option>
+                        <option value="pendiente">Pendientes</option>
+                        <option value="en_proceso">En Proceso</option>
+                        <option value="completada">Completadas</option>
+                        <option value="vencida">Vencidas</option>
+                    </select>
+
+                    <select class="px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-startup-blue focus:border-transparent">
+                        <option value="">Todas las categorías</option>
+                        <option value="tecnologia">Tecnología</option>
+                        <option value="sustentabilidad">Sustentabilidad</option>
+                        <option value="salud">Salud</option>
+                        <option value="fintech">Fintech</option>
+                        <option value="educacion">Educación</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- Lista de startups -->
+        <div class="space-y-6">
+            <!-- Startup card -->
+            <div th:each="startup : ${startups}" class="bg-white shadow-md rounded-2xl overflow-hidden hover:shadow-lg transition-shadow">
+                <div class="p-6">
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="flex items-start gap-4">
+                            <!-- Logo de la startup -->
+                            <div class="w-16 h-16 bg-gradient-to-br from-startup-blue to-indigo-600 rounded-xl flex items-center justify-center text-white font-bold text-xl">
+                                <span th:text="${#strings.substring(startup.nombre, 0, 1)}">T</span>
+                            </div>
+
+                            <div class="flex-1">
+                                <div class="flex items-center gap-3 mb-2">
+                                    <h3 class="text-xl font-bold text-gray-900" th:text="${startup.nombre}">TechVision AI</h3>
+                                    <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-xs font-semibold"
+                                          th:text="${startup.categoria}">Tecnología</span>
+                                </div>
+                                <p class="text-gray-600 text-sm mb-2" th:text="${startup.descripcionCorta}">
+                                    Plataforma de inteligencia artificial para optimización de procesos empresariales
+                                </p>
+                                <div class="flex items-center gap-4 text-sm text-gray-500">
+                                    <span class="flex items-center gap-1">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                        </svg>
+                                        <span th:text="${startup.ubicacion}">Bogotá, Colombia</span>
+                                    </span>
+                                    <span class="flex items-center gap-1">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
+                                        </svg>
+                                        <span th:text="${startup.equipo} + ' fundadores'">3 fundadores</span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Estado de evaluación -->
+                        <div class="flex flex-col items-end gap-2">
+                            <div th:switch="${startup.estadoEvaluacion}">
+                                <span th:case="'pendiente'" class="bg-startup-orange text-white px-3 py-1 rounded-full text-xs font-semibold">
+                                    Pendiente
+                                </span>
+                                <span th:case="'en_proceso'" class="bg-blue-500 text-white px-3 py-1 rounded-full text-xs font-semibold">
+                                    En Proceso
+                                </span>
+                                <span th:case="'completada'" class="bg-green-500 text-white px-3 py-1 rounded-full text-xs font-semibold">
+                                    Completada
+                                </span>
+                                <span th:case="'vencida'" class="bg-red-500 text-white px-3 py-1 rounded-full text-xs font-semibold">
+                                    Vencida
+                                </span>
+                            </div>
+
+                            <div class="text-right text-sm text-gray-500">
+                                <p th:if="${startup.fechaVencimiento}"
+                                   th:text="'Vence: ' + ${startup.fechaVencimiento}">Vence: 15 Jun</p>
+                                <p th:if="${startup.fechaEvaluacion}"
+                                   th:text="'Evaluada: ' + ${startup.fechaEvaluacion}">Evaluada: 10 Jun</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Información de la convocatoria -->
+                    <div class="bg-gray-50 rounded-xl p-4 mb-4">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-2">
+                                <svg class="w-5 h-5 text-startup-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-4m-5 0H9m0 0H5m0 0H3m18 0v-2M7 19v-2M21 5v2M3 5v2"></path>
+                                </svg>
+                                <span class="font-semibold text-gray-700" th:text="${startup.convocatoria}">Innovation Challenge 2025</span>
+                            </div>
+                            <div class="flex items-center gap-4">
+                                <span class="text-sm text-gray-600" th:text="'Asignada: ' + ${startup.fechaAsignacion}">Asignada: 12 Jun</span>
+                                <span th:if="${startup.puntajeEvaluacion}"
+                                      class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-semibold"
+                                      th:text="'Puntaje: ' + ${startup.puntajeEvaluacion}">Puntaje: 8.7</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Criterios de evaluación preview -->
+                    <div th:if="${startup.estadoEvaluacion == 'completada'}" class="mb-4">
+                        <h4 class="text-sm font-semibold text-gray-700 mb-2">Criterios Evaluados:</h4>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                            <div th:each="criterio : ${startup.criteriosEvaluados}" class="bg-blue-50 rounded-lg p-3">
+                                <p class="text-xs font-medium text-blue-800" th:text="${criterio.nombre}">Innovación</p>
+                                <p class="text-lg font-bold text-blue-600" th:text="${criterio.puntaje}">9.0</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Acciones -->
+                    <div class="flex items-center justify-between pt-4 border-t border-gray-200">
+                        <div class="flex items-center gap-3">
+                            <a th:href="'/evaluador/startup/' + ${startup.id}"
+                               class="text-startup-blue hover:text-blue-700 text-sm font-semibold flex items-center gap-1">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                                </svg>
+                                Ver Detalles
+                            </a>
+
+                            <a th:if="${startup.documentos}"
+                               th:href="'/evaluador/startup/' + ${startup.id} + '/documentos'"
+                               class="text-gray-600 hover:text-gray-800 text-sm font-semibold flex items-center gap-1">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                </svg>
+                                Documentos
+                            </a>
+                        </div>
+
+                        <div class="flex items-center gap-2">
+                            <div th:switch="${startup.estadoEvaluacion}">
+                                <a th:case="'pendiente'"
+                                   th:href="'/evaluador/evaluar/' + ${startup.id}"
+                                   class="bg-startup-orange hover:bg-orange-600 text-white px-6 py-2 rounded-xl font-semibold transition-colors">
+                                    Evaluar Ahora
+                                </a>
+
+                                <a th:case="'en_proceso'"
+                                   th:href="'/evaluador/evaluar/' + ${startup.id}"
+                                   class="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-xl font-semibold transition-colors">
+                                    Continuar Evaluación
+                                </a>
+
+                                <div th:case="'completada'" class="flex items-center gap-2">
+                                    <a th:href="'/evaluador/evaluacion/' + ${startup.id} + '/reporte'"
+                                       class="bg-green-100 hover:bg-green-200 text-green-800 px-4 py-2 rounded-xl font-semibold transition-colors text-sm">
+                                        Ver Reporte
+                                    </a>
+                                    <a th:href="'/evaluador/evaluar/' + ${startup.id} + '/editar'"
+                                       class="bg-gray-100 hover:bg-gray-200 text-gray-700 px-4 py-2 rounded-xl font-semibold transition-colors text-sm">
+                                        Editar
+                                    </a>
+                                </div>
+
+                                <span th:case="'vencida'" class="bg-red-100 text-red-800 px-4 py-2 rounded-xl font-semibold text-sm">
+                                    Evaluación Vencida
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Estado vacío -->
+        <div th:if="${#lists.isEmpty(startups)}" class="text-center py-16">
+            <div class="mx-auto w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mb-6">
+                <svg class="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                </svg>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-600 mb-2">No hay startups para evaluar</h3>
+            <p class="text-gray-500">No tienes startups asignadas en este momento.</p>
+        </div>
+
+        <!-- Paginación -->
+        <div th:if="${totalPages > 1}" class="flex justify-center mt-8">
+            <nav class="flex items-center gap-2">
+                <a th:if="${currentPage > 0}"
+                   th:href="@{/evaluador/startups(page=${currentPage - 1})}"
+                   class="px-4 py-2 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors">
+                    Anterior
+                </a>
+
+                <span th:each="page : ${#numbers.sequence(0, totalPages - 1)}"
+                      th:if="${page >= currentPage - 2 && page <= currentPage + 2}">
+                    <a th:if="${page != currentPage}"
+                       th:href="@{/evaluador/startups(page=${page})}"
+                       th:text="${page + 1}"
+                       class="px-4 py-2 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors">
+                    </a>
+                    <span th:if="${page == currentPage}"
+                          th:text="${page + 1}"
+                          class="px-4 py-2 bg-startup-blue text-white rounded-lg font-semibold">
+                    </span>
+                </span>
+
+                <a th:if="${currentPage < totalPages - 1}"
+                   th:href="@{/evaluador/startups(page=${currentPage + 1})}"
+                   class="px-4 py-2 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors">
+                    Siguiente
+                </a>
+            </nav>
+        </div>
+
+    </main>
+</div>
+
+<script>
+    // JavaScript para filtros en tiempo real
+    document.addEventListener('DOMContentLoaded', function() {
+        const searchInput = document.querySelector('input[type="text"]');
+        const filterSelects = document.querySelectorAll('select');
+
+        // Función para aplicar filtros
+        function applyFilters() {
+            const searchTerm = searchInput.value.toLowerCase();
+            const convocatoriaFilter = filterSelects[0].value;
+            const estadoFilter = filterSelects[1].value;
+            const categoriaFilter = filterSelects[2].value;
+
+            // Aquí se haría la llamada AJAX para filtrar
+            // Por ahora solo un ejemplo de filtrado del lado cliente
+            const startupCards = document.querySelectorAll('.bg-white.shadow-md');
+
+            startupCards.forEach(card => {
+                const startupName = card.querySelector('h3').textContent.toLowerCase();
+                const matchesSearch = startupName.includes(searchTerm);
+
+                if (matchesSearch) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // Event listeners
+        searchInput.addEventListener('input', applyFilters);
+        filterSelects.forEach(select => {
+            select.addEventListener('change', applyFilters);
+        });
+    });
+</script>
 
 </body>
 </html>
