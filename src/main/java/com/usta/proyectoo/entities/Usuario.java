@@ -66,13 +66,15 @@ public class Usuario implements Serializable {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Rol rol;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(
             name = "usuarios_startups",
             joinColumns = @JoinColumn(name = "id_usuario", referencedColumnName = "id_usuario"),
             inverseJoinColumns = @JoinColumn(name = "id_startup", referencedColumnName = "id_startup")
     )
     private Collection<Startup> startups = new ArrayList<>();
+
+
 
 }
 

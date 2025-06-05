@@ -55,7 +55,7 @@
                 <div class="col-span-2">Convocatoria</div>
                 <div class="col-span-2">Startup</div>
                 <div class="col-span-1">Usuario</div>
-                <div class="col-span-1">Acciones</div>
+
             </div>
 
             <div class="divide-y divide-gray-100" id="evaluacionesTable">
@@ -65,13 +65,13 @@
                     <div class="col-span-2 text-sm text-gray-600 convocatoria-evaluacion" th:text="${eval.convocatoria.titulo}">Convocatoria ABC</div>
                     <div class="col-span-2 text-sm text-gray-600 startup-evaluacion" th:text="${eval.startup.nombre}">Startup XYZ</div>
                     <div class="col-span-1 text-sm text-gray-600 usuario-evaluacion" th:text="${eval.usuario.nombre + ' ' + eval.usuario.apellido}">Ana López</div>
-                    <div class="col-span-1 flex gap-2">
-                        <a th:href="@{/evaluaciones/ver/{id}(id=${eval.idEvaluacion})}"
-                           class="bg-startup-blue text-white px-3 py-1 rounded text-xs font-semibold hover:bg-indigo-700 transition">Ver</a>
-                        <a th:href="@{/evaluaciones/eliminar/{id}(id=${eval.idEvaluacion})}"
-                           class="bg-red-500 text-white px-3 py-1 rounded text-xs font-semibold hover:bg-red-600 transition"
-                           onclick="return confirm('¿Estás seguro de eliminar esta evaluación?')">Eliminar</a>
-                    </div>
+<!--                    <div class="col-span-1 flex gap-2">-->
+<!--                        <a th:href="@{/evaluaciones/ver/{id}(id=${eval.idEvaluacion})}"-->
+<!--                           class="bg-startup-blue text-white px-3 py-1 rounded text-xs font-semibold hover:bg-indigo-700 transition">Ver</a>-->
+<!--                        <a th:href="@{/evaluaciones/eliminar/{id}(id=${eval.idEvaluacion})}"-->
+<!--                           class="bg-red-500 text-white px-3 py-1 rounded text-xs font-semibold hover:bg-red-600 transition"-->
+<!--                           onclick="return confirm('¿Estás seguro de eliminar esta evaluación?')">Eliminar</a>-->
+<!--                    </div>-->
                 </div>
             </div>
         </div>

@@ -1,6 +1,7 @@
 package com.usta.proyectoo.models.services;
 
 import com.usta.proyectoo.entities.Startup;
+import com.usta.proyectoo.entities.Usuario;
 import com.usta.proyectoo.models.DAO.StartupDAO;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,9 +35,29 @@ public class StartupServicesImplement implements StartupServices {
     }
 
     @Override
+    @Transactional
     public void deleteById(Long id) {
-    startupDao.deleteById(id);
+        Startup startup = startupDao.findById(id).orElse(null);
+
+        if (startup != null) {
+            // Eliminar la relación de ambos lados (startup y usuario)
+            for (Usuario usuario : startup.getUsuarios()) {
+                usuario.getStartups().remove(startup); // limpia del lado de usuario
+            }
+
+            startup.getUsuarios().clear(); // limpia del lado de startup
+
+            // Guardar ambos lados si es necesario (si no tienes CascadeType.ALL)
+            // Esto puede omitirse si usas merge/persist en cascada.
+            // usuarioDao.saveAll(usuarios); // opcional
+            // startupDao.save(startup);     // opcional
+
+            startupDao.deleteById(id);
+        }
     }
+
+
+
 
     @Override
     @Transactional
