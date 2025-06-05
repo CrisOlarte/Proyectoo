@@ -9,8 +9,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.time.LocalDate;
 
 @Controller
 @RequestMapping("/evaluaciones")
@@ -27,19 +29,32 @@ public class EvaluacionController {
         return "evaluaciones/crearEvaluacion";
     }
 
+
+
     // Guardar una nueva evaluación
     @PostMapping("/guardar")
-    public String guardarEvaluacion(@Valid @ModelAttribute("evaluacion") Evaluacion evaluacion,
-                                    BindingResult result,
-                                    Model model) {
-        model.addAttribute("activePage", "evaluaciones"); // ✅
+    public String guardarEvaluacion(
+            @Valid @ModelAttribute("evaluacion") Evaluacion evaluacion,
+            BindingResult result,
+            Model model,
+            RedirectAttributes redirectAttributes) {
+        model.addAttribute("activePage", "evaluacion");
+
         if (result.hasErrors()) {
-            return "evaluaciones/crearEvaluacion";
+            model.addAttribute("startup", evaluacion.getStartup());
+            return "startups/evaluacionStartup";
         }
 
+// ✅ Establecer la fecha actual como fecha de evaluación
+        evaluacion.setFechaEvaluacion(java.sql.Date.valueOf(LocalDate.now()));
+
         evaluacionServices.save(evaluacion);
-        return "redirect:/evaluaciones/listar";
+        redirectAttributes.addFlashAttribute("success", "Evaluación guardada correctamente.");
+        return "redirect:/evaluaciones";
     }
+
+
+
 
     // Listar todas las evaluaciones
     @GetMapping("/listar")

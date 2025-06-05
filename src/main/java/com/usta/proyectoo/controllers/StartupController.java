@@ -1,12 +1,20 @@
 package com.usta.proyectoo.controllers;
 
+import com.usta.proyectoo.entities.Convocatoria;
+import com.usta.proyectoo.entities.Evaluacion;
 import com.usta.proyectoo.entities.Startup;
+import com.usta.proyectoo.entities.Usuario;
+import com.usta.proyectoo.models.services.ConvocatoriaServices;
 import com.usta.proyectoo.models.services.StartupServices;
+import com.usta.proyectoo.models.services.UsuarioServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.security.Principal;
+import java.util.List;
 
 @Controller
 @RequestMapping("/startups")
@@ -14,6 +22,10 @@ public class StartupController {
 
     @Autowired
     private StartupServices startupServices;
+    @Autowired
+    private UsuarioServices usuarioServices;
+    @Autowired
+    private ConvocatoriaServices convocatoriaServices;
 
     // Mostrar formulario de creación de startup
     @GetMapping("/crear")
@@ -37,6 +49,12 @@ public class StartupController {
         model.addAttribute("startups", startupServices.findAll());
         model.addAttribute("activePage", "startups"); // ✅
         return "startups/listarStartups";
+    }
+    @GetMapping("/listar2")
+    public String listarStartupsH(Model model) {
+        model.addAttribute("startups", startupServices.findAll());
+        model.addAttribute("activePage", "startups"); // ✅
+        return "startups/evaluarStartups";
     }
 
     // Vista principal de gestión de startups (opcional)
@@ -89,6 +107,30 @@ public class StartupController {
             redirectAttributes.addFlashAttribute("error", "Startup no encontrada");
         }
         return "redirect:/startups/listar";
+    }
+    @GetMapping("/evaluar/{id}")
+    public String evaluarStartupPorId(@PathVariable("id") Long idStartup, Model model, Principal principal, RedirectAttributes redirectAttributes) {
+        Startup startup = startupServices.findById(idStartup);
+        if (startup == null) {
+            redirectAttributes.addFlashAttribute("error", "Startup no encontrada para evaluación.");
+            return "redirect:/startups/listar";
+        }
+
+        Usuario usuario = usuarioServices.findByCorreo(principal.getName());
+
+        // ✅ Aquí obtienes todas las convocatorias (puedes filtrar solo las activas si quieres)
+        List<Convocatoria> convocatorias = convocatoriaServices.findAll();  // o .obtenerConvocatoriasActivas()
+
+        Evaluacion evaluacion = new Evaluacion();
+        evaluacion.setStartup(startup);
+        evaluacion.setUsuario(usuario);
+
+        model.addAttribute("evaluacion", evaluacion);
+        model.addAttribute("startup", startup);
+        model.addAttribute("convocatorias", convocatorias); // 🔥 importante para el combobox
+        model.addAttribute("activePage", "evaluacion");
+
+        return "startups/evaluacionStartup";
     }
 
 
