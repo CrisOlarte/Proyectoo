@@ -23,6 +23,13 @@ public class StartupController {
         return "startups/crearStartup";
     }
 
+    @GetMapping("/crearEmp")
+    public String mostrarFormularioRegistroEmp(Model model) {
+        model.addAttribute("startupEmp", new Startup());
+        model.addAttribute("activePage", "startups"); // ✅ Marca activa
+        return "startups/crearEmpStartup";
+    }
+
     // Guardar una nueva startup
     @PostMapping("/guardar")
     public String guardarStartup(@ModelAttribute("startup") Startup startup, Model model) {
@@ -31,12 +38,26 @@ public class StartupController {
         return "redirect:/startups/listar";
     }
 
+    @PostMapping("/guardarEmp")
+    public String guardarStartupEMP(@ModelAttribute("startupEmp") Startup startup, Model model) {
+        model.addAttribute("activePage", "startups"); // ✅ Para evitar errores si hay redirección fallida
+        startupServices.save(startup);
+        return "redirect:/startups/listarEmp";
+    }
+
     // Listar todas las startups
     @GetMapping("/listar")
     public String listarStartups(Model model) {
         model.addAttribute("startups", startupServices.findAll());
         model.addAttribute("activePage", "startups"); // ✅
         return "startups/listarStartups";
+    }
+
+    @GetMapping("/listarEmp")
+    public String listarStartupsEmp(Model model) {
+        model.addAttribute("startups", startupServices.findAll());
+        model.addAttribute("activePage", "startups"); // ✅
+        return "startups/misStartups";
     }
 
     // Vista principal de gestión de startups (opcional)
@@ -106,11 +127,5 @@ public class StartupController {
         model.addAttribute("activePage", "postulaciones"); // Marca el ítem activo en el sidebar
         return "startups/postulacionStartup"; // Ruta de la plantilla HTML
     }
-
-
-
-
-
-
-
+    
 }
