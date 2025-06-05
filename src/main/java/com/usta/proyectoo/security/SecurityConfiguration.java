@@ -51,6 +51,7 @@ public class SecurityConfiguration {
         http
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/", "/inicio", "/contacto", "/sobreNosotros", "/registro").permitAll()
+                        .requestMatchers("/images/**", "/css/**", "/js/**", "/webjars/**").permitAll()
                         .requestMatchers("/dashboard").hasAnyRole("ESTUDIANTE", "ADMINISTRATIVO")
                         .requestMatchers("/convocatoria/**", "/evaluacion/**").hasRole("ADMINISTRATIVO")
                         .requestMatchers("/startup/**").hasRole("ESTUDIANTE")
